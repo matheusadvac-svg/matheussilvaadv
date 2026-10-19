@@ -95,6 +95,52 @@
   }
   render(false);
 
+  // ===== animações de assinatura =====
+  var calmo = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function luz(el) { var m = getComputedStyle(el).color.match(/\d+/g); if (!m) return 0; return (0.299 * m[0] + 0.587 * m[1] + 0.114 * m[2]) / 255; }
+  // marca-texto: em título claro sobre fundo escuro, usa o grifo vermelho
+  document.querySelectorAll(".grifo").forEach(function (g) { if (luz(g) > 0.75) g.classList.add("escuro"); });
+  function quandoVisivel(sel, fn, margem) {
+    var els = document.querySelectorAll(sel);
+    if (calmo || !("IntersectionObserver" in window)) { els.forEach(fn); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { fn(e.target); io.unobserve(e.target); } });
+    }, { rootMargin: margem || "0px 0px -18% 0px" });
+    els.forEach(function (el) { io.observe(el); });
+  }
+  quandoVisivel(".grifo", function (g) { g.classList.add("on"); });
+  // cascata: filhos entram um depois do outro
+  document.querySelectorAll(".cascata").forEach(function (c) {
+    Array.prototype.forEach.call(c.children, function (f, i) { f.style.transitionDelay = (i * 0.09) + "s"; });
+  });
+  quandoVisivel(".cascata", function (c) {
+    c.classList.add("on");
+    setTimeout(function () { Array.prototype.forEach.call(c.children, function (f) { f.style.transitionDelay = ""; }); }, 1400);
+  }, "0px 0px -10% 0px");
+  // contadores (5,0 e 60)
+  quandoVisivel("[data-conta]", function (el) {
+    var alvo = el.getAttribute("data-conta"), dec = alvo.indexOf(",") > -1, fim = parseFloat(alvo.replace(",", "."));
+    if (calmo) { el.textContent = alvo; return; }
+    var t0 = null, dur = 1200;
+    function passo(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / dur), v = fim * (1 - Math.pow(1 - p, 3));
+      el.textContent = dec ? v.toFixed(1).replace(".", ",") : Math.round(v);
+      if (p < 1) requestAnimationFrame(passo); else el.textContent = alvo;
+    }
+    requestAnimationFrame(passo);
+  }, "0px");
+  // foto com profundidade (só com mouse, nunca no celular)
+  var foto = document.querySelector(".foto-prof");
+  if (foto && !calmo && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    var caixa = foto.parentElement;
+    caixa.addEventListener("mousemove", function (e) {
+      var r = caixa.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      foto.style.transform = "translate(" + (-x * 14).toFixed(1) + "px," + (-y * 10).toFixed(1) + "px) scale(1.02)";
+    });
+    caixa.addEventListener("mouseleave", function () { foto.style.transform = ""; });
+  }
+
   // vídeos: garantir autoplay mudo e respeitar "reduzir movimento"
   try {
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
