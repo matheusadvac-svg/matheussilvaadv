@@ -145,13 +145,16 @@ a{color:#A50D26}a:hover{color:#1A1A1A}
     try {
       var href = a.getAttribute("href");
       if (href.indexOf("%5Bsite") === -1) {
-        var tag = " [site" + (origem ? " · " + origem : "") + "]";
+        var partes = ["site"];
+        if (window.ORIGEM_PAGINA) partes.push(window.ORIGEM_PAGINA);
+        if (origem && origem !== window.ORIGEM_PAGINA) partes.push(origem);
+        var tag = " [" + partes.join(" · ") + "]";
         a.setAttribute("href", href + (href.indexOf("?text=") > -1 ? encodeURIComponent(tag) : "?text=" + encodeURIComponent(tag.trim())));
       }
     } catch (x) {}
     var nome = a.getAttribute("data-evento") || document.title;
     try { if (window.fbq) window.fbq("track", "Lead", { content_name: nome }); } catch (x) {}
-    try { if (window.gtag) window.gtag("event", "generate_lead", { method: "whatsapp", lead_source: origem || "direto", item_name: nome }); } catch (x) {}
+    try { if (window.gtag) window.gtag("event", "generate_lead", { method: "whatsapp", lead_source: [window.ORIGEM_PAGINA, origem].filter(Boolean).join(" · ") || "direto", item_name: nome }); } catch (x) {}
   }, true);
 
   // 3) Ferramentas de medição — só carregam depois do aceite
@@ -185,6 +188,10 @@ a{color:#A50D26}a:hover{color:#1A1A1A}
     d.innerHTML = '<span>Usamos cookies para medir as visitas e os anúncios do escritório. Você escolhe. <a href="privacidade.html" style="color:#FF95A3">Política de privacidade</a></span>' +
       '<span style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" id="ck-sim" style="border:none;background:#25D366;color:#052E16;font-weight:800;font-size:14px;padding:11px 18px;border-radius:999px;cursor:pointer;min-height:44px">Aceitar</button>' +
       '<button type="button" id="ck-nao" style="border:1.5px solid #5A5A60;background:transparent;color:#FFFFFF;font-weight:700;font-size:14px;padding:11px 18px;border-radius:999px;cursor:pointer;min-height:44px">Recusar</button></span>';
+    if (window.innerWidth < 640) {
+      d.style.left = "10px"; d.style.right = "10px"; d.style.bottom = "10px"; d.style.maxWidth = "none";
+      d.style.padding = "12px 14px"; d.style.gap = "8px"; d.style.fontSize = "13px"; d.style.zIndex = "70";
+    }
     document.body.appendChild(d);
     document.getElementById("ck-sim").onclick = function () { escolha("sim"); d.remove(); carregar(); };
     document.getElementById("ck-nao").onclick = function () { escolha("nao"); d.remove(); };
