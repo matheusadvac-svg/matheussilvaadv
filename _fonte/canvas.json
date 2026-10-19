@@ -1,0 +1,86 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Editorial.dc.html": {
+      "expand": "fill",
+      "h": 3700,
+      "title": "B · Editorial Branco",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Ferramentas.dc.html": {
+      "expand": "fill",
+      "h": 3600,
+      "is_interactive": true,
+      "title": "C · Ferramentas (bento interativo)",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 3900,
+      "title": "A · Escritório Digital (escuro)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Site.dc.html": {
+      "expand": "fill",
+      "h": 6900,
+      "is_interactive": true,
+      "title": "SITE — versão de trabalho (C + LinkTree)",
+      "w": 1440,
+      "x": 0,
+      "y": 4329
+    },
+    "Empresas.dc.html": {
+      "expand": "fill",
+      "h": 4600,
+      "is_interactive": true,
+      "title": "SITE — Para empresas (defesa trabalhista)",
+      "w": 1440,
+      "x": 1520,
+      "y": 4329
+    },
+    "Privacidade.dc.html": {
+      "expand": "fill",
+      "h": 3000,
+      "title": "SITE — Política de privacidade",
+      "w": 1440,
+      "x": 3040,
+      "y": 4329
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-18T15:40:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "file": "Site.dc.html",
+    "view": "focused"
+  },
+  "notes": {
+    "titulo": {
+      "kind": "title1",
+      "maxW": 4480,
+      "text": "3 caminhos para o site do escritório",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Editorial.dc.html",
+    "Ferramentas.dc.html",
+    "Site.dc.html",
+    "Empresas.dc.html",
+    "Privacidade.dc.html"
+  ],
+  "pages": [],
+  "title": "Site Matheus Silva Advocacia — modelos"
+}
