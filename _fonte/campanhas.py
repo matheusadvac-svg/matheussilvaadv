@@ -155,6 +155,22 @@ import sys; sys.path.insert(0, ROOT)
 from paginas_novas import NOVAS, ICONES_NOVOS
 ICONES.update(ICONES_NOVOS)
 PAGINAS += NOVAS
+from paginas_empresas import EMPRESAS, AREAS, ICONES_EMPRESAS
+ICONES.update(ICONES_EMPRESAS)
+PAGINAS += EMPRESAS + AREAS
+
+# cada guia antigo ganha "Leia também": a página da área (Google) + guias vizinhos
+_AREA = {}
+for _ar in AREAS:
+    for _h, _t, _x in _ar['relacionados']: _AREA[_h] = _ar
+_EXTRA = {'passageiro-especial': 'advogado-consumidor-rio-branco'}
+for _p in PAGINAS:
+    if _p.get('relacionados'): continue
+    _ar = _AREA.get(_p['slug']) or next((a for a in AREAS if a['slug'] == _EXTRA.get(_p['slug'])), None)
+    if not _ar: continue
+    _viz = [r for r in _ar['relacionados'] if r[0] != _p['slug']][:2]
+    _p['relacionados_titulo'] = 'Leia também'
+    _p['relacionados'] = [(_ar['slug'], _ar['kicker'], 'Como funciona o atendimento nesta área.')] + _viz
 
 VIDJS = '''
 <script>
@@ -218,7 +234,7 @@ def pagina(p):
         <p style="margin:12px 0 0;font-size:16px;line-height:1.6;color:#4A443C">{esc(a)}</p>
       </details>''' for q, a in p['faq'])
     revs = ''
-    for txt, nome, foto in REVIEWS:
+    for txt, nome, foto in ([] if p.get('sem_avaliacoes') else REVIEWS):
         av = (f'<img src="{foto}" alt="" width="40" height="40" style="width:40px;height:40px;border-radius:50%;object-fit:cover">' if foto else
               f'<span style="width:40px;height:40px;border-radius:50%;background:#C8102E;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center">{nome[0]}</span>')
         revs += f'''
@@ -250,7 +266,54 @@ def pagina(p):
     </div>
   </section>'''
 
-    ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in p['faq']]}
+    secao_revs = '' if not revs else f'''
+  <section class="bloco rv" style="background:#FFFDF9;border-radius:28px;padding:48px;display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px">
+      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:900;font-size:30px;line-height:1.15">Quem já foi atendido</h2>
+      <a href="https://maps.app.goo.gl/Q7Zaa8nAwU2fWV8r9?g_st=ac" target="_blank" rel="noopener" style="font-weight:700;font-size:15px">Ver as 60 avaliações no Google</a>
+    </div>
+    <div class="cols">{revs}
+    </div>
+  </section>
+'''
+    checklist = ''
+    if p.get('checklist'):
+        grupos = ''.join(f'''
+      <div class="rv" style="flex:1 1 250px;min-width:0;background:#FFFDF9;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px;box-sizing:border-box">
+        <h3 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:18px">{esc(g)}</h3>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.45">{''.join(f'<li style="display:flex;gap:10px;align-items:flex-start">{CHECK}<span>{esc(it)}</span></li>' for it in itens)}</ul>
+      </div>''' for g, itens in p['checklist'])
+        checklist = f'''
+  <section class="bloco rv" style="background:#F5EBD9;border:2px dashed #D8C8AC;border-radius:28px;padding:48px;display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;flex-direction:column;gap:8px;max-width:720px">
+      <span style="font-weight:700;font-size:14px;color:#A50D26;letter-spacing:.08em;text-transform:uppercase">Confira na sua empresa</span>
+      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:900;font-size:34px;line-height:1.15">{esc(p.get('checklist_titulo', 'Checklist'))}</h2>
+    </div>
+    <div class="cols">{grupos}
+    </div>
+  </section>
+'''
+    relac = ''
+    if p.get('relacionados'):
+        cards = ''.join(f'''
+      <a class="lift rv" href="{h}" style="flex:1 1 220px;min-width:0;background:#FAF3E7;border-radius:18px;padding:20px 22px;text-decoration:none;color:#1A1A1A;display:flex;flex-direction:column;gap:6px;box-sizing:border-box">
+        <strong style="font-family:Montserrat,sans-serif;font-size:18px">{esc(t)} <span style="color:#C8102E">→</span></strong>
+        <span style="font-size:15px;line-height:1.5;color:#4A443C">{esc(x)}</span>
+      </a>''' for h, t, x in p['relacionados'])
+        relac = f'''
+  <section class="bloco rv" style="background:#FFFDF9;border-radius:28px;padding:48px;display:flex;flex-direction:column;gap:22px">
+    <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:900;font-size:30px;line-height:1.15">{esc(p.get('relacionados_titulo', 'Leia também'))}</h2>
+    <div class="cols">{cards}
+    </div>
+  </section>
+'''
+    url = 'https://matheussilvaadv.com.br/' + p['slug']
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "FAQPage", "@id": url + "#faq", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in p['faq']]},
+        {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Matheus Silva Advogado", "item": "https://matheussilvaadv.com.br/"},
+            {"@type": "ListItem", "position": 2, "name": p['kicker'], "item": url}]},
+    ]}
     return f'''<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -331,7 +394,7 @@ def pagina(p):
         <img src="assets/retrato-poster.jpg" alt="Dr. Matheus Silva" width="58" height="58" style="width:58px;height:58px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:3px solid #C8102E">
         <span style="display:flex;flex-direction:column;line-height:1.3"><strong style="font-family:Montserrat,sans-serif;font-size:17px">Dr. Matheus Silva</strong><span style="font-size:14px;color:#B8B5AE">lê e responde o seu caso</span></span>
       </div>
-      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:22px;line-height:1.3">Já separe, se tiver:</h2>
+      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:22px;line-height:1.3">{esc(p.get('docs_titulo', 'Já separe, se tiver:'))}</h2>
       <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:16px;line-height:1.45">{docs}</ul>
       <span style="margin-top:auto;font-size:14px;color:#B8B5AE;border-top:1px solid #333;padding-top:14px">Pode mandar por foto, do jeito que estiver. Depois de ler, dizemos o que ainda falta.</span>
     </aside>
@@ -345,31 +408,23 @@ def pagina(p):
     <div class="cols">{lei}
     </div>
   </section>
-
+{checklist}
   <section class="bloco rv" style="background:#1A1A1A;border-radius:28px;padding:48px;display:flex;flex-direction:column;gap:28px">
-    <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:900;font-size:34px;line-height:1.15;color:#FFFFFF">O que fazer agora</h2>
+    <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:900;font-size:34px;line-height:1.15;color:#FFFFFF">{esc(p.get('passos_titulo', 'O que fazer agora'))}</h2>
     <ol class="cols" style="margin:0;padding:0;list-style:none;gap:28px">{passos}
     </ol>
     <div>{wa_btn(link, p['cta'], ev).replace('class="wa sheen"', 'class="wa sheen wa-full"')}</div>
   </section>
 
-  <section class="bloco rv" style="background:#FFFDF9;border-radius:28px;padding:48px;display:flex;flex-direction:column;gap:22px">
-    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px">
-      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:900;font-size:30px;line-height:1.15">Quem já foi atendido</h2>
-      <a href="https://maps.app.goo.gl/Q7Zaa8nAwU2fWV8r9?g_st=ac" target="_blank" rel="noopener" style="font-weight:700;font-size:15px">Ver as 60 avaliações no Google</a>
-    </div>
-    <div class="cols">{revs}
-    </div>
-  </section>
-
+{secao_revs}{relac}
   <section class="bloco rv" style="background:#FAF3E7;border-radius:28px;padding:48px;display:flex;flex-direction:column;gap:14px">
     <h2 style="margin:0 0 8px;font-family:Montserrat,sans-serif;font-weight:900;font-size:30px;line-height:1.15">Dúvidas comuns</h2>{faq}
   </section>
 
   <section class="bloco rv" style="background:#C8102E;color:#FFFFFF;border-radius:28px;padding:48px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px">
     <div style="display:flex;flex-direction:column;gap:8px;max-width:640px">
-      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:900;font-size:32px;line-height:1.15">Conte o que aconteceu.</h2>
-      <p style="margin:0;font-size:17px;line-height:1.55;color:#FBE3E6">Atendimento direto com o advogado, do primeiro contato ao fim do processo. O escritório nunca pede dinheiro para liberar valores.</p>
+      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:900;font-size:32px;line-height:1.15">{esc(p.get('faixa_h2', 'Conte o que aconteceu.'))}</h2>
+      <p style="margin:0;font-size:17px;line-height:1.55;color:#FBE3E6">{esc(p.get('faixa_txt', 'Atendimento direto com o advogado, do primeiro contato ao fim do processo. O escritório nunca pede dinheiro para liberar valores.'))}</p>
     </div>
     {wa_btn(link, p['cta'], ev).replace('class="wa sheen"', 'class="wa sheen wa-full"')}
   </section>

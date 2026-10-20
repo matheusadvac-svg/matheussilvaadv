@@ -49,6 +49,17 @@ def common(body, holes):
     body = re.sub(r'href="([^"]*)"', lambda m: 'href="' + m.group(1).replace('&amp;', '&').replace('&', '&amp;') + '"', body)
     return body
 
+def faq_ld(out):
+    # 20/10/2026: perguntas da seção "Dúvidas" viram dados estruturados (FAQPage) para o Google
+    import html as _h, json as _j
+    if 'id="duvidas"' not in out or '"FAQPage"' in out: return out
+    i = out.index('id="duvidas"'); j = out.index('</section>', i)
+    pares = re.findall(r'<summary[^>]*>(.*?)</summary>\s*<p[^>]*>(.*?)</p>', out[i:j], re.S)
+    limpa = lambda t: _h.unescape(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', t))).strip().rstrip('+').strip()
+    if not pares: return out
+    ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": limpa(q), "acceptedAnswer": {"@type": "Answer", "text": limpa(a)}} for q, a in pares]}
+    return out.replace('</head>', '<script type="application/ld+json">' + _j.dumps(ld, ensure_ascii=False) + '</script>\n</head>', 1)
+
 def page(dc, path, title, desc, holes, body_fix=None, extra_js=''):
     html = rd(os.path.join(PROJ, dc))
     helmet = re.search(r'<helmet>(.*?)</helmet>', html, re.S).group(1)
@@ -66,6 +77,7 @@ def page(dc, path, title, desc, holes, body_fix=None, extra_js=''):
     out = head + '<body>\n' + body.strip() + '\n<script>\n' + js + '\n</script>\n<script src="assets/assistente.js" defer></script>\n</body>\n</html>\n'
     assert out.count('<div') == out.count('</div>'), (dc, out.count('<div'), out.count('</div>'))
     fn = path or 'index.html'
+    out = faq_ld(out)
     open(os.path.join(OUT, fn), 'w', encoding='utf-8').write(out)
     print('ok', fn, len(out))
 

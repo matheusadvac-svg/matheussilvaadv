@@ -8,7 +8,14 @@
   var WA = "5568999993427";
   var calmo = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var msgs = [], tema = "outro", ocupado = false, aberto = false, montado = false, nome = "", resumo = "";
-  var SUGESTOES = ["Fui demitido(a) e acho que não recebi tudo", "O INSS negou meu benefício", "Salário-maternidade", "Minha mala foi extraviada", "Meu nome foi negativado", "Minha empresa foi processada"];
+  var PAGINA = (window.ORIGEM_PAGINA || location.pathname.replace(/^\/|\.html$/g, "") || "inicio").toLowerCase();
+  var EMPRESA = /^(empresas|empresa-processada|advocacia-preventiva)$/.test(PAGINA);
+  var SUGESTOES = EMPRESA
+    ? ["Minha empresa recebeu uma notificação da Justiça do Trabalho", "Quero organizar a parte trabalhista da empresa", "Preciso demitir um funcionário com segurança", "Tenho dúvida sobre controle de ponto e horas extras"]
+    : ["Fui demitido(a) e acho que não recebi tudo", "O INSS negou meu benefício", "Salário-maternidade", "Minha mala foi extraviada", "Meu nome foi negativado", "Minha empresa foi processada"];
+  var guiasMostrados = {};
+  function guardar(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
+  function ler(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
 
   function el(tag, attrs, html) { var e = document.createElement(tag); for (var k in attrs || {}) e.setAttribute(k, attrs[k]); if (html != null) e.innerHTML = html; return e; }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
@@ -52,6 +59,12 @@
     '.as-ft textarea:focus{outline:2px solid #C8102E;outline-offset:1px;border-color:transparent}' +
     '.as-sd{border:none;background:#C8102E;color:#fff;width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}' +
     '.as-sd:disabled{opacity:.45;cursor:default}' +
+    '.as-gl{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;max-width:86%;background:#FFFDF9;border:1.5px solid #D8C8AC;border-radius:12px;padding:9px 12px;color:#1A1A1A;text-decoration:none;font:700 14px/1.35 "DM Sans",system-ui,sans-serif}' +
+    '.as-gl:hover{border-color:#C8102E}.as-gl span{color:#C8102E}' +
+    '.as-cv{position:fixed;right:26px;bottom:160px;z-index:56;max-width:270px;background:#FFFDF9;color:#1A1A1A;border-radius:16px 16px 4px 16px;padding:14px 38px 14px 16px;box-shadow:0 12px 32px rgba(0,0,0,.22);font:500 15px/1.45 "DM Sans",system-ui,sans-serif;cursor:pointer;animation:asin .35s cubic-bezier(.2,.7,.2,1)}' +
+    '.as-cv b{font-weight:800}.as-cv button{position:absolute;top:6px;right:6px;width:30px;height:30px;border:none;background:transparent;font-size:20px;line-height:1;color:#6B6358;cursor:pointer;border-radius:50%}' +
+    '@media (max-width:640px){.as-cv{right:16px;left:16px;max-width:none;bottom:154px}}' +
+    (calmo ? '.as-cv{animation:none}' : '') +
     (calmo ? '.as-pn.as-in,.as-en.on{animation:none}.as-ty i{animation:none}' : '');
 
   var bt, pn, ms, ta, sd, en;
@@ -71,7 +84,9 @@
     ta.addEventListener("input", function () { ta.style.height = "auto"; ta.style.height = Math.min(110, ta.scrollHeight) + "px"; });
     pn.addEventListener("keydown", function (e) { if (e.key === "Escape") fechar(); });
     en.addEventListener("click", irWhatsApp);
-    bolha("a", "Olá! Sou o <strong>assistente virtual</strong> do escritório, uma inteligência artificial. Explico seus direitos de um jeito simples e, se quiser, ajudo a mandar o seu caso para o Dr. Matheus pelo WhatsApp.<br><br>Sobre o que é a sua dúvida?", true);
+    bolha("a", EMPRESA
+      ? "Olá! Sou o <strong>assistente virtual</strong> do escritório, uma inteligência artificial. Explico de um jeito simples a parte trabalhista da sua empresa e, se quiser, ajudo a mandar o caso para o Dr. Matheus pelo WhatsApp.<br><br>Como posso ajudar?"
+      : "Olá! Sou o <strong>assistente virtual</strong> do escritório, uma inteligência artificial. Explico seus direitos de um jeito simples e, se quiser, ajudo a mandar o seu caso para o Dr. Matheus pelo WhatsApp.<br><br>Sobre o que é a sua dúvida?", true);
     var ch = el("div", { class: "as-ch" });
     SUGESTOES.forEach(function (s) { var b = el("button", { type: "button" }); b.textContent = s; b.addEventListener("click", function () { ch.remove(); enviar(s); }); ch.appendChild(b); });
     ms.appendChild(ch);
@@ -82,6 +97,8 @@
     ms.appendChild(d); ms.scrollTop = ms.scrollHeight; return d;
   }
   function abrir() {
+    var cv = document.querySelector(".as-cv"); if (cv) cv.remove();
+    guardar("as-visto", "1");
     montar(); aberto = true; pn.hidden = false; pn.classList.remove("as-in"); void pn.offsetWidth; pn.classList.add("as-in");
     bt.style.display = "none"; document.documentElement.style.overflow = window.innerWidth < 640 ? "hidden" : "";
     setTimeout(function () { ta.focus(); }, 60);
@@ -107,6 +124,14 @@
       if (j.tema && j.tema !== "outro") tema = j.tema;
       if (j.nome) nome = j.nome;
       if (j.resumo) resumo = j.resumo;
+      // link do guia do tema (uma vez por tema, e nunca para a página em que a pessoa já está)
+      if (j.guia && j.guia.href && j.guia.href !== PAGINA && !guiasMostrados[j.guia.href]) {
+        guiasMostrados[j.guia.href] = 1;
+        var gl = el("a", { class: "as-gl", href: j.guia.href, target: "_blank", rel: "noopener" });
+        gl.innerHTML = "📄 Guia: " + esc(j.guia.titulo) + " <span>→</span>";
+        gl.addEventListener("click", function () { evento("assistente_guia", { item_name: j.guia.href }); });
+        ms.appendChild(gl); ms.scrollTop = ms.scrollHeight;
+      }
       // o botão só aparece quando a triagem terminou (ou se o assistente falhar / atingir o limite)
       if (j.pronto || j.erro) { var novo = !en.classList.contains("on"); en.classList.add("on"); if (novo) ms.scrollTop = ms.scrollHeight; }
       evento("assistente_mensagem", { item_name: tema });
@@ -137,5 +162,25 @@
     document.body.appendChild(bt);
     document.querySelectorAll("[data-assistente]").forEach(function (a) { a.addEventListener("click", function (e) { e.preventDefault(); abrir(); }); });
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", iniciar); else iniciar();
+  // convite discreto: só nas páginas de guia, depois de ~40 s de leitura, uma vez por visita
+  function convite() {
+    if (PAGINA === "inicio" || PAGINA === "index" || PAGINA === "privacidade" || ler("as-visto") || ler("as-convite")) return;
+    var lido = 0, timer = setInterval(function () {
+      if (document.hidden || aberto) return;
+      lido += 5;
+      if (lido < 40) return;
+      var ck = document.getElementById("aviso-cookies");
+      if (ck) return;                           // espera a pessoa responder o aviso de cookies
+      clearInterval(timer); guardar("as-convite", "1");
+      var cv = el("div", { class: "as-cv", role: "button", tabindex: "0", "aria-label": "Abrir o assistente virtual" });
+      cv.innerHTML = (EMPRESA ? "Quer ajuda com a sua <b>empresa</b>? " : "Quer ajuda com o <b>seu caso</b>? ") + "Tiro suas dúvidas agora e, se quiser, mando o resumo ao Dr. Matheus." + '<button type="button" aria-label="Fechar">×</button>';
+      cv.querySelector("button").addEventListener("click", function (e) { e.stopPropagation(); cv.remove(); evento("assistente_convite_fechado"); });
+      cv.addEventListener("click", function () { evento("assistente_convite_aceito"); abrir(); });
+      cv.addEventListener("keydown", function (e) { if (e.key === "Enter") { abrir(); } });
+      document.body.appendChild(cv);
+      evento("assistente_convite");
+    }, 5000);
+  }
+  function comecar() { iniciar(); convite(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", comecar); else comecar();
 })();
