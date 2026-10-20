@@ -63,7 +63,7 @@ def page(dc, path, title, desc, holes, body_fix=None, extra_js=''):
     head = rd(os.path.join(ROOT, 'head.html'))
     head = head.replace('__TITLE__', title).replace('__DESC__', desc).replace('__PATH__', path).replace('__FONTS__', fonts).replace('__STYLE__', style)
     js = rd(os.path.join(ROOT, 'tracking.js')) + '\n' + extra_js
-    out = head + '<body>\n' + body.strip() + '\n<script>\n' + js + '\n</script>\n</body>\n</html>\n'
+    out = head + '<body>\n' + body.strip() + '\n<script>\n' + js + '\n</script>\n<script src="assets/assistente.js" defer></script>\n</body>\n</html>\n'
     assert out.count('<div') == out.count('</div>'), (dc, out.count('<div'), out.count('</div>'))
     fn = path or 'index.html'
     open(os.path.join(OUT, fn), 'w', encoding='utf-8').write(out)

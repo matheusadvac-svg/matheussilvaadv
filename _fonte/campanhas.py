@@ -392,6 +392,7 @@ def pagina(p):
 <script>
 {TRACK}
 </script>
+<script src="assets/assistente.js" defer></script>
 </body>
 </html>
 '''
