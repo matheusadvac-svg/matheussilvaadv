@@ -63,25 +63,51 @@ details[open] .plus{transform:rotate(45deg)}
 .wa{transition:transform .2s,background-color .2s}
 .wa:hover{transform:translateY(-2px);background-color:#1FC05C !important}
 .grifo{background-image:linear-gradient(104deg,rgba(245,184,46,0) 0,rgba(245,184,46,.55) 2%,rgba(245,184,46,.42) 96%,rgba(245,184,46,0) 100%);background-repeat:no-repeat;background-size:100% 38%;background-position:0 88%;padding:0 .08em;margin:0 -.08em;border-radius:.12em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
-/* ficha */
-.ficha label.campo{display:flex;flex-direction:column;gap:7px;font-weight:700;font-size:15px;color:#1A1A1A}
-.ficha .dica{font-weight:400;font-size:13px;color:#6B6258}
-.ficha input[type=text],.ficha input[type=tel],.ficha select,.ficha textarea{width:100%;box-sizing:border-box;border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:12px;padding:13px 14px;font-size:16px;color:#1A1A1A;outline:none;transition:border-color .2s,box-shadow .2s}
-.ficha textarea{min-height:110px;resize:vertical;line-height:1.5}
-.ficha input:focus,.ficha select:focus,.ficha textarea:focus{border-color:#C8102E;box-shadow:0 0 0 3px rgba(200,16,46,.12)}
-.ficha fieldset{border:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
-.ficha legend{font-weight:700;font-size:15px;color:#1A1A1A;padding:0;margin-bottom:10px}
-.opcoes{display:flex;flex-wrap:wrap;gap:8px}
-.opcoes label{position:relative;display:inline-flex;align-items:center;gap:8px;border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:999px;padding:10px 16px;font-size:15px;font-weight:500;color:#1A1A1A;cursor:pointer;min-height:44px;box-sizing:border-box;transition:background .2s,border-color .2s,color .2s}
-.opcoes input{position:absolute;opacity:0;width:1px;height:1px}
-.opcoes label:has(input:checked){background:#1A1A1A;border-color:#1A1A1A;color:#FFFFFF}
-.opcoes label:has(input:focus-visible){box-shadow:0 0 0 3px rgba(200,16,46,.25)}
-.ficha .erro{border-color:#C8102E !important;background:#FFF5F6 !important}
-.ficha .grupo-erro .opcoes label{border-color:#E7A3AE}
-.passo-n{flex:none;width:40px;height:40px;border-radius:50%;background:#C8102E;color:#FFFFFF;font-family:Montserrat,sans-serif;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center}
+/* ficha interativa (uma pergunta por vez) */
+.fx [hidden]{display:none !important}
+.fx{max-width:760px;width:100%;margin:0 auto;background:#FAF3E7;border-radius:24px;padding:32px;box-sizing:border-box;display:flex;flex-direction:column;gap:22px}
+.fx-topo{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px;color:#6B6258}
+.fx-voltar{border:none;background:none;color:#1A1A1A;font-weight:700;font-size:15px;cursor:pointer;padding:8px 0;display:inline-flex;align-items:center;gap:6px}
+.fx-voltar[hidden]{display:none}
+.fx-trilho{height:6px;border-radius:999px;background:#EADFCB;overflow:hidden}
+.fx-barra{height:100%;width:0;background:#C8102E;border-radius:999px;transition:width .45s cubic-bezier(.2,.7,.2,1)}
+.fx-passo{display:flex;flex-direction:column;gap:16px;animation:fxin .38s cubic-bezier(.2,.7,.2,1) both}
+.fx-passo.volta{animation-name:fxback}
+@keyframes fxin{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes fxback{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+.fx-q{margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(22px,3vw,28px);line-height:1.2;color:#1A1A1A;outline:none}
+.fx-dica{margin:-6px 0 0;font-size:15px;line-height:1.5;color:#6B6258}
+.fx-ops{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.fx-op{border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:16px;padding:15px 16px;min-height:56px;text-align:left;font-size:16px;font-weight:500;color:#1A1A1A;cursor:pointer;display:flex;align-items:center;gap:12px;transition:border-color .2s,background .2s,color .2s,transform .15s}
+.fx-op:hover{border-color:#1A1A1A}
+.fx-op:active{transform:scale(.98)}
+.fx-op .fx-ic{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid #D4C6AE;display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1}
+.fx-op.multi .fx-ic{border-radius:6px}
+.fx-op[aria-pressed=true]{background:#1A1A1A;border-color:#1A1A1A;color:#FFFFFF}
+.fx-op[aria-pressed=true] .fx-ic{border-color:#FFFFFF;background:#FFFFFF;color:#1A1A1A}
+.fx-op small{display:block;font-size:13px;font-weight:400;opacity:.75;margin-top:2px}
+.fx input[type=text],.fx textarea{width:100%;box-sizing:border-box;border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:14px;padding:15px 16px;font-size:17px;color:#1A1A1A;outline:none;transition:border-color .2s,box-shadow .2s}
+.fx textarea{min-height:120px;resize:vertical;line-height:1.5}
+.fx input:focus,.fx textarea:focus{border-color:#C8102E;box-shadow:0 0 0 3px rgba(200,16,46,.12)}
+.fx-acoes{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.fx-seguir{border:none;cursor:pointer;background:#1A1A1A;color:#FFFFFF;font-weight:800;font-size:16px;padding:14px 24px;border-radius:999px;min-height:50px;display:inline-flex;align-items:center;gap:8px}
+.fx-seguir:disabled{opacity:.35;cursor:not-allowed}
+.fx-pular{border:none;background:none;color:#5A5248;font-weight:700;font-size:15px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.fx-enter{font-size:13px;color:#8A8074}
+.fx-erro{margin:0;color:#A50D26;font-size:15px;font-weight:700}
+.fx-nota{background:#FFF8E6;border-left:4px solid #F5B82E;border-radius:10px;padding:12px 14px;font-size:15px;line-height:1.5;color:#3A352E}
+.fx-wa{background:#EFE7DD;border-radius:18px;padding:18px;display:flex}
+.fx-bolha{margin-left:auto;max-width:92%;background:#D9FDD3;border-radius:12px 0 12px 12px;padding:12px 14px;font-size:15px;line-height:1.5;color:#111B21;white-space:pre-wrap;word-break:break-word;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.fx-lgpd{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5;color:#3A352E;cursor:pointer}
+.fx-lgpd input{width:22px;height:22px;margin:1px 0 0;accent-color:#C8102E;flex:none}
+.fx-enviar{border:none;cursor:pointer;background:#25D366;color:#052E16;font-weight:800;font-size:17px;padding:16px 26px;border-radius:999px;min-height:54px;display:inline-flex;align-items:center;gap:10px}
+.fx-enviar:disabled{opacity:.45;cursor:not-allowed}
+.fx-fim{text-align:center;align-items:center}
 @media (max-width:640px){
   .bloco{padding:28px 20px !important}
-  .ficha-grade{grid-template-columns:1fr !important}
+  .fx{padding:22px 18px;border-radius:20px}
+  .fx-ops{grid-template-columns:1fr}
+  .fx-enter{display:none}
 }
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
 
@@ -190,7 +216,7 @@ details[open] .plus{transform:rotate(45deg)}
       <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9CEDB; max-width: 680px">Você não precisa de experiência na área. Precisa estudar o material que mandamos e mostrar, na prática, como conversa com um cliente.</p>
     </div>
     <ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px">
-      <li style="background: #18233F; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px"><span class="passo-n">1</span><strong style="font-size: 17px">Ficha</strong><span style="font-size: 15px; line-height: 1.5; color: #C9CEDB">Você preenche aqui embaixo e envia pelo seu WhatsApp. Leva uns 5 minutos.</span></li>
+      <li style="background: #18233F; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px"><span class="passo-n">1</span><strong style="font-size: 17px">Ficha</strong><span style="font-size: 15px; line-height: 1.5; color: #C9CEDB">Você responde aqui embaixo, quase tudo com um toque, e envia pelo seu WhatsApp. Leva uns 3 minutos.</span></li>
       <li style="background: #18233F; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px"><span class="passo-n">2</span><strong style="font-size: 17px">Material de estudo</strong><span style="font-size: 15px; line-height: 1.5; color: #C9CEDB">Recebe no WhatsApp um manual curto com o jeito do escritório atender.</span></li>
       <li style="background: #18233F; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px"><span class="passo-n">3</span><strong style="font-size: 17px">Teste prático</strong><span style="font-size: 15px; line-height: 1.5; color: #C9CEDB">No dia marcado, você atende um cliente simulado pelo WhatsApp e recebe o resultado com comentários.</span></li>
       <li style="background: #18233F; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px"><span class="passo-n">4</span><strong style="font-size: 17px">Entrega escrita</strong><span style="font-size: 15px; line-height: 1.5; color: #C9CEDB">Você monta o resumo do caso atendido. No estágio, também a minuta da petição.</span></li>
@@ -203,124 +229,15 @@ details[open] .plus{transform:rotate(45deg)}
     <div style="display: flex; flex-direction: column; gap: 8px">
       <span style="font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C8102E">Ficha de candidatura</span>
       <h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.1">Conte um pouco sobre você</h2>
-      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #5A5248; max-width: 680px">Ao tocar no botão verde, o WhatsApp abre com a sua ficha já escrita. A mensagem só é enviada quando você tocar em enviar. Os campos com * são obrigatórios.</p>
+      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #5A5248; max-width: 680px">Uma pergunta por vez, quase tudo com um toque. No fim você confere a mensagem e ela abre no seu WhatsApp, já escrita. Só é enviada quando você tocar em enviar.</p>
     </div>
 
-    <form id="ficha-form" class="ficha" novalidate style="display: flex; flex-direction: column; gap: 26px">
-
-      <fieldset id="g-vaga">
-        <legend>Qual vaga te interessa? * <span class="dica">(se você não cursa Direito, escolha Atendimento)</span></legend>
-        <div class="opcoes">
-          <label><input type="radio" name="vaga" value="Estágio em Direito">Estágio em Direito</label>
-          <label><input type="radio" name="vaga" value="Atendimento">Atendimento</label>
-          <label><input type="radio" name="vaga" value="Qualquer uma das duas">Qualquer uma das duas</label>
-        </div>
-      </fieldset>
-
-      <div class="ficha-grade" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
-        <label class="campo">Nome completo *<input type="text" name="nome" autocomplete="name" maxlength="90"></label>
-        <label class="campo">Cidade onde mora *<input type="text" name="cidade" autocomplete="address-level2" maxlength="60" placeholder="Ex.: Rio Branco/AC"></label>
-      </div>
-
-      <div id="bloco-estagio" class="ficha-grade" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
-        <label class="campo">Faculdade *<input type="text" name="faculdade" maxlength="80" placeholder="Ex.: UFAC, Uninorte"></label>
-        <label class="campo">Período do curso *<select name="periodo"><option value="">Escolha</option><option>1º ou 2º período</option><option>3º ou 4º período</option><option>5º ou 6º período</option><option>7º ou 8º período</option><option>9º ou 10º período</option></select></label>
-      </div>
-
-      <div id="bloco-atend" hidden>
-        <label class="campo">Sua formação *<select name="formacao"><option value="">Escolha</option><option>Ensino médio completo</option><option>Curso técnico</option><option>Faculdade em andamento (outro curso)</option><option>Faculdade completa</option></select></label>
-      </div>
-
-      <div class="ficha-grade" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
-        <fieldset id="g-turno">
-          <legend>Turno que você pode trabalhar *</legend>
-          <div class="opcoes">
-            <label><input type="radio" name="turno" value="Manhã">Manhã</label>
-            <label><input type="radio" name="turno" value="Tarde">Tarde</label>
-            <label><input type="radio" name="turno" value="Qualquer um">Qualquer um</label>
-          </div>
-        </fieldset>
-        <fieldset id="g-inicio">
-          <legend>Quando poderia começar? *</legend>
-          <div class="opcoes">
-            <label><input type="radio" name="inicio" value="Imediatamente">Já</label>
-            <label><input type="radio" name="inicio" value="Em até 15 dias">Em até 15 dias</label>
-            <label><input type="radio" name="inicio" value="Depois de 15 dias">Depois</label>
-          </div>
-        </fieldset>
-      </div>
-
-      <fieldset id="g-pc">
-        <legend>Tem computador (ou notebook) e internet estável em casa? *</legend>
-        <div class="opcoes">
-          <label><input type="radio" name="pc" value="Sim">Sim</label>
-          <label><input type="radio" name="pc" value="Só celular">Só celular</label>
-          <label><input type="radio" name="pc" value="Não">Não</label>
-        </div>
-      </fieldset>
-
-      <fieldset id="g-exp">
-        <legend>Já trabalhou com atendimento ao cliente? *</legend>
-        <div class="opcoes">
-          <label><input type="radio" name="exp" value="Nunca">Nunca</label>
-          <label><input type="radio" name="exp" value="Até 6 meses">Até 6 meses</label>
-          <label><input type="radio" name="exp" value="Mais de 6 meses">Mais de 6 meses</label>
-        </div>
-        <label class="campo" style="margin-top: 4px"><span class="dica">Se já trabalhou, onde? (opcional)</span><input type="text" name="ondeexp" maxlength="120" placeholder="Ex.: loja, call center, outro escritório"></label>
-      </fieldset>
-
-      <fieldset id="g-ferr">
-        <legend>Já usou alguma destas ferramentas? <span class="dica">(marque quantas quiser)</span></legend>
-        <div class="opcoes">
-          <label><input type="checkbox" name="ferr" value="WhatsApp Business">WhatsApp Business</label>
-          <label><input type="checkbox" name="ferr" value="CRM (Kommo, RD, outro)">CRM (Kommo, RD…)</label>
-          <label><input type="checkbox" name="ferr" value="PJe ou sistema de tribunal">PJe ou sistema de tribunal</label>
-          <label><input type="checkbox" name="ferr" value="Word / Google Docs">Word / Google Docs</label>
-          <label><input type="checkbox" name="ferr" value="Planilhas">Planilhas</label>
-          <label><input type="checkbox" name="ferr" value="Inteligência artificial (ChatGPT, Claude…)">Inteligência artificial</label>
-        </div>
-      </fieldset>
-
-      <fieldset id="g-area">
-        <legend>Qual área mais te interessa?</legend>
-        <div class="opcoes">
-          <label><input type="radio" name="area" value="Trabalhista">Trabalhista</label>
-          <label><input type="radio" name="area" value="Previdenciário (INSS)">Previdenciário (INSS)</label>
-          <label><input type="radio" name="area" value="Consumidor">Consumidor</label>
-          <label><input type="radio" name="area" value="Ainda não sei">Ainda não sei</label>
-        </div>
-      </fieldset>
-
-      <label class="campo">Uma situação: são 21h e uma cliente manda um áudio dizendo, chorando, que o INSS negou o benefício do filho. O que você responde primeiro? *
-        <span class="dica">Escreva como se fosse a mensagem que você mandaria a ela. Não existe resposta certa decorada.</span>
-        <textarea name="situacao" maxlength="600"></textarea>
-        <span class="dica" id="cont-situacao" style="align-self: flex-end">0/600</span>
-      </label>
-
-      <label class="campo"><span>Por que você quer trabalhar com a gente? <span class="dica">(opcional)</span></span>
-        <textarea name="porque" maxlength="400" style="min-height: 80px"></textarea>
-      </label>
-
-      <div class="ficha-grade" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
-        <label class="campo">Como soube da vaga?<select name="soube"><option value="">Escolha</option><option>Instagram</option><option>Indicação de alguém</option><option>Faculdade</option><option>Google</option><option>Site do escritório</option><option>Outro</option></select></label>
-        <label class="campo"><span>LinkedIn ou Instagram <span class="dica">(opcional)</span></span><input type="text" name="perfil" maxlength="100" placeholder="@seuperfil"></label>
-      </div>
-
-      <label id="g-lgpd" style="display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.5; color: #3A352E; cursor: pointer">
-        <input type="checkbox" name="lgpd" style="width: 22px; height: 22px; margin: 1px 0 0; accent-color: #C8102E; flex: none">
-        <span>Autorizo o escritório a usar estes dados só para este processo seletivo, como explica a <a href="privacidade.html">política de privacidade</a>. *</span>
-      </label>
-
-      <div id="ficha-aviso" role="alert" hidden style="background: #FFF5F6; border: 1.5px solid #E7A3AE; color: #8A0B20; border-radius: 14px; padding: 14px 16px; font-size: 15px; line-height: 1.5"></div>
-
-      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center">
-        <button type="submit" class="wa" style="border: none; cursor: pointer; background: #25D366; color: #052E16; font-weight: 800; font-size: 17px; padding: 16px 26px; border-radius: 999px; min-height: 54px; display: inline-flex; align-items: center; gap: 10px">
-          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
-          Enviar minha ficha pelo WhatsApp
-        </button>
-        <span style="font-size: 14px; line-height: 1.5; color: #5A5248; max-width: 360px">Depois de enviar, se tiver currículo em PDF, mande na mesma conversa.</span>
-      </div>
-    </form>
+    <div id="fx" class="fx" aria-live="polite">
+      <div class="fx-topo"><button type="button" class="fx-voltar" id="fx-voltar" hidden><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Voltar</button><span id="fx-cont"></span></div>
+      <div class="fx-trilho"><div class="fx-barra" id="fx-barra"></div></div>
+      <div id="fx-corpo"><noscript><p style="margin: 0; font-size: 16px">Para preencher a ficha, ative o JavaScript, ou <a href="https://wa.me/5568999993427?text=Ol%C3%A1%21%20Vi%20no%20site%20que%20voc%C3%AAs%20est%C3%A3o%20com%20processo%20seletivo%20e%20tenho%20interesse%20na%20vaga." data-candidato="1" target="_blank" rel="noopener">fale sobre a vaga pelo WhatsApp</a>.</p></noscript></div>
+    </div>
+    <template id="fx-wa-svg"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg></template>
   </section>
 
   <!-- DÚVIDAS -->
@@ -444,145 +361,235 @@ details[open] .plus{transform:rotate(45deg)}
   else if (c !== "nao" && (CFG.META_PIXEL_ID || CFG.GA_ID)) mostrarAviso();
 })();
 
-// Página "Trabalhe com a gente" (21/10/2026): a ficha monta a mensagem e abre o WhatsApp do escritório.
-// Nada vai para servidor: o envio depende do candidato tocar em enviar no próprio WhatsApp.
+// Página "Trabalhe com a gente" — ficha INTERATIVA (21/10/2026, v2): uma pergunta por vez, escolha com um toque
+// avança sozinha, prévia da mensagem no fim. Nada vai para servidor: abre o WhatsApp com a ficha escrita.
 // A 1ª linha "FICHA DE CANDIDATO" e a etiqueta "[site · trabalhe-conosco]" são lidas pelo robô (simulador.js, triagem).
+// Sem emoji na mensagem: no WhatsApp do computador o emoji do link wa.me pode chegar como "�".
 window.ORIGEM_PAGINA = "trabalhe-conosco";
 (function () {
   var NUMERO = "5568999993427";
-  var f = document.getElementById("ficha-form");
-  if (!f) return;
-  var aviso = document.getElementById("ficha-aviso");
-  var blocoEst = document.getElementById("bloco-estagio");
-  var blocoAt = document.getElementById("bloco-atend");
-  var CHAVE = "ficha-candidato";
+  var CHAVE = "ficha-candidato-v2";
+  var raiz = document.getElementById("fx");
+  if (!raiz) return;
+  var corpo = document.getElementById("fx-corpo");
+  var barra = document.getElementById("fx-barra");
+  var cont = document.getElementById("fx-cont");
+  var btVoltar = document.getElementById("fx-voltar");
+  var tplWa = document.getElementById("fx-wa-svg");
 
-  function val(n) { var el = f.elements[n]; if (!el) return ""; if (el.length !== undefined && el.tagName !== "SELECT") { for (var i = 0; i < el.length; i++) if (el[i].checked) return el[i].value; return ""; } return String(el.value || "").trim(); }
-  function marcados(n) { return Array.prototype.slice.call(f.querySelectorAll('input[name="' + n + '"]:checked')).map(function (x) { return x.value; }); }
-  function limpa(t) { return String(t || "").replace(/\s+/g, " ").trim(); }
+  var R = {};          // respostas
+  var pilha = [];      // passos visitados (para o Voltar)
+  var atual = null;
 
-  function ajustarVaga() {
-    var v = val("vaga");
-    var at = v === "Atendimento";
-    blocoAt.hidden = !at;
-    blocoEst.hidden = at;
-    blocoEst.style.display = at ? "none" : "grid";
+  var estagio = function () { return R.vaga && R.vaga !== "Atendimento"; };
+  var PASSOS = [
+    { id: "vaga", tipo: "um", q: "Qual vaga te interessa?", dica: "Se você não cursa Direito, escolha Atendimento.",
+      ops: [["Estágio em Direito", "para estudantes de Direito"], ["Atendimento", "qualquer formação"], ["Qualquer uma das duas", "curso Direito e topo as duas"]] },
+    { id: "nome", tipo: "texto", q: "Qual é o seu nome completo?", ph: "Nome e sobrenome", auto: "name",
+      valida: function (v) { return v.split(/\s+/).length >= 2 ? "" : "Escreva nome e sobrenome."; } },
+    { id: "cidade", tipo: "texto", q: function () { return "Prazer, " + primeiro() + "! Em que cidade você mora?"; }, ph: "Ex.: Rio Branco/AC", auto: "address-level2" },
+    { id: "faculdade", tipo: "texto", q: "Em qual faculdade você estuda?", ph: "Ex.: UFAC, Uninorte", se: estagio },
+    { id: "periodo", tipo: "um", q: "Em que período do curso você está?", se: estagio,
+      ops: [["1º ou 2º período"], ["3º ou 4º período"], ["5º ou 6º período"], ["7º ou 8º período"], ["9º ou 10º período"]] },
+    { id: "formacao", tipo: "um", q: "Qual é a sua formação?", se: function () { return !estagio(); },
+      ops: [["Ensino médio completo"], ["Curso técnico"], ["Faculdade em andamento", "outro curso"], ["Faculdade completa"]] },
+    { id: "turno", tipo: "um", q: "Qual turno você pode trabalhar?", dica: "São duas vagas: uma de manhã e uma à tarde.",
+      ops: [["Manhã"], ["Tarde"], ["Qualquer um"]] },
+    { id: "inicio", tipo: "um", q: "Se for aprovado(a), quando poderia começar?",
+      ops: [["Imediatamente"], ["Em até 15 dias"], ["Depois de 15 dias"]] },
+    { id: "pc", tipo: "um", q: "Você tem computador (ou notebook) e internet estável em casa?",
+      ops: [["Sim"], ["Só celular"], ["Não"]],
+      nota: function (v) { return v && v !== "Sim" ? "Tudo bem seguir. Só para você saber: o trabalho é feito no computador, então isso vai ser conversado na entrevista." : ""; } },
+    { id: "exp", tipo: "um", q: "Já trabalhou com atendimento ao público?", dica: "Loja, call center, recepção, escritório… tudo conta.",
+      ops: [["Ainda não"], ["Sim, até 6 meses"], ["Sim, mais de 6 meses"]] },
+    { id: "ondeexp", tipo: "texto", q: "Legal! Onde foi?", ph: "Ex.: call center, loja, outro escritório", opcional: true,
+      se: function () { return R.exp && R.exp !== "Ainda não"; } },
+    { id: "ferr", tipo: "varios", q: "Já usou alguma destas ferramentas?", dica: "Marque quantas quiser.",
+      ops: [["WhatsApp Business"], ["CRM", "Kommo, RD Station…"], ["PJe ou sistema de tribunal"], ["Word ou Google Docs"], ["Planilhas"], ["Inteligência artificial", "ChatGPT, Claude…"]] },
+    { id: "area", tipo: "um", q: "Qual área do escritório mais te interessa?",
+      ops: [["Trabalhista"], ["Previdenciário (INSS)"], ["Consumidor"], ["Ainda não sei"]] },
+    { id: "porque", tipo: "longo", q: "Em poucas palavras: por que você quer trabalhar com a gente?", dica: "Opcional, mas ajuda a te conhecer.", opcional: true, max: 400 },
+    { id: "soube", tipo: "um", q: "Como você soube da vaga?",
+      ops: [["Instagram"], ["Indicação de alguém"], ["Faculdade"], ["Google"], ["Site do escritório"], ["Outro"]] },
+    { id: "fim", tipo: "fim", q: "Pronto! Confira sua ficha" }
+  ];
+
+  function primeiro() { return String(R.nome || "").trim().split(/\s+/)[0] || "tudo bem"; }
+  function txt(x) { return typeof x === "function" ? x() : x; }
+  function visiveis() { return PASSOS.filter(function (p) { return !p.se || p.se(); }); }
+  function passo(id) { for (var i = 0; i < PASSOS.length; i++) if (PASSOS[i].id === id) return PASSOS[i]; }
+  function proximo(id) {
+    var v = visiveis(); var i = -1;
+    for (var k = 0; k < v.length; k++) if (v[k].id === id) i = k;
+    return v[i + 1] ? v[i + 1].id : "fim";
+  }
+  function el(tag, attrs, filhos) {
+    var e = document.createElement(tag);
+    for (var k in attrs || {}) { if (k === "text") e.textContent = attrs[k]; else if (k === "html") e.innerHTML = attrs[k]; else e.setAttribute(k, attrs[k]); }
+    (filhos || []).forEach(function (f) { if (f) e.appendChild(typeof f === "string" ? document.createTextNode(f) : f); });
+    return e;
+  }
+  function salvar() { try { localStorage.setItem(CHAVE, JSON.stringify({ R: R, pilha: pilha, atual: atual })); } catch (e) {} }
+  function evento(nome, extra) { try { if (window.gtag) window.gtag("event", nome, extra || {}); } catch (e) {} }
+
+  function progresso() {
+    var v = visiveis(); var i = 0;
+    for (var k = 0; k < v.length; k++) if (v[k].id === atual) i = k;
+    var total = v.length - 1; // a revisão não conta como pergunta
+    barra.style.width = Math.round((Math.min(i, total) / total) * 100) + "%";
+    cont.textContent = atual === "fim" ? "Revisão" : "Pergunta " + (i + 1);
+    btVoltar.hidden = !pilha.length;
   }
 
-  // rascunho: se a pessoa sair da página, a ficha continua preenchida (só neste navegador)
-  function salvar() {
-    try {
-      var d = {};
-      Array.prototype.forEach.call(f.elements, function (el) {
-        if (!el.name || el.name === "lgpd") return;
-        if (el.type === "radio") { if (el.checked) d[el.name] = el.value; }
-        else if (el.type === "checkbox") { d[el.name] = d[el.name] || []; if (el.checked) d[el.name].push(el.value); }
-        else d[el.name] = el.value;
+  function ir(id, voltando) {
+    atual = id; salvar(); progresso();
+    var p = passo(id);
+    corpo.innerHTML = "";
+    var caixa = el("div", { "class": "fx-passo" + (voltando ? " volta" : "") });
+    var h = el("h3", { "class": "fx-q", tabindex: "-1", text: txt(p.q) });
+    caixa.appendChild(h);
+    if (p.dica) caixa.appendChild(el("p", { "class": "fx-dica", text: txt(p.dica) }));
+    var erro = el("p", { "class": "fx-erro", role: "alert", hidden: "" });
+
+    function avancar() { pilha.push(id); ir(proximo(id)); }
+
+    if (p.tipo === "um" || p.tipo === "varios") {
+      var multi = p.tipo === "varios";
+      var grade = el("div", { "class": "fx-ops", role: multi ? "group" : "radiogroup", "aria-label": txt(p.q) });
+      var sel = multi ? (R[id] || []).slice() : R[id];
+      var notaBox = el("div", { "class": "fx-nota", hidden: "" });
+      p.ops.forEach(function (o) {
+        var marcado = multi ? sel.indexOf(o[0]) > -1 : sel === o[0];
+        var b = el("button", { type: "button", "class": "fx-op" + (multi ? " multi" : ""), "aria-pressed": marcado ? "true" : "false" }, [
+          el("span", { "class": "fx-ic", "aria-hidden": "true", text: marcado ? "✓" : "" }),
+          el("span", {}, [o[0], o[1] ? el("small", { text: o[1] }) : null])
+        ]);
+        b.addEventListener("click", function () {
+          if (multi) {
+            var i = sel.indexOf(o[0]); if (i > -1) sel.splice(i, 1); else sel.push(o[0]);
+            R[id] = sel.slice(); salvar();
+            var on = sel.indexOf(o[0]) > -1; b.setAttribute("aria-pressed", on ? "true" : "false"); b.firstChild.textContent = on ? "✓" : "";
+            seguir.textContent = sel.length ? "Continuar" : "Nenhuma delas";
+            return;
+          }
+          R[id] = o[0]; salvar();
+          Array.prototype.forEach.call(grade.children, function (x) { x.setAttribute("aria-pressed", "false"); x.firstChild.textContent = ""; });
+          b.setAttribute("aria-pressed", "true"); b.firstChild.textContent = "✓";
+          var n = p.nota ? p.nota(o[0]) : "";
+          if (n) { notaBox.textContent = n; notaBox.hidden = false; seguir.hidden = false; seguir.focus(); return; } // mostra o aviso e espera
+          setTimeout(avancar, 280);
+        });
+        grade.appendChild(b);
       });
-      localStorage.setItem(CHAVE, JSON.stringify(d));
-    } catch (e) {}
-  }
-  function restaurar() {
-    try {
-      var d = JSON.parse(localStorage.getItem(CHAVE) || "null");
-      if (!d) return;
-      Array.prototype.forEach.call(f.elements, function (el) {
-        if (!el.name || !(el.name in d)) return;
-        if (el.type === "radio") el.checked = d[el.name] === el.value;
-        else if (el.type === "checkbox") el.checked = (d[el.name] || []).indexOf(el.value) > -1;
-        else el.value = d[el.name];
+      caixa.appendChild(grade);
+      caixa.appendChild(notaBox);
+      var seguir = el("button", { type: "button", "class": "fx-seguir", text: multi ? ((sel && sel.length) ? "Continuar" : "Nenhuma delas") : "Continuar" });
+      seguir.addEventListener("click", function () { if (!multi && !R[id]) return; if (multi) R[id] = sel.slice(); avancar(); });
+      if (!multi) {
+        var n0 = p.nota && R[id] ? p.nota(R[id]) : "";
+        if (n0) { notaBox.textContent = n0; notaBox.hidden = false; }
+        seguir.hidden = !R[id]; // se já respondeu (voltou), pode seguir sem trocar
+      }
+      caixa.appendChild(el("div", { "class": "fx-acoes" }, [seguir]));
+    } else if (p.tipo === "texto" || p.tipo === "longo") {
+      var campo = p.tipo === "texto"
+        ? el("input", { type: "text", placeholder: p.ph || "", maxlength: "120", autocomplete: p.auto || "off", "aria-label": txt(p.q) })
+        : el("textarea", { maxlength: String(p.max || 400), "aria-label": txt(p.q) });
+      campo.value = R[id] || "";
+      var bt = el("button", { type: "button", "class": "fx-seguir", text: "Continuar" });
+      var ok = function () { return String(campo.value).trim().length > 0; };
+      var atualiza = function () { bt.disabled = !p.opcional && !ok(); };
+      campo.addEventListener("input", function () { R[id] = campo.value; erro.hidden = true; atualiza(); salvar(); });
+      var confirmar = function () {
+        var v = String(campo.value).replace(/\s+/g, " ").trim();
+        if (!v && !p.opcional) return;
+        var msg = v && p.valida ? p.valida(v) : "";
+        if (msg) { erro.textContent = msg; erro.hidden = false; campo.focus(); return; }
+        R[id] = v; avancar();
+      };
+      bt.addEventListener("click", confirmar);
+      if (p.tipo === "texto") campo.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); confirmar(); } });
+      caixa.appendChild(campo);
+      caixa.appendChild(erro);
+      var acoes = el("div", { "class": "fx-acoes" }, [bt]);
+      if (p.opcional) { var pular = el("button", { type: "button", "class": "fx-pular", text: "Pular" }); pular.addEventListener("click", function () { R[id] = ""; avancar(); }); acoes.appendChild(pular); }
+      else if (p.tipo === "texto") acoes.appendChild(el("span", { "class": "fx-enter", text: "ou aperte Enter" }));
+      caixa.appendChild(acoes);
+      atualiza();
+      setTimeout(function () { try { campo.focus({ preventScroll: true }); } catch (e) {} }, 60);
+    } else if (p.tipo === "fim") {
+      var msg = montar();
+      caixa.appendChild(el("p", { "class": "fx-dica", text: "É assim que a mensagem vai chegar no WhatsApp do escritório. Se algo estiver errado, use o Voltar." }));
+      var bolha = el("div", { "class": "fx-bolha" });
+      bolha.innerHTML = msg.split("\n").map(function (l) {
+        var e = l.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return e.replace(/\*([^*]+)\*/g, "<strong>$1</strong>");
+      }).join("\n");
+      caixa.appendChild(el("div", { "class": "fx-wa" }, [bolha]));
+      var chk = el("input", { type: "checkbox" });
+      var lab = el("label", { "class": "fx-lgpd" }, [chk, el("span", { html: 'Autorizo o escritório a usar estes dados só para este processo seletivo, como explica a <a href="privacidade.html">política de privacidade</a>.' })]);
+      caixa.appendChild(lab);
+      var env = el("button", { type: "button", "class": "fx-enviar" });
+      if (tplWa) env.appendChild(tplWa.content.cloneNode(true));
+      env.appendChild(document.createTextNode(" Enviar minha ficha pelo WhatsApp"));
+      env.disabled = true;
+      chk.addEventListener("change", function () { env.disabled = !chk.checked; });
+      env.addEventListener("click", function () {
+        if (!chk.checked) return;
+        var url = "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(montar() + "\nAutorizo o uso dos dados para o processo seletivo (LGPD).\n" + etiqueta());
+        try { if (window.fbq) window.fbq("trackCustom", "Candidatura", { vaga: R.vaga }); } catch (x) {}
+        evento("candidatura", { vaga: R.vaga, turno: R.turno });
+        var w = null;
+        if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) { try { w = window.open(url, "_blank"); if (w) w.opener = null; } catch (x) {} }
+        if (!w) window.location.href = url;
+        concluido();
       });
-    } catch (e) {}
-  }
-
-  var cont = document.getElementById("cont-situacao");
-  function contar() { if (cont) cont.textContent = (f.elements.situacao.value || "").length + "/600"; }
-
-  f.addEventListener("change", function (e) {
-    if (e.target.name === "vaga") ajustarVaga();
-    var g = e.target.closest("fieldset, label");
-    if (g) { g.classList.remove("grupo-erro"); }
-    if (e.target.classList) e.target.classList.remove("erro");
-    salvar();
-  });
-  f.addEventListener("input", function (e) { if (e.target.name === "situacao") contar(); if (e.target.classList) e.target.classList.remove("erro"); salvar(); });
-
-  function erro(campo, grupoId, msg, lista) {
-    if (campo) campo.classList.add("erro");
-    if (grupoId) { var g = document.getElementById(grupoId); if (g) g.classList.add("grupo-erro"); }
-    lista.push({ el: campo || document.getElementById(grupoId), msg: msg });
-  }
-
-  f.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var faltas = [];
-    var vaga = val("vaga");
-    var estagio = vaga && vaga !== "Atendimento";
-    if (!vaga) erro(null, "g-vaga", "a vaga", faltas);
-    var nome = limpa(val("nome"));
-    if (nome.split(" ").length < 2) erro(f.elements.nome, null, "o nome completo", faltas);
-    if (!limpa(val("cidade"))) erro(f.elements.cidade, null, "a cidade", faltas);
-    if (estagio) {
-      if (!limpa(val("faculdade"))) erro(f.elements.faculdade, null, "a faculdade", faltas);
-      if (!val("periodo")) erro(f.elements.periodo, null, "o período do curso", faltas);
-    } else if (vaga && !val("formacao")) erro(f.elements.formacao, null, "a formação", faltas);
-    if (!val("turno")) erro(null, "g-turno", "o turno", faltas);
-    if (!val("inicio")) erro(null, "g-inicio", "quando pode começar", faltas);
-    if (!val("pc")) erro(null, "g-pc", "se tem computador e internet", faltas);
-    if (!val("exp")) erro(null, "g-exp", "a experiência com atendimento", faltas);
-    if (limpa(val("situacao")).length < 15) erro(f.elements.situacao, null, "a resposta da situação", faltas);
-    if (!f.elements.lgpd.checked) erro(null, "g-lgpd", "a autorização de uso dos dados", faltas);
-
-    if (faltas.length) {
-      aviso.textContent = "Falta preencher: " + faltas.map(function (x) { return x.msg; }).join(", ") + ".";
-      aviso.hidden = false;
-      var alvo = faltas[0].el;
-      if (alvo && alvo.scrollIntoView) alvo.scrollIntoView({ behavior: "smooth", block: "center" });
-      if (alvo && alvo.focus && alvo.tagName !== "FIELDSET") try { alvo.focus({ preventScroll: true }); } catch (x) {}
-      return;
+      caixa.appendChild(el("div", { "class": "fx-acoes" }, [env, el("span", { "class": "fx-dica", style: "margin:0;font-size:14px;max-width:340px", text: "Depois de enviar, se tiver currículo em PDF, mande na mesma conversa." })]));
     }
-    aviso.hidden = true;
+    corpo.appendChild(caixa);
+    if (pilha.length) { try { h.focus({ preventScroll: true }); } catch (e) {} }
+    if (pilha.length && raiz.getBoundingClientRect().top < 0) raiz.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
-    var L = [];
-    L.push("🎓 *FICHA DE CANDIDATO — site*");
-    L.push("*Vaga:* " + vaga);
-    L.push("*Nome:* " + nome);
-    L.push("*Cidade:* " + limpa(val("cidade")));
-    if (estagio) L.push("*Faculdade:* " + limpa(val("faculdade")) + " · *Período:* " + val("periodo"));
-    else L.push("*Formação:* " + val("formacao"));
-    L.push("*Turno:* " + val("turno") + " · *Pode começar:* " + val("inicio"));
-    L.push("*Computador e internet em casa:* " + val("pc"));
-    var onde = limpa(val("ondeexp"));
-    L.push("*Experiência com atendimento:* " + val("exp") + (onde ? " (" + onde + ")" : ""));
-    var fe = marcados("ferr");
-    L.push("*Ferramentas que já usou:* " + (fe.length ? fe.join(", ") : "nenhuma das listadas"));
-    if (val("area")) L.push("*Área de interesse:* " + val("area"));
-    L.push("");
-    L.push("*Situação (cliente às 21h, benefício do filho negado) — minha resposta:*");
-    L.push(limpa(val("situacao")));
-    var pq = limpa(val("porque"));
-    if (pq) { L.push(""); L.push("*Por que quero trabalhar com vocês:*"); L.push(pq); }
-    L.push("");
-    var extra = [];
-    if (val("soube")) extra.push("*Soube da vaga:* " + val("soube"));
-    if (limpa(val("perfil"))) extra.push("*Perfil:* " + limpa(val("perfil")));
-    if (extra.length) L.push(extra.join(" · "));
-    L.push("✅ Autorizo o uso dos dados para o processo seletivo (LGPD).");
-    var origem = "";
-    try { origem = sessionStorage.getItem("origem") || ""; } catch (x) {}
-    L.push("[site · trabalhe-conosco" + (origem ? " · " + origem : "") + "]");
+  function etiqueta() {
+    var origem = ""; try { origem = sessionStorage.getItem("origem") || ""; } catch (x) {}
+    return "[site · trabalhe-conosco" + (origem ? " · " + origem : "") + "]";
+  }
+  function montar() {
+    var L = ["*FICHA DE CANDIDATO - site*"];
+    L.push("*Vaga:* " + R.vaga);
+    L.push("*Nome:* " + R.nome);
+    L.push("*Cidade:* " + R.cidade);
+    if (estagio()) L.push("*Faculdade:* " + R.faculdade + " · *Período:* " + R.periodo);
+    else L.push("*Formação:* " + R.formacao);
+    L.push("*Turno:* " + R.turno + " · *Pode começar:* " + R.inicio);
+    L.push("*Computador e internet em casa:* " + R.pc);
+    L.push("*Experiência com atendimento:* " + R.exp + (R.exp !== "Ainda não" && R.ondeexp ? " (" + R.ondeexp + ")" : ""));
+    L.push("*Ferramentas que já usou:* " + ((R.ferr && R.ferr.length) ? R.ferr.join(", ") : "nenhuma das listadas"));
+    L.push("*Área de interesse:* " + R.area);
+    if (R.porque) { L.push(""); L.push("*Por que quero trabalhar com vocês:*"); L.push(R.porque); }
+    L.push(""); L.push("*Soube da vaga:* " + R.soube);
+    return L.join("\n");
+  }
+  function concluido() {
+    try { localStorage.removeItem(CHAVE); } catch (e) {}
+    pilha = []; btVoltar.hidden = true; barra.style.width = "100%"; cont.textContent = "Ficha enviada";
+    corpo.innerHTML = "";
+    corpo.appendChild(el("div", { "class": "fx-passo fx-fim" }, [
+      el("h3", { "class": "fx-q", text: "Seu WhatsApp abriu com a ficha. Agora é só tocar em enviar." }),
+      el("p", { "class": "fx-dica", text: "Assim que ela chegar, você recebe a confirmação e o manual de estudo por lá. Se o WhatsApp não abriu, toque no botão abaixo." }),
+      (function () { var a = el("button", { type: "button", "class": "fx-seguir", text: "Abrir de novo" }); a.addEventListener("click", function () { window.location.href = "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(montar() + "\nAutorizo o uso dos dados para o processo seletivo (LGPD).\n" + etiqueta()); }); return a; })()
+    ]));
+  }
 
-    var url = "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(L.join("\n"));
-    try { if (window.fbq) window.fbq("trackCustom", "Candidatura", { vaga: vaga }); } catch (x) {}
-    try { if (window.gtag) window.gtag("event", "candidatura", { vaga: vaga, turno: val("turno") }); } catch (x) {}
-    var w = null;
-    if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) { try { w = window.open(url, "_blank"); if (w) w.opener = null; } catch (x) {} }
-    if (!w) window.location.href = url;
-  });
+  btVoltar.addEventListener("click", function () { if (!pilha.length) return; ir(pilha.pop(), true); });
 
-  restaurar();
-  ajustarVaga();
-  contar();
+  // retoma o rascunho (só neste navegador)
+  try {
+    var d = JSON.parse(localStorage.getItem(CHAVE) || "null");
+    if (d && d.R && d.atual && passo(d.atual)) { R = d.R; pilha = d.pilha || []; ir(d.atual); return; }
+  } catch (e) {}
+  ir("vaga");
 })();
 
 </script>
