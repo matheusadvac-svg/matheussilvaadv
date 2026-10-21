@@ -5,7 +5,7 @@
 window.ORIGEM_PAGINA = "trabalhe-conosco";
 (function () {
   var NUMERO = "5568999993427";
-  var CHAVE = "ficha-candidato-v2";
+  var CHAVE = "ficha-candidato-v3"; // v3: vaga única (estágio em Direito)
   var raiz = document.getElementById("fx");
   if (!raiz) return;
   var corpo = document.getElementById("fx-corpo");
@@ -20,19 +20,18 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
   var original = null; // respostas antes da correção (o Voltar desfaz)
   var editando = null; // pilha guardada quando a pessoa corrige uma resposta a partir da revisão
 
-  var estagio = function () { return R.vaga && R.vaga !== "Atendimento"; };
+  var VAGA = "Estágio em Direito";
   var PASSOS = [
-    { id: "vaga", tipo: "um", q: "Qual vaga te interessa?", dica: "Se você não cursa Direito, escolha Atendimento.",
-      ops: [["Estágio em Direito", "para estudantes de Direito"], ["Atendimento", "qualquer formação"], ["Qualquer uma das duas", "curso Direito e topo as duas"]] },
+    { id: "direito", tipo: "um", q: "Você está cursando Direito?", dica: "A vaga é de estágio, só para estudantes de Direito.",
+      ops: [["Sim"], ["Ainda não", "vou começar o curso"], ["Não"]],
+      trava: function (v) { return v && v !== "Sim" ? "Por enquanto a vaga é só para quem já está cursando Direito, porque é um estágio (Lei nº 11.788/2008). Obrigado pelo interesse! Se isso mudar, é só voltar aqui." : ""; } },
     { id: "nome", tipo: "texto", q: "Qual é o seu nome completo?", ph: "Nome e sobrenome", auto: "name",
       valida: function (v) { return v.split(/\s+/).length >= 2 ? "" : "Escreva nome e sobrenome."; } },
     { id: "cidade", tipo: "texto", q: function () { return "Prazer, " + primeiro() + "! Em que cidade você mora?"; }, ph: "Ex.: Rio Branco/AC", auto: "address-level2" },
-    { id: "faculdade", tipo: "texto", q: "Em qual faculdade você estuda?", ph: "Ex.: UFAC, Uninorte", se: estagio },
-    { id: "periodo", tipo: "um", q: "Em que período do curso você está?", se: estagio,
+    { id: "faculdade", tipo: "texto", q: "Em qual faculdade você estuda?", ph: "Ex.: UFAC, Uninorte" },
+    { id: "periodo", tipo: "um", q: "Em que período do curso você está?",
       ops: [["1º ou 2º período"], ["3º ou 4º período"], ["5º ou 6º período"], ["7º ou 8º período"], ["9º ou 10º período"]] },
-    { id: "formacao", tipo: "um", q: "Qual é a sua formação?", se: function () { return !estagio(); },
-      ops: [["Ensino médio completo"], ["Curso técnico"], ["Faculdade em andamento", "outro curso"], ["Faculdade completa"]] },
-    { id: "turno", tipo: "um", q: "Qual turno você pode trabalhar?", dica: "São duas vagas: uma de manhã e uma à tarde.",
+    { id: "turno", tipo: "um", q: "Em qual turno você pode estagiar?", dica: "O estágio é de até 6 horas por dia.",
       ops: [["Manhã"], ["Tarde"], ["Qualquer um"]] },
     { id: "inicio", tipo: "um", q: "Se for aprovado(a), quando poderia começar?",
       ops: [["Imediatamente"], ["Em até 15 dias"], ["Depois de 15 dias"]] },
@@ -121,6 +120,8 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
           R[id] = o[0]; salvar();
           Array.prototype.forEach.call(grade.children, function (x) { x.setAttribute("aria-pressed", "false"); x.firstChild.textContent = ""; });
           b.setAttribute("aria-pressed", "true"); b.firstChild.textContent = "✓";
+          var tr = p.trava ? p.trava(o[0]) : "";
+          if (tr) { notaBox.textContent = tr; notaBox.hidden = false; seguir.hidden = true; evento("ficha_fora_do_perfil", { resposta: o[0] }); return; }
           var n = p.nota ? p.nota(o[0]) : "";
           if (n) { notaBox.textContent = n; notaBox.hidden = false; seguir.hidden = false; seguir.focus(); return; } // mostra o aviso e espera
           setTimeout(avancar, 280);
@@ -132,9 +133,9 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
       var seguir = el("button", { type: "button", "class": "fx-seguir", text: editando ? "Salvar e voltar" : multi ? ((sel && sel.length) ? "Continuar" : "Nenhuma delas") : "Continuar" });
       seguir.addEventListener("click", function () { if (!multi && !R[id]) return; if (multi) R[id] = sel.slice(); avancar(); });
       if (!multi) {
-        var n0 = p.nota && R[id] ? p.nota(R[id]) : "";
+        var n0 = R[id] ? ((p.trava && p.trava(R[id])) || (p.nota && p.nota(R[id])) || "") : "";
         if (n0) { notaBox.textContent = n0; notaBox.hidden = false; }
-        seguir.hidden = !R[id]; // se já respondeu (voltou), pode seguir sem trocar
+        seguir.hidden = !R[id] || !!(p.trava && p.trava(R[id])); // se já respondeu (voltou), pode seguir sem trocar
       }
       caixa.appendChild(el("div", { "class": "fx-acoes" }, [seguir]));
     } else if (p.tipo === "texto" || p.tipo === "longo") {
@@ -188,8 +189,8 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
       env.addEventListener("click", function () {
         if (!chk.checked) return;
         var url = "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(montar() + "\nAutorizo o uso dos dados para o processo seletivo (LGPD).\n" + etiqueta());
-        try { if (window.fbq) window.fbq("trackCustom", "Candidatura", { vaga: R.vaga }); } catch (x) {}
-        evento("candidatura", { vaga: R.vaga, turno: R.turno });
+        try { if (window.fbq) window.fbq("trackCustom", "Candidatura", { vaga: VAGA }); } catch (x) {}
+        evento("candidatura", { vaga: VAGA, turno: R.turno });
         var w = null;
         if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) { try { w = window.open(url, "_blank"); if (w) w.opener = null; } catch (x) {} }
         if (!w) window.location.href = url;
@@ -207,9 +208,7 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
     return "[site · trabalhe-conosco" + (origem ? " · " + origem : "") + "]";
   }
   function linhas() { // [rótulo, valor, passo] — o que aparece na revisão, cada linha leva à sua pergunta
-    var L = [["Vaga", R.vaga, "vaga"], ["Nome", R.nome, "nome"], ["Cidade", R.cidade, "cidade"]];
-    if (estagio()) { L.push(["Faculdade", R.faculdade, "faculdade"]); L.push(["Período", R.periodo, "periodo"]); }
-    else L.push(["Formação", R.formacao, "formacao"]);
+    var L = [["Nome", R.nome, "nome"], ["Cidade", R.cidade, "cidade"], ["Faculdade", R.faculdade, "faculdade"], ["Período", R.periodo, "periodo"]];
     L.push(["Turno", R.turno, "turno"]); L.push(["Pode começar", R.inicio, "inicio"]);
     L.push(["Computador e internet em casa", R.pc, "pc"]);
     L.push(["Experiência com atendimento", R.exp, "exp"]);
@@ -222,11 +221,10 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
   }
   function montar() {
     var L = ["*FICHA DE CANDIDATO - site*"];
-    L.push("*Vaga:* " + R.vaga);
+    L.push("*Vaga:* " + VAGA);
     L.push("*Nome:* " + R.nome);
     L.push("*Cidade:* " + R.cidade);
-    if (estagio()) L.push("*Faculdade:* " + R.faculdade + " · *Período:* " + R.periodo);
-    else L.push("*Formação:* " + R.formacao);
+    L.push("*Faculdade:* " + R.faculdade + " · *Período:* " + R.periodo);
     L.push("*Turno:* " + R.turno + " · *Pode começar:* " + R.inicio);
     L.push("*Computador e internet em casa:* " + R.pc);
     L.push("*Experiência com atendimento:* " + R.exp + (R.exp !== "Ainda não" && R.ondeexp ? " (" + R.ondeexp + ")" : ""));
@@ -257,5 +255,5 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
     var d = JSON.parse(localStorage.getItem(CHAVE) || "null");
     if (d && d.R && d.atual && passo(d.atual)) { R = d.R; pilha = d.pilha || []; ir(d.atual); return; }
   } catch (e) {}
-  ir("vaga");
+  ir("direito");
 })();

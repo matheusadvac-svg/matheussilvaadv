@@ -128,7 +128,7 @@ page('Privacidade.dc.html', 'privacidade.html', 'Política de privacidade — Ma
 # ---------- trabalhe conosco (21/10/2026) ----------
 # Ficha do candidato -> WhatsApp com a 1a linha "FICHA DE CANDIDATO"; o robo (simulador.js) reconhece e leva pro funil PROCESSO SELETIVO.
 # Sem o assistente virtual (ele e para clientes).
-page('Trabalhe.dc.html', 'trabalhe-conosco.html', 'Trabalhe com a gente — vagas de estágio e atendimento · Matheus Silva Advogado',
-     'Vagas 100% remotas no escritório Matheus Silva Advogado (Rio Branco/AC): estágio em Direito e atendimento pelo WhatsApp, turnos manhã e tarde. Preencha a ficha e envie pelo WhatsApp.',
-     {'waVaga': wa('Olá! Vi no site que vocês estão com processo seletivo e tenho interesse na vaga.')},
+page('Trabalhe.dc.html', 'trabalhe-conosco.html', 'Estágio em Direito — trabalhe com a gente · Matheus Silva Advogado',
+     'Estágio em Direito 100% remoto no escritório Matheus Silva Advogado (Rio Branco/AC): atendimento de clientes pelo WhatsApp e montagem de casos, turno da manhã ou da tarde. Preencha a ficha e envie pelo WhatsApp.',
+     {'waVaga': wa('Olá! Vi no site que vocês estão com processo seletivo de estágio em Direito e tenho interesse.')},
      None, rd(os.path.join(ROOT, 'trabalhe.js')), assistente=False)
