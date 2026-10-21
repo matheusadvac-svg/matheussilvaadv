@@ -646,7 +646,7 @@ details[open] .plus{transform:rotate(45deg)}
     <span><strong style="color: #1A1A1A">Matheus Silva – Sociedade Individual de Advocacia</strong><br>CNPJ 55.499.593/0001-74 · OAB/AC 5292</span>
     <span>Atendimento presencial com hora marcada:<br>Escritório Corporativo da OAB/AC · Alameda Min. Miguel Ferrante, 450<br>Portal da Amazônia · Rio Branco/AC · CEP 69915-632 · <a href="https://www.google.com/maps/search/?api=1&amp;query=Alameda+Ministro+Miguel+Ferrante+450+Portal+da+Amaz%C3%B4nia+Rio+Branco+AC" target="_blank" rel="noopener">Como chegar</a></span>
     <span style="max-width: 420px">Guias: <a href="demitido">Fui demitido</a> · <a href="horas-extras">Horas extras não pagas</a> · <a href="rescisao-indireta">Rescisão indireta</a> · <a href="acidente-de-trabalho">Acidente de trabalho</a> · <a href="aposentadoria">Planejar a aposentadoria</a> · <a href="beneficio-negado">Benefício negado</a> · <a href="bpc-loas">BPC / LOAS</a> · <a href="salario-maternidade">Salário-maternidade</a> · <a href="bagagem">Bagagem extraviada</a> · <a href="overbooking">Impedido de embarcar</a> · <a href="passageiro-especial">Passageiro com necessidade especial</a> · <a href="nome-negativado">Nome negativado</a> · <a href="cobranca-indevida">Cobrança indevida</a> · <a href="empresa-processada">Minha empresa foi processada</a> · <a href="advocacia-preventiva">Advocacia preventiva para empresas</a><br>Áreas: <a href="advogado-trabalhista-rio-branco">Advogado trabalhista em Rio Branco</a> · <a href="advogado-inss-rio-branco">Advogado do INSS em Rio Branco</a> · <a href="advogado-consumidor-rio-branco">Advogado do consumidor em Rio Branco</a></span>
-    <span style="max-width: 380px">Conteúdo informativo, nos termos do Provimento 205/2021 da OAB. Cada caso é analisado individualmente. · <a href="privacidade.html">Política de privacidade</a> · <a href="#" onclick="preferenciasCookies();return false">Preferências de cookies</a></span>
+    <span style="max-width: 380px">Conteúdo informativo, nos termos do Provimento 205/2021 da OAB. Cada caso é analisado individualmente. · <a href="privacidade.html">Política de privacidade</a> · <a href="#" onclick="preferenciasCookies();return false">Preferências de cookies</a><br><a href="trabalhe-conosco.html" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; background: #1A1A1A; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 14px; padding: 9px 16px; border-radius: 999px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #F5B82E"></span>Trabalhe com a gente · vagas abertas</a></span>
   </footer>
 
 </div>
@@ -694,6 +694,12 @@ details[open] .plus{transform:rotate(45deg)}
       }
     } catch (x) {}
     var nome = a.getAttribute("data-evento") || document.title;
+    // candidato a vaga nao e cliente: nao conta como Lead (nao atrapalha a otimizacao dos anuncios)
+    if (a.hasAttribute("data-candidato")) {
+      try { if (window.fbq) window.fbq("trackCustom", "Candidatura", { content_name: nome }); } catch (x) {}
+      try { if (window.gtag) window.gtag("event", "candidatura", { method: "whatsapp" }); } catch (x) {}
+      return;
+    }
     try { if (window.fbq) window.fbq("track", "Lead", { content_name: nome }); } catch (x) {}
     try { if (window.gtag) window.gtag("event", "generate_lead", { method: "whatsapp", lead_source: [window.ORIGEM_PAGINA, origem].filter(Boolean).join(" · ") || "direto", item_name: nome }); } catch (x) {}
   }, true);

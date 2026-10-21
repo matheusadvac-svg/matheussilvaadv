@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Trabalhe com a gente — Matheus Silva Advogado</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5EBD9}
+a{color:#A50D26}a:hover{color:#1A1A1A}
+button,input,select,textarea{font:inherit}
+details summary{cursor:pointer;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details[open] .plus{transform:rotate(45deg)}
+.plus{transition:transform .3s ease}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes ring{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.9);opacity:0}}
+.in{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.ring{animation:ring 2.2s ease-out infinite}
+.lift{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.lift:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(26,26,26,.14)}
+.wa{transition:transform .2s,background-color .2s}
+.wa:hover{transform:translateY(-2px);background-color:#1FC05C !important}
+.grifo{background-image:linear-gradient(104deg,rgba(245,184,46,0) 0,rgba(245,184,46,.55) 2%,rgba(245,184,46,.42) 96%,rgba(245,184,46,0) 100%);background-repeat:no-repeat;background-size:100% 38%;background-position:0 88%;padding:0 .08em;margin:0 -.08em;border-radius:.12em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+/* ficha */
+.ficha label.campo{display:flex;flex-direction:column;gap:7px;font-weight:700;font-size:15px;color:#1A1A1A}
+.ficha .dica{font-weight:400;font-size:13px;color:#6B6258}
+.ficha input[type=text],.ficha input[type=tel],.ficha select,.ficha textarea{width:100%;box-sizing:border-box;border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:12px;padding:13px 14px;font-size:16px;color:#1A1A1A;outline:none;transition:border-color .2s,box-shadow .2s}
+.ficha textarea{min-height:110px;resize:vertical;line-height:1.5}
+.ficha input:focus,.ficha select:focus,.ficha textarea:focus{border-color:#C8102E;box-shadow:0 0 0 3px rgba(200,16,46,.12)}
+.ficha fieldset{border:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.ficha legend{font-weight:700;font-size:15px;color:#1A1A1A;padding:0;margin-bottom:10px}
+.opcoes{display:flex;flex-wrap:wrap;gap:8px}
+.opcoes label{position:relative;display:inline-flex;align-items:center;gap:8px;border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:999px;padding:10px 16px;font-size:15px;font-weight:500;color:#1A1A1A;cursor:pointer;min-height:44px;box-sizing:border-box;transition:background .2s,border-color .2s,color .2s}
+.opcoes input{position:absolute;opacity:0;width:1px;height:1px}
+.opcoes label:has(input:checked){background:#1A1A1A;border-color:#1A1A1A;color:#FFFFFF}
+.opcoes label:has(input:focus-visible){box-shadow:0 0 0 3px rgba(200,16,46,.25)}
+.ficha .erro{border-color:#C8102E !important;background:#FFF5F6 !important}
+.ficha .grupo-erro .opcoes label{border-color:#E7A3AE}
+.passo-n{flex:none;width:40px;height:40px;border-radius:50%;background:#C8102E;color:#FFFFFF;font-family:Montserrat,sans-serif;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center}
+@media (max-width:640px){
+  .bloco{padding:28px 20px !important}
+  .ficha-grade{grid-template-columns:1fr !important}
+}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div style="background: #F5EBD9; color: #1A1A1A; font-family: 'DM Sans', system-ui, sans-serif; padding: 20px 0 40px; overflow-x: hidden">
+<div style="max-width: 1100px; margin: 0 auto; padding: 0 16px; display: flex; flex-direction: column; gap: 16px">
+
+  <!-- TOPO -->
+  <header class="in" style="background: #FFFDF9; border-radius: 20px; padding: 12px 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px">
+    <a href="Site.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1A1A1A">
+      <img src="/_blob/6af05ed5745c66733b2e6e9619297c5c" alt="" style="width: 46px; height: 46px; border-radius: 12px; object-fit: contain; background: #0A0510; padding: 5px; box-sizing: border-box">
+      <span style="display: flex; flex-direction: column; line-height: 1.2">
+        <span style="font-family: Montserrat, sans-serif; font-weight: 800; font-size: 17px">Matheus Silva</span>
+        <span style="font-size: 13px; color: #5A5248">Advogado · OAB/AC 5292</span>
+      </span>
+    </a>
+    <span style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 15px">
+      <a href="#vagas" style="color: #1A1A1A; text-decoration: none; padding: 12px 12px; font-weight: 500">Vagas</a>
+      <a href="#etapas" style="color: #1A1A1A; text-decoration: none; padding: 12px 12px; font-weight: 500">Etapas</a>
+      <a href="#ficha" style="background: #1A1A1A; color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 12px 18px; border-radius: 999px">Preencher a ficha</a>
+    </span>
+  </header>
+
+  <!-- ABERTURA -->
+  <section class="in bloco" style="background: #FFFDF9; border-radius: 28px; padding: 56px 48px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; box-sizing: border-box">
+    <div style="flex: 3 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+      <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; background: #FBE7EA; color: #A50D26; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px">
+        <span style="position: relative; display: inline-flex; width: 8px; height: 8px"><span class="ring" style="position: absolute; inset: 0; border-radius: 50%; background: #C8102E"></span><span style="position: relative; width: 8px; height: 8px; border-radius: 50%; background: #C8102E"></span></span>
+        Processo seletivo aberto · 100% remoto
+      </span>
+      <h1 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(36px, 5.2vw, 60px); line-height: 1.04; letter-spacing: -1.5px">Trabalhe com a gente.<br><span style="color: #C8102E">De casa, <span class="grifo">ajudando gente de verdade.</span></span></h1>
+      <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3A352E; max-width: 560px">O escritório é 100% digital: os clientes chegam pelo WhatsApp, de todo o Acre. Procuramos pessoas que saibam ouvir, escrever com clareza e organizar um caso do começo ao fim. Há vagas de <strong>estágio em Direito</strong> e de <strong>atendimento</strong>, nos turnos da manhã e da tarde.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+        <a href="#ficha" style="background: #C8102E; color: #FFFFFF; text-decoration: none; font-weight: 800; font-size: 16px; padding: 15px 24px; border-radius: 999px; min-height: 50px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 10px">Quero me candidatar
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+        <a href="#etapas" style="color: #1A1A1A; font-weight: 700; font-size: 16px; text-decoration: none; border-bottom: 2px solid #C8102E; padding: 4px 0">Como funciona a seleção</a>
+      </div>
+    </div>
+    <div style="flex: 2 1 300px; min-width: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+      <div style="background: #1A1A1A; color: #FFFFFF; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 6px">
+        <span style="font-family: Montserrat, sans-serif; font-weight: 900; font-size: 34px; line-height: 1">2</span>
+        <span style="font-size: 14px; line-height: 1.4; color: #D9D4CC">vagas: uma de manhã e uma à tarde</span>
+      </div>
+      <div style="background: #C8102E; color: #FFFFFF; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 6px">
+        <span style="font-family: Montserrat, sans-serif; font-weight: 900; font-size: 34px; line-height: 1">100%</span>
+        <span style="font-size: 14px; line-height: 1.4; color: #FBE7EA">remoto, do seu computador</span>
+      </div>
+      <div style="background: #F5EBD9; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 6px; grid-column: span 2">
+        <span style="font-family: Montserrat, sans-serif; font-weight: 800; font-size: 18px; line-height: 1.25">3 áreas para aprender na prática</span>
+        <span style="font-size: 14px; line-height: 1.5; color: #5A5248">Direito do Trabalho, Previdenciário (INSS) e do Consumidor, com casos reais e supervisão do Dr. Matheus.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- VAGAS -->
+  <section id="vagas" class="bloco" style="background: #FFFDF9; border-radius: 28px; padding: 48px; display: flex; flex-direction: column; gap: 24px; box-sizing: border-box; scroll-margin-top: 16px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C8102E">As vagas</span>
+      <h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.1">Duas formas de fazer parte</h2>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px">
+      <article class="lift" style="flex: 1 1 360px; min-width: 0; background: #FAF3E7; border-radius: 22px; padding: 30px; display: flex; flex-direction: column; gap: 14px; box-sizing: border-box">
+        <span style="align-self: flex-start; background: #1A1A1A; color: #FFFFFF; font-weight: 700; font-size: 13px; padding: 6px 12px; border-radius: 999px">Para estudantes de Direito</span>
+        <h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 24px">Estágio em Direito</h3>
+        <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.55; color: #3A352E">
+          <li>Atender pelo WhatsApp os clientes que chegam ao escritório: entender o caso, fazer as perguntas certas e pedir os documentos.</li>
+          <li>Organizar o atendimento no sistema do escritório (CRM).</li>
+          <li>Montar o resumo do caso e a minuta da petição inicial, que o Dr. Matheus revisa com você.</li>
+          <li>Até 6 horas por dia e 30 por semana, no limite da Lei do Estágio (Lei nº 11.788/2008), com bolsa-auxílio.</li>
+        </ul>
+      </article>
+      <article class="lift" style="flex: 1 1 360px; min-width: 0; background: #FAF3E7; border-radius: 22px; padding: 30px; display: flex; flex-direction: column; gap: 14px; box-sizing: border-box">
+        <span style="align-self: flex-start; background: #C8102E; color: #FFFFFF; font-weight: 700; font-size: 13px; padding: 6px 12px; border-radius: 999px">Qualquer formação</span>
+        <h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 24px">Atendimento</h3>
+        <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.55; color: #3A352E">
+          <li>Fazer o primeiro atendimento pelo WhatsApp, com cuidado e linguagem simples.</li>
+          <li>Pedir, conferir e organizar os documentos de cada cliente.</li>
+          <li>Acompanhar o cliente nas etapas: assinatura de documentos, avisos e retornos.</li>
+          <li>Carga horária e condições apresentadas na entrevista.</li>
+        </ul>
+      </article>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px">
+      <span style="display: inline-flex; align-items: center; gap: 8px; background: #F5EBD9; border-radius: 999px; padding: 10px 16px; font-size: 15px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Computador e internet estáveis</span>
+      <span style="display: inline-flex; align-items: center; gap: 8px; background: #F5EBD9; border-radius: 999px; padding: 10px 16px; font-size: 15px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Boa escrita em português</span>
+      <span style="display: inline-flex; align-items: center; gap: 8px; background: #F5EBD9; border-radius: 999px; padding: 10px 16px; font-size: 15px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Sigilo com os dados dos clientes</span>
+      <span style="display: inline-flex; align-items: center; gap: 8px; background: #F5EBD9; border-radius: 999px; padding: 10px 16px; font-size: 15px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>Paciência para explicar</span>
+    </div>
+  </section>
+
+  <!-- ETAPAS -->
+  <section id="etapas" class="bloco" style="background: #0F1830; color: #FFFFFF; border-radius: 28px; padding: 48px; display: flex; flex-direction: column; gap: 26px; box-sizing: border-box; scroll-margin-top: 16px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #F5B82E">Etapas da seleção</span>
+      <h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.1">Tudo acontece pelo WhatsApp</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9CEDB; max-width: 680px">Você não precisa de experiência na área. Precisa estudar o material que mandamos e mostrar, na prática, como conversa com um cliente.</p>
+    </div>
+    <ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px">
+      <li style="background: #18233F; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px"><span class="passo-n">1</span><strong style="font-size: 17px">Ficha</strong><span style="font-size: 15px; line-height: 1.5; color: #C9CEDB">Você preenche aqui embaixo e envia pelo seu WhatsApp. Leva uns 5 minutos.</span></li>
+      <li style="background: #18233F; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px"><span class="passo-n">2</span><strong style="font-size: 17px">Material de estudo</strong><span style="font-size: 15px; line-height: 1.5; color: #C9CEDB">Recebe no WhatsApp um manual curto com o jeito do escritório atender.</span></li>
+      <li style="background: #18233F; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px"><span class="passo-n">3</span><strong style="font-size: 17px">Teste prático</strong><span style="font-size: 15px; line-height: 1.5; color: #C9CEDB">No dia marcado, você atende um cliente simulado pelo WhatsApp e recebe o resultado com comentários.</span></li>
+      <li style="background: #18233F; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px"><span class="passo-n">4</span><strong style="font-size: 17px">Entrega escrita</strong><span style="font-size: 15px; line-height: 1.5; color: #C9CEDB">Você monta o resumo do caso atendido. No estágio, também a minuta da petição.</span></li>
+      <li style="background: #18233F; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 12px"><span class="passo-n">5</span><strong style="font-size: 17px">Conversa final</strong><span style="font-size: 15px; line-height: 1.5; color: #C9CEDB">Uma conversa por vídeo com o Dr. Matheus.</span></li>
+    </ol>
+  </section>
+
+  <!-- FICHA -->
+  <section id="ficha" class="bloco" style="background: #FFFDF9; border-radius: 28px; padding: 48px; display: flex; flex-direction: column; gap: 26px; box-sizing: border-box; scroll-margin-top: 16px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C8102E">Ficha de candidatura</span>
+      <h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.1">Conte um pouco sobre você</h2>
+      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #5A5248; max-width: 680px">Ao tocar no botão verde, o WhatsApp abre com a sua ficha já escrita. A mensagem só é enviada quando você tocar em enviar. Os campos com * são obrigatórios.</p>
+    </div>
+
+    <form id="ficha-form" class="ficha" novalidate style="display: flex; flex-direction: column; gap: 26px">
+
+      <fieldset id="g-vaga">
+        <legend>Qual vaga te interessa? * <span class="dica">(se você não cursa Direito, escolha Atendimento)</span></legend>
+        <div class="opcoes">
+          <label><input type="radio" name="vaga" value="Estágio em Direito">Estágio em Direito</label>
+          <label><input type="radio" name="vaga" value="Atendimento">Atendimento</label>
+          <label><input type="radio" name="vaga" value="Qualquer uma das duas">Qualquer uma das duas</label>
+        </div>
+      </fieldset>
+
+      <div class="ficha-grade" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
+        <label class="campo">Nome completo *<input type="text" name="nome" autocomplete="name" maxlength="90"></label>
+        <label class="campo">Cidade onde mora *<input type="text" name="cidade" autocomplete="address-level2" maxlength="60" placeholder="Ex.: Rio Branco/AC"></label>
+      </div>
+
+      <div id="bloco-estagio" class="ficha-grade" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
+        <label class="campo">Faculdade *<input type="text" name="faculdade" maxlength="80" placeholder="Ex.: UFAC, Uninorte"></label>
+        <label class="campo">Período do curso *<select name="periodo"><option value="">Escolha</option><option>1º ou 2º período</option><option>3º ou 4º período</option><option>5º ou 6º período</option><option>7º ou 8º período</option><option>9º ou 10º período</option></select></label>
+      </div>
+
+      <div id="bloco-atend" hidden>
+        <label class="campo">Sua formação *<select name="formacao"><option value="">Escolha</option><option>Ensino médio completo</option><option>Curso técnico</option><option>Faculdade em andamento (outro curso)</option><option>Faculdade completa</option></select></label>
+      </div>
+
+      <div class="ficha-grade" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
+        <fieldset id="g-turno">
+          <legend>Turno que você pode trabalhar *</legend>
+          <div class="opcoes">
+            <label><input type="radio" name="turno" value="Manhã">Manhã</label>
+            <label><input type="radio" name="turno" value="Tarde">Tarde</label>
+            <label><input type="radio" name="turno" value="Qualquer um">Qualquer um</label>
+          </div>
+        </fieldset>
+        <fieldset id="g-inicio">
+          <legend>Quando poderia começar? *</legend>
+          <div class="opcoes">
+            <label><input type="radio" name="inicio" value="Imediatamente">Já</label>
+            <label><input type="radio" name="inicio" value="Em até 15 dias">Em até 15 dias</label>
+            <label><input type="radio" name="inicio" value="Depois de 15 dias">Depois</label>
+          </div>
+        </fieldset>
+      </div>
+
+      <fieldset id="g-pc">
+        <legend>Tem computador (ou notebook) e internet estável em casa? *</legend>
+        <div class="opcoes">
+          <label><input type="radio" name="pc" value="Sim">Sim</label>
+          <label><input type="radio" name="pc" value="Só celular">Só celular</label>
+          <label><input type="radio" name="pc" value="Não">Não</label>
+        </div>
+      </fieldset>
+
+      <fieldset id="g-exp">
+        <legend>Já trabalhou com atendimento ao cliente? *</legend>
+        <div class="opcoes">
+          <label><input type="radio" name="exp" value="Nunca">Nunca</label>
+          <label><input type="radio" name="exp" value="Até 6 meses">Até 6 meses</label>
+          <label><input type="radio" name="exp" value="Mais de 6 meses">Mais de 6 meses</label>
+        </div>
+        <label class="campo" style="margin-top: 4px"><span class="dica">Se já trabalhou, onde? (opcional)</span><input type="text" name="ondeexp" maxlength="120" placeholder="Ex.: loja, call center, outro escritório"></label>
+      </fieldset>
+
+      <fieldset id="g-ferr">
+        <legend>Já usou alguma destas ferramentas? <span class="dica">(marque quantas quiser)</span></legend>
+        <div class="opcoes">
+          <label><input type="checkbox" name="ferr" value="WhatsApp Business">WhatsApp Business</label>
+          <label><input type="checkbox" name="ferr" value="CRM (Kommo, RD, outro)">CRM (Kommo, RD…)</label>
+          <label><input type="checkbox" name="ferr" value="PJe ou sistema de tribunal">PJe ou sistema de tribunal</label>
+          <label><input type="checkbox" name="ferr" value="Word / Google Docs">Word / Google Docs</label>
+          <label><input type="checkbox" name="ferr" value="Planilhas">Planilhas</label>
+          <label><input type="checkbox" name="ferr" value="Inteligência artificial (ChatGPT, Claude…)">Inteligência artificial</label>
+        </div>
+      </fieldset>
+
+      <fieldset id="g-area">
+        <legend>Qual área mais te interessa?</legend>
+        <div class="opcoes">
+          <label><input type="radio" name="area" value="Trabalhista">Trabalhista</label>
+          <label><input type="radio" name="area" value="Previdenciário (INSS)">Previdenciário (INSS)</label>
+          <label><input type="radio" name="area" value="Consumidor">Consumidor</label>
+          <label><input type="radio" name="area" value="Ainda não sei">Ainda não sei</label>
+        </div>
+      </fieldset>
+
+      <label class="campo">Uma situação: são 21h e uma cliente manda um áudio dizendo, chorando, que o INSS negou o benefício do filho. O que você responde primeiro? *
+        <span class="dica">Escreva como se fosse a mensagem que você mandaria a ela. Não existe resposta certa decorada.</span>
+        <textarea name="situacao" maxlength="600"></textarea>
+        <span class="dica" id="cont-situacao" style="align-self: flex-end">0/600</span>
+      </label>
+
+      <label class="campo"><span>Por que você quer trabalhar com a gente? <span class="dica">(opcional)</span></span>
+        <textarea name="porque" maxlength="400" style="min-height: 80px"></textarea>
+      </label>
+
+      <div class="ficha-grade" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
+        <label class="campo">Como soube da vaga?<select name="soube"><option value="">Escolha</option><option>Instagram</option><option>Indicação de alguém</option><option>Faculdade</option><option>Google</option><option>Site do escritório</option><option>Outro</option></select></label>
+        <label class="campo"><span>LinkedIn ou Instagram <span class="dica">(opcional)</span></span><input type="text" name="perfil" maxlength="100" placeholder="@seuperfil"></label>
+      </div>
+
+      <label id="g-lgpd" style="display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.5; color: #3A352E; cursor: pointer">
+        <input type="checkbox" name="lgpd" style="width: 22px; height: 22px; margin: 1px 0 0; accent-color: #C8102E; flex: none">
+        <span>Autorizo o escritório a usar estes dados só para este processo seletivo, como explica a <a href="Privacidade.dc.html">política de privacidade</a>. *</span>
+      </label>
+
+      <div id="ficha-aviso" role="alert" hidden style="background: #FFF5F6; border: 1.5px solid #E7A3AE; color: #8A0B20; border-radius: 14px; padding: 14px 16px; font-size: 15px; line-height: 1.5"></div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center">
+        <button type="submit" class="wa" style="border: none; cursor: pointer; background: #25D366; color: #052E16; font-weight: 800; font-size: 17px; padding: 16px 26px; border-radius: 999px; min-height: 54px; display: inline-flex; align-items: center; gap: 10px">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+          Enviar minha ficha pelo WhatsApp
+        </button>
+        <span style="font-size: 14px; line-height: 1.5; color: #5A5248; max-width: 360px">Depois de enviar, se tiver currículo em PDF, mande na mesma conversa.</span>
+      </div>
+    </form>
+  </section>
+
+  <!-- DÚVIDAS -->
+  <section class="bloco" style="background: #FFFDF9; border-radius: 28px; padding: 48px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box">
+    <h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(26px, 3.2vw, 36px); line-height: 1.1">Dúvidas</h2>
+    <details style="border-top: 1px solid #EFE4D2; padding: 18px 0 0">
+      <summary style="display: flex; justify-content: space-between; gap: 16px; font-weight: 700; font-size: 17px">Preciso ter experiência?<span class="plus" style="color: #C8102E; font-size: 24px; line-height: 1">+</span></summary>
+      <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: #3A352E">Não. Quem chega sem experiência recebe o material de estudo antes do teste. O que mais conta é como você conversa, pergunta e organiza as informações.</p>
+    </details>
+    <details style="border-top: 1px solid #EFE4D2; padding: 18px 0 0">
+      <summary style="display: flex; justify-content: space-between; gap: 16px; font-weight: 700; font-size: 17px">O trabalho é remoto mesmo?<span class="plus" style="color: #C8102E; font-size: 24px; line-height: 1">+</span></summary>
+      <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: #3A352E">Sim. O escritório é 100% digital e o trabalho é feito do seu computador, com WhatsApp e os sistemas do escritório. Por isso é preciso ter computador e internet estável.</p>
+    </details>
+    <details style="border-top: 1px solid #EFE4D2; padding: 18px 0 0">
+      <summary style="display: flex; justify-content: space-between; gap: 16px; font-weight: 700; font-size: 17px">Posso fazer manhã e tarde?<span class="plus" style="color: #C8102E; font-size: 24px; line-height: 1">+</span></summary>
+      <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: #3A352E">No estágio, não: a Lei do Estágio limita a jornada a 6 horas por dia e 30 por semana. Por isso são duas vagas, uma para cada turno. Na ficha, marque o turno em que você pode trabalhar.</p>
+    </details>
+    <details style="border-top: 1px solid #EFE4D2; padding: 18px 0 0">
+      <summary style="display: flex; justify-content: space-between; gap: 16px; font-weight: 700; font-size: 17px">Como é o teste prático?<span class="plus" style="color: #C8102E; font-size: 24px; line-height: 1">+</span></summary>
+      <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: #3A352E">No dia combinado, um cliente simulado fala com você pelo WhatsApp, por texto, áudio e fotos de documentos, como acontece no dia a dia. Você atende como se fosse o escritório. No fim, recebe um resultado com o que foi bem e o que pode melhorar.</p>
+    </details>
+    <details style="border-top: 1px solid #EFE4D2; padding: 18px 0 0">
+      <summary style="display: flex; justify-content: space-between; gap: 16px; font-weight: 700; font-size: 17px">Quando recebo retorno?<span class="plus" style="color: #C8102E; font-size: 24px; line-height: 1">+</span></summary>
+      <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: #3A352E">Logo depois de enviar a ficha você recebe uma confirmação e o material de estudo. O Dr. Matheus retorna pelo mesmo WhatsApp com a data do teste prático.</p>
+    </details>
+    <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: #5A5248">Prefere só mandar uma mensagem? <a href="{{waVaga}}" data-candidato="1">Fale sobre a vaga pelo WhatsApp</a>.</p>
+  </section>
+
+  <footer style="background: #FFFDF9; border-radius: 20px; padding: 20px 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; line-height: 1.6; color: #5A5248">
+    <span>Matheus Silva – Sociedade Individual de Advocacia · CNPJ 55.499.593/0001-74 · OAB/AC 5292</span>
+    <span><a href="Site.dc.html">Voltar ao site</a> · <a href="Privacidade.dc.html">Política de privacidade</a></span>
+  </footer>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4200}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

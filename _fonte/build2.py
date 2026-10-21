@@ -25,7 +25,7 @@ BLOBS = {
  '7f81d3258c03038e44f423d440530a61': 'assets/consumidor-loop.mp4',
  'be706d8f623e4914e4f686fc9319fe4b': 'assets/consumidor-poster.jpg',
 }
-PAGES_HREF = {'Site.dc.html': './', 'Empresas.dc.html': 'empresas.html', 'Privacidade.dc.html': 'privacidade.html'}
+PAGES_HREF = {'Site.dc.html': './', 'Empresas.dc.html': 'empresas.html', 'Privacidade.dc.html': 'privacidade.html', 'Trabalhe.dc.html': 'trabalhe-conosco.html'}
 
 def common(body, holes):
     for k, v in holes.items():
@@ -60,7 +60,7 @@ def faq_ld(out):
     ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": limpa(q), "acceptedAnswer": {"@type": "Answer", "text": limpa(a)}} for q, a in pares]}
     return out.replace('</head>', '<script type="application/ld+json">' + _j.dumps(ld, ensure_ascii=False) + '</script>\n</head>', 1)
 
-def page(dc, path, title, desc, holes, body_fix=None, extra_js=''):
+def page(dc, path, title, desc, holes, body_fix=None, extra_js='', assistente=True):
     html = rd(os.path.join(PROJ, dc))
     helmet = re.search(r'<helmet>(.*?)</helmet>', html, re.S).group(1)
     style = re.search(r'<style>(.*?)</style>', helmet, re.S).group(1)
@@ -74,7 +74,7 @@ def page(dc, path, title, desc, holes, body_fix=None, extra_js=''):
     head = rd(os.path.join(ROOT, 'head.html'))
     head = head.replace('__TITLE__', title).replace('__DESC__', desc).replace('__PATH__', path).replace('__FONTS__', fonts).replace('__STYLE__', style)
     js = rd(os.path.join(ROOT, 'tracking.js')) + '\n' + extra_js
-    out = head + '<body>\n' + body.strip() + '\n<script>\n' + js + '\n</script>\n<script src="assets/assistente.js" defer></script>\n</body>\n</html>\n'
+    out = head + '<body>\n' + body.strip() + '\n<script>\n' + js + '\n</script>\n' + ('<script src="assets/assistente.js" defer></script>\n' if assistente else '') + '</body>\n</html>\n'
     assert out.count('<div') == out.count('</div>'), (dc, out.count('<div'), out.count('</div>'))
     fn = path or 'index.html'
     out = faq_ld(out)
@@ -124,3 +124,11 @@ page('Empresas.dc.html', 'empresas.html', 'Defesa trabalhista para empresas — 
 # ---------- privacidade ----------
 page('Privacidade.dc.html', 'privacidade.html', 'Política de privacidade — Matheus Silva Advogado',
      'Como o escritório Matheus Silva Advogado trata dados pessoais, cookies e seus direitos pela LGPD.', {})
+
+# ---------- trabalhe conosco (21/10/2026) ----------
+# Ficha do candidato -> WhatsApp com a 1a linha "FICHA DE CANDIDATO"; o robo (simulador.js) reconhece e leva pro funil PROCESSO SELETIVO.
+# Sem o assistente virtual (ele e para clientes).
+page('Trabalhe.dc.html', 'trabalhe-conosco.html', 'Trabalhe com a gente — vagas de estágio e atendimento · Matheus Silva Advogado',
+     'Vagas 100% remotas no escritório Matheus Silva Advogado (Rio Branco/AC): estágio em Direito e atendimento pelo WhatsApp, turnos manhã e tarde. Preencha a ficha e envie pelo WhatsApp.',
+     {'waVaga': wa('Olá! Vi no site que vocês estão com processo seletivo e tenho interesse na vaga.')},
+     None, rd(os.path.join(ROOT, 'trabalhe.js')), assistente=False)

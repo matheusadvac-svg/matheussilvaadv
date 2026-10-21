@@ -320,6 +320,12 @@ button,input{font:inherit}
       }
     } catch (x) {}
     var nome = a.getAttribute("data-evento") || document.title;
+    // candidato a vaga nao e cliente: nao conta como Lead (nao atrapalha a otimizacao dos anuncios)
+    if (a.hasAttribute("data-candidato")) {
+      try { if (window.fbq) window.fbq("trackCustom", "Candidatura", { content_name: nome }); } catch (x) {}
+      try { if (window.gtag) window.gtag("event", "candidatura", { method: "whatsapp" }); } catch (x) {}
+      return;
+    }
     try { if (window.fbq) window.fbq("track", "Lead", { content_name: nome }); } catch (x) {}
     try { if (window.gtag) window.gtag("event", "generate_lead", { method: "whatsapp", lead_source: [window.ORIGEM_PAGINA, origem].filter(Boolean).join(" · ") || "direto", item_name: nome }); } catch (x) {}
   }, true);
