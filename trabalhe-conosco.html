@@ -98,6 +98,14 @@ details[open] .plus{transform:rotate(45deg)}
 .fx-nota{background:#FFF8E6;border-left:4px solid #F5B82E;border-radius:10px;padding:12px 14px;font-size:15px;line-height:1.5;color:#3A352E}
 .fx-wa{background:#EFE7DD;border-radius:18px;padding:18px;display:flex}
 .fx-bolha{margin-left:auto;max-width:92%;background:#D9FDD3;border-radius:12px 0 12px 12px;padding:12px 14px;font-size:15px;line-height:1.5;color:#111B21;white-space:pre-wrap;word-break:break-word;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.fx-bolha{white-space:normal !important;padding:10px 8px 10px 14px !important;display:flex;flex-direction:column}
+.fx-tit{font-weight:700;padding:4px 6px 6px 0}
+.fx-linha{all:unset;box-sizing:border-box;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;width:100%;padding:6px 6px 6px 0;border-radius:8px;cursor:pointer;font-size:15px;line-height:1.45;color:#111B21;border-top:1px dashed rgba(17,27,33,.12)}
+.fx-linha:hover,.fx-linha:focus-visible{background:rgba(255,255,255,.65)}
+.fx-linha:focus-visible{outline:2px solid #C8102E;outline-offset:1px}
+.fx-linha em{color:#667781}
+.fx-lapis{flex:none;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#1A7F4B;background:rgba(255,255,255,.7);margin-top:-3px}
+.fx-linha:hover .fx-lapis{background:#1A1A1A;color:#FFFFFF}
 .fx-lgpd{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5;color:#3A352E;cursor:pointer}
 .fx-lgpd input{width:22px;height:22px;margin:1px 0 0;accent-color:#C8102E;flex:none}
 .fx-enviar{border:none;cursor:pointer;background:#25D366;color:#052E16;font-weight:800;font-size:17px;padding:16px 26px;border-radius:999px;min-height:54px;display:inline-flex;align-items:center;gap:10px}
@@ -380,6 +388,8 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
   var R = {};          // respostas
   var pilha = [];      // passos visitados (para o Voltar)
   var atual = null;
+  var original = null; // respostas antes da correção (o Voltar desfaz)
+  var editando = null; // pilha guardada quando a pessoa corrige uma resposta a partir da revisão
 
   var estagio = function () { return R.vaga && R.vaga !== "Atendimento"; };
   var PASSOS = [
@@ -437,8 +447,8 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
     for (var k = 0; k < v.length; k++) if (v[k].id === atual) i = k;
     var total = v.length - 1; // a revisão não conta como pergunta
     barra.style.width = Math.round((Math.min(i, total) / total) * 100) + "%";
-    cont.textContent = atual === "fim" ? "Revisão" : "Pergunta " + (i + 1);
-    btVoltar.hidden = !pilha.length;
+    cont.textContent = atual === "fim" ? "Revisão" : editando ? "Corrigindo uma resposta" : "Pergunta " + (i + 1);
+    btVoltar.hidden = !pilha.length && !editando;
   }
 
   function ir(id, voltando) {
@@ -451,7 +461,14 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
     if (p.dica) caixa.appendChild(el("p", { "class": "fx-dica", text: txt(p.dica) }));
     var erro = el("p", { "class": "fx-erro", role: "alert", hidden: "" });
 
-    function avancar() { pilha.push(id); ir(proximo(id)); }
+    function avancar() {
+      if (editando) {
+        var falta = visiveis().filter(function (x) { return x.tipo !== "fim" && R[x.id] === undefined; })[0];
+        if (falta) { ir(falta.id); return; }
+        pilha = editando; editando = null; ir("fim"); return;
+      }
+      pilha.push(id); ir(proximo(id));
+    }
 
     if (p.tipo === "um" || p.tipo === "varios") {
       var multi = p.tipo === "varios";
@@ -469,7 +486,7 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
             var i = sel.indexOf(o[0]); if (i > -1) sel.splice(i, 1); else sel.push(o[0]);
             R[id] = sel.slice(); salvar();
             var on = sel.indexOf(o[0]) > -1; b.setAttribute("aria-pressed", on ? "true" : "false"); b.firstChild.textContent = on ? "✓" : "";
-            seguir.textContent = sel.length ? "Continuar" : "Nenhuma delas";
+            seguir.textContent = editando ? "Salvar e voltar" : sel.length ? "Continuar" : "Nenhuma delas";
             return;
           }
           R[id] = o[0]; salvar();
@@ -483,7 +500,7 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
       });
       caixa.appendChild(grade);
       caixa.appendChild(notaBox);
-      var seguir = el("button", { type: "button", "class": "fx-seguir", text: multi ? ((sel && sel.length) ? "Continuar" : "Nenhuma delas") : "Continuar" });
+      var seguir = el("button", { type: "button", "class": "fx-seguir", text: editando ? "Salvar e voltar" : multi ? ((sel && sel.length) ? "Continuar" : "Nenhuma delas") : "Continuar" });
       seguir.addEventListener("click", function () { if (!multi && !R[id]) return; if (multi) R[id] = sel.slice(); avancar(); });
       if (!multi) {
         var n0 = p.nota && R[id] ? p.nota(R[id]) : "";
@@ -496,7 +513,7 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
         ? el("input", { type: "text", placeholder: p.ph || "", maxlength: "120", autocomplete: p.auto || "off", "aria-label": txt(p.q) })
         : el("textarea", { maxlength: String(p.max || 400), "aria-label": txt(p.q) });
       campo.value = R[id] || "";
-      var bt = el("button", { type: "button", "class": "fx-seguir", text: "Continuar" });
+      var bt = el("button", { type: "button", "class": "fx-seguir", text: editando ? "Salvar e voltar" : "Continuar" });
       var ok = function () { return String(campo.value).trim().length > 0; };
       var atualiza = function () { bt.disabled = !p.opcional && !ok(); };
       campo.addEventListener("input", function () { R[id] = campo.value; erro.hidden = true; atualiza(); salvar(); });
@@ -519,12 +536,17 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
       setTimeout(function () { try { campo.focus({ preventScroll: true }); } catch (e) {} }, 60);
     } else if (p.tipo === "fim") {
       var msg = montar();
-      caixa.appendChild(el("p", { "class": "fx-dica", text: "É assim que a mensagem vai chegar no WhatsApp do escritório. Se algo estiver errado, use o Voltar." }));
+      caixa.appendChild(el("p", { "class": "fx-dica", text: "É assim que a mensagem vai chegar no WhatsApp do escritório. Para corrigir, toque na resposta (no lápis ✏️)." }));
       var bolha = el("div", { "class": "fx-bolha" });
-      bolha.innerHTML = msg.split("\n").map(function (l) {
-        var e = l.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        return e.replace(/\*([^*]+)\*/g, "<strong>$1</strong>");
-      }).join("\n");
+      bolha.appendChild(el("div", { "class": "fx-tit", text: "FICHA DE CANDIDATO - site" }));
+      linhas().forEach(function (l) {
+        var b = el("button", { type: "button", "class": "fx-linha", "aria-label": "Editar " + l[0] }, [
+          el("span", {}, [el("strong", { text: l[0] + ": " }), l[1] || el("em", { text: "não respondeu" })]),
+          el("span", { "class": "fx-lapis", "aria-hidden": "true", html: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>' })
+        ]);
+        b.addEventListener("click", function () { editando = pilha.slice(); original = JSON.stringify(R); evento("ficha_editou", { campo: l[2] }); ir(l[2]); });
+        bolha.appendChild(b);
+      });
       caixa.appendChild(el("div", { "class": "fx-wa" }, [bolha]));
       var chk = el("input", { type: "checkbox" });
       var lab = el("label", { "class": "fx-lgpd" }, [chk, el("span", { html: 'Autorizo o escritório a usar estes dados só para este processo seletivo, como explica a <a href="privacidade.html">política de privacidade</a>.' })]);
@@ -555,6 +577,20 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
     var origem = ""; try { origem = sessionStorage.getItem("origem") || ""; } catch (x) {}
     return "[site · trabalhe-conosco" + (origem ? " · " + origem : "") + "]";
   }
+  function linhas() { // [rótulo, valor, passo] — o que aparece na revisão, cada linha leva à sua pergunta
+    var L = [["Vaga", R.vaga, "vaga"], ["Nome", R.nome, "nome"], ["Cidade", R.cidade, "cidade"]];
+    if (estagio()) { L.push(["Faculdade", R.faculdade, "faculdade"]); L.push(["Período", R.periodo, "periodo"]); }
+    else L.push(["Formação", R.formacao, "formacao"]);
+    L.push(["Turno", R.turno, "turno"]); L.push(["Pode começar", R.inicio, "inicio"]);
+    L.push(["Computador e internet em casa", R.pc, "pc"]);
+    L.push(["Experiência com atendimento", R.exp, "exp"]);
+    if (R.exp && R.exp !== "Ainda não") L.push(["Onde", R.ondeexp, "ondeexp"]);
+    L.push(["Ferramentas que já usou", (R.ferr && R.ferr.length) ? R.ferr.join(", ") : "nenhuma das listadas", "ferr"]);
+    L.push(["Área de interesse", R.area, "area"]);
+    L.push(["Por que quero trabalhar com vocês", R.porque, "porque"]);
+    L.push(["Soube da vaga", R.soube, "soube"]);
+    return L;
+  }
   function montar() {
     var L = ["*FICHA DE CANDIDATO - site*"];
     L.push("*Vaga:* " + R.vaga);
@@ -582,7 +618,10 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
     ]));
   }
 
-  btVoltar.addEventListener("click", function () { if (!pilha.length) return; ir(pilha.pop(), true); });
+  btVoltar.addEventListener("click", function () {
+    if (editando) { try { R = JSON.parse(original); } catch (e) {} pilha = editando; editando = null; salvar(); ir("fim", true); return; }
+    if (!pilha.length) return; ir(pilha.pop(), true);
+  });
 
   // retoma o rascunho (só neste navegador)
   try {
