@@ -27,3 +27,4 @@ mkdir -p build/site && cp -r live/assets live/CNAME build/site/
 - Toda página nova: incluir no `sitemap.xml`, ligar no bloco "Guias rápidos" (Site.dc.html) e no campo `guias` da situação.
 - Compliance OAB (Provimento 205/2021): sem promessa de resultado, sem preços, sem superlativos; julgados só depois do verificador de jurisprudência.
 - Nunca apagar: `CNAME`, `google23c7663a8cb7f4c7.html`.
+- **Área da equipe:** link discreto "Área da equipe" no rodapé (ao lado de "Preferências de cookies", injetado por `build2.py` e `campanhas.py`) leva a `equipe.html`, que só redireciona para o portal da equipe (serviço `guias-clientes` no Railway, rota `/equipe/`). Quando o endereço `equipe.matheussilvaadv.com.br` estiver ligado, trocar o `DESTINO` em `equipe.html`. `robots.txt` bloqueia `/equipe`; a página é `noindex` e não entra no sitemap.

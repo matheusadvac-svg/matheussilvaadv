@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /equipe
 
 Sitemap: https://matheussilvaadv.com.br/sitemap.xml

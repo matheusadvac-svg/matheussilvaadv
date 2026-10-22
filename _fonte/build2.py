@@ -70,7 +70,7 @@ def page(dc, path, title, desc, holes, body_fix=None, extra_js='', assistente=Tr
     if body_fix: body = body_fix(body, script)
     body = common(body, holes)
     # rodapé: preferências de cookies
-    body = body.replace('>Política de privacidade</a>', '>Política de privacidade</a> · <a href="#" onclick="preferenciasCookies();return false">Preferências de cookies</a>')
+    body = body.replace('>Política de privacidade</a>', '>Política de privacidade</a> · <a href="#" onclick="preferenciasCookies();return false">Preferências de cookies</a> · <a href="equipe" rel="nofollow">Área da equipe</a>')
     head = rd(os.path.join(ROOT, 'head.html'))
     head = head.replace('__TITLE__', title).replace('__DESC__', desc).replace('__PATH__', path).replace('__FONTS__', fonts).replace('__STYLE__', style)
     js = rd(os.path.join(ROOT, 'tracking.js')) + '\n' + extra_js
