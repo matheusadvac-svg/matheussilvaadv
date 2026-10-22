@@ -235,14 +235,14 @@ button{font:inherit}
         <span style="font-size: 13px; color: #5A5248">Processo seletivo de estágio</span>
       </span>
     </a>
-    <a href="#quiz" style="background: var(--preto); color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 12px 18px; border-radius: 999px; font-size: 15px">Ir para o quiz</a>
+    <a href="#teste" style="background: var(--preto); color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 12px 18px; border-radius: 999px; font-size: 15px">Quero fazer o teste</a>
   </header>
 
   <section class="mapa" aria-labelledby="tr-ola">
     <div class="mapa-cab">
       <div>
         <h1 id="tr-ola">Sua trilha até o <em>teste prático</em></h1>
-        <p class="mapa-sub" id="tr-sub">São 5 paradas curtas, uns 20 minutos no total. Toque na parada que está piscando para começar. No fim, o quiz.</p>
+        <p class="mapa-sub" id="tr-sub">São 5 paradas curtas, uns 20 minutos no total. Toque na parada que está piscando para começar. No fim, você mesmo pede o teste prático.</p>
       </div>
       <div class="anel" aria-live="polite">
         <svg width="58" height="58" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="24" fill="none" stroke="#3A3A3A" stroke-width="6"/><circle id="anel-arco" cx="29" cy="29" r="24" fill="none" stroke="#F5B82E" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8" style="transition: stroke-dashoffset 1s"/></svg>
@@ -256,9 +256,9 @@ button{font:inherit}
     <p class="dica-mapa">Seu progresso fica salvo neste aparelho.</p>
   </section>
 
-  <section id="quiz" class="quiz">
-    <h2>Quiz final: 10 perguntas</h2>
-    <p>Passa com 7 acertos. Você tem 2 tentativas, e as perguntas mudam a cada uma.</p>
+  <section id="teste" class="quiz">
+    <h2>Pronto para o teste prático?</h2>
+    <p>É você quem escolhe a hora. Um cliente simulado vai te chamar no WhatsApp e você atende como se fosse o escritório.</p>
     <div id="qz" class="qz" aria-live="polite"><p style="margin: 0">Carregando…</p></div>
   </section>
 
@@ -418,7 +418,7 @@ window.ORIGEM_PAGINA = "trilha-estagio";
       { tipo: "traduz", t: "Traduzir o processo ==para o cliente==", p: "Você vai consultar o andamento e contar ao cliente o que aconteceu, sem juridiquês e sem prometer prazo. Toque em cada termo:", itens: [["Conclusos para sentença", "\"O processo está com o juiz para ele decidir.\""], ["Réu citado", "\"A empresa (ou o INSS) foi chamada oficialmente para responder.\""], ["Audiência designada", "\"Foi marcada uma audiência para o dia tal.\" E explique se ele participa e como."], ["Perícia agendada", "\"O juiz marcou uma perícia médica.\" Data, local e o que levar."], ["Trânsito em julgado", "\"A decisão é definitiva, não cabe mais recurso.\""], ["RPV expedida", "\"O pagamento foi autorizado. Agora o dinheiro é liberado, o que ainda leva um tempo.\""]], nota: "Regra de ouro: <b>toda novidade importante vira mensagem</b> para o cliente." }
     ] },
     { t: "O teste e a entrega", d: "3 min", ic: "alvo", s: [
-      { tipo: "teste", t: "O teste prático: ==você escolhe a hora==", p: ["Passou no quiz? Toque no botão abaixo (ou mande QUERO FAZER O TESTE no WhatsApp do escritório) e, em poucos minutos, um cliente simulado te chama ali, com áudio, foto de documento e perguntas difíceis.", "Pode ser pelo celular ou pelo computador (WhatsApp Web). Dura de 20 a 40 minutos: escolha um lugar tranquilo."] },
+      { tipo: "teste", t: "O teste prático: ==você escolhe a hora==", p: ["Terminou a trilha? Toque no botão abaixo (ou mande QUERO FAZER O TESTE no WhatsApp do escritório) e, em poucos minutos, um cliente simulado te chama ali, com áudio, foto de documento e perguntas difíceis.", "Pode ser pelo celular ou pelo computador (WhatsApp Web). Dura de 20 a 40 minutos: escolha um lugar tranquilo."] },
       { tipo: "barras", t: "Como ==a nota é feita==", p: "No fim do teste chega um boletim com um comentário em cada critério:", barras: [["Acolhimento e comunicação", 15], ["Entender o caso", 25], ["Documentos", 25], ["Regras do escritório", 25], ["Condução e tempo de resposta", 10]] },
       { tipo: "texto", t: "A entrega escrita: ==48 horas==", p: ["Depois do teste você monta o caso que atendeu: o resumo (NOME x RÉU, o que aconteceu com datas e valores, documentos recebidos e faltantes, perguntas pendentes e viabilidade) e a minuta da petição inicial, em Word ou PDF, pelo WhatsApp.", "Pode e deve usar IA, com responsabilidade. No fim do arquivo, conte em poucas linhas se usou e como: isso conta a seu favor."], nota: "Não existe resposta decorada. A gente procura quem <b>ouve, pergunta o que precisa e não inventa</b> o que não sabe. O resto se ensina." }
     ] }
@@ -453,11 +453,11 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     li.appendChild(b); li.appendChild(r); lista.appendChild(li); nos.push(li);
   });
   var fim = el("li", { "class": "parada final" });
-  var bf = el("button", { type: "button", "class": "no", "aria-label": "Quiz final", html: icone("bandeira") });
-  var rf = el("button", { type: "button", "class": "rot", tabindex: "-1" }, [el("small", { id: "fim-small", text: "Chegada" }), el("strong", { text: "Quiz final" })]);
+  var bf = el("button", { type: "button", "class": "no", "aria-label": "Teste prático", html: icone("bandeira") });
+  var rf = el("button", { type: "button", "class": "rot", tabindex: "-1" }, [el("small", { id: "fim-small", text: "Chegada" }), el("strong", { text: "Teste prático" })]);
   bf.addEventListener("click", irQuiz); rf.addEventListener("click", irQuiz);
   fim.appendChild(bf); fim.appendChild(rf); lista.appendChild(fim); nos.push(fim);
-  function irQuiz() { document.getElementById("quiz").scrollIntoView({ behavior: reduzido ? "auto" : "smooth" }); }
+  function irQuiz() { document.getElementById("teste").scrollIntoView({ behavior: reduzido ? "auto" : "smooth" }); }
 
   function centros() {
     var w = wrap.getBoundingClientRect();
@@ -488,7 +488,7 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     var a = atual(), n = nFeitos();
     nos.forEach(function (li, i) { if (i < MOD.length) { li.classList.toggle("feita", !!feitos[i]); li.classList.toggle("atual", i === a); var sm = li.querySelector(".rot small"); if (sm) sm.innerHTML = (i === a ? MAO + " <b style=\"color:#F5B82E\">" + (n ? "Continue aqui" : "Comece aqui") + "</b> · " : "") + "Parada " + (i + 1) + " · " + MOD[i].d; } });
     fim.classList.toggle("liberada", n === MOD.length); fim.classList.toggle("atual", n === MOD.length);
-    document.getElementById("fim-small").textContent = n === MOD.length ? "Liberado" : "Faltam " + (MOD.length - n) + " paradas";
+    document.getElementById("fim-small").textContent = n === MOD.length ? "Pronto para começar" : "Faltam " + (MOD.length - n) + " paradas";
     document.getElementById("anel-n").textContent = n + " de " + MOD.length;
     document.getElementById("anel-arco").style.strokeDashoffset = 150.8 * (1 - n / MOD.length);
     desenharTrilho();
@@ -594,10 +594,10 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     if (s.tipo === "teste") {
       ps.slice(1).forEach(function (p) { c.appendChild(el("p", { html: marca(p) })); });
       if (VIDEO_TESTE) { var v = el("video", { src: VIDEO_TESTE, poster: VIDEO_CAPA, controls: "", playsinline: "", preload: "none", style: "width:min(100%, 360px, calc(58vh * 9 / 16));aspect-ratio:9/16;border-radius:18px;background:#000;box-shadow:0 12px 30px rgba(26,26,26,.18)" }); v.addEventListener("play", function () { try { if (window.gtag) window.gtag("event", "video_teste_play"); } catch (e) {} }); c.insertBefore(v, c.querySelector("p")); }
-      var pronto = info && info.passou;
+      var pronto = info && info.ok;
       var caixa = el("div", { style: "display:flex;flex-direction:column;gap:8px;align-items:flex-start" });
       if (pronto) { var bw = botaoWa("QUERO FAZER O TESTE", "Quero fazer o teste agora"); bw.classList.add("toque"); bw.insertAdjacentHTML("afterbegin", MAO); caixa.appendChild(bw); }
-      else { caixa.appendChild(el("button", { type: "button", "class": "wa-bt", disabled: "", style: "opacity:.45;cursor:not-allowed", text: "🔒 Quero fazer o teste" })); caixa.appendChild(el("small", { style: "font-size:14px;color:#6B6258", text: token ? "Libera quando você passar no quiz, no fim da trilha." : "Libera para o candidato que passa no quiz." })); }
+      else { caixa.appendChild(el("button", { type: "button", "class": "wa-bt", disabled: "", style: "opacity:.45;cursor:not-allowed", text: "🔒 Quero fazer o teste" })); caixa.appendChild(el("small", { style: "font-size:14px;color:#6B6258", text: "O botão funciona pelo link pessoal que o candidato recebe no WhatsApp." })); }
       c.appendChild(caixa);
     }
     if (s.tipo === "barras") {
@@ -647,107 +647,40 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     })(t0);
   }
 
-  // ---------------------------------------------------------------- quiz
+  // ---------------------------------------------------------------- fim: pedir o teste (22/10: sem quiz)
   var qz = document.getElementById("qz");
-  var info = null;
-  var prova = null, resp = {}, idx = 0;
-  function limpa() { qz.innerHTML = ""; }
-  function msg(t) { limpa(); qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", html: t })); }
+  var info = null, prova = null;
   function botaoWa(texto, rotulo) { return el("a", { "class": "wa-bt", href: "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(texto), target: "_blank", rel: "noopener", "data-candidato": "1" }, [rotulo]); }
   function carregar() {
-    if (!token) { msg("Você está vendo uma <strong>prévia</strong> da trilha. O quiz abre pelo <strong>link pessoal</strong> que chega no WhatsApp logo depois que a ficha é enviada. Já se inscreveu e perdeu o link? Mande qualquer mensagem no WhatsApp do escritório que ele chega de novo."); return; }
+    if (!token) { desenharInicio(); return; }
     fetch(API + "/selecao/quiz?t=" + encodeURIComponent(token), { cache: "no-store" }).then(function (r) { return r.json().then(function (j) { return { st: r.status, j: j }; }); })
       .then(function (x) {
-        if (x.st !== 200) { msg("Este link não é válido ou é de uma inscrição antiga. Use o link mais recente que chegou no seu WhatsApp."); return; }
+        if (x.st !== 200) { info = { ok: false, invalido: true }; desenharInicio(); return; }
         info = x.j;
         if (info.nome) { document.getElementById("tr-ola").innerHTML = esc(info.nome) + ", sua trilha até o <em>teste prático</em>"; }
         desenharInicio();
-      }).catch(function () { msg("Não consegui carregar o quiz agora. Verifique a internet e recarregue a página."); });
+      }).catch(function () { info = null; desenharInicio(); });
   }
   function desenharInicio() {
-    limpa();
-    if (info.passou) {
-      qz.appendChild(el("h3", { "class": "qz-q", text: "Você já passou no quiz: " + info.melhor + " de " + info.total + " 🎉" }));
-      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Próxima etapa: o teste prático, pelo celular ou pelo computador. Quando estiver pronto(a), com uns 40 minutos livres, toque no botão abaixo ou mande QUERO FAZER O TESTE no WhatsApp do escritório." }));
-      qz.appendChild(el("div", {}, [botaoWa("QUERO FAZER O TESTE", "Quero fazer o teste agora")]));
+    qz.innerHTML = "";
+    if (!token || (info && info.invalido)) {
+      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", html: !token ? "Você está vendo uma <strong>prévia</strong> da trilha. O candidato recebe o <strong>link pessoal</strong> no WhatsApp logo depois de enviar a ficha, e é por ele que o botão do teste funciona." : "Este link é de uma inscrição antiga. Use o link mais recente que chegou no seu WhatsApp." }));
       return;
     }
-    if (!info.podeFazer) {
-      qz.appendChild(el("h3", { "class": "qz-q", text: "Suas tentativas do quiz terminaram" }));
-      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Obrigado pela dedicação! O resultado já foi enviado no seu WhatsApp. O material continua aqui para você estudar." }));
+    var etapa = info && info.etapa;
+    if (etapa && etapa !== "estudo" && etapa !== "quiz-ok") {
+      qz.appendChild(el("h3", { "class": "qz-q", text: etapa === "teste" ? "Seu teste prático já começou" : "Você já fez o teste prático" }));
+      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Acompanhe pelo WhatsApp do escritório: é por lá que chegam o cliente simulado, o boletim e as próximas etapas." }));
       return;
     }
     var faltam = MOD.length - nFeitos();
-    qz.appendChild(el("h3", { "class": "qz-q", text: faltam ? "Termine a trilha para liberar o quiz" : "Trilha completa. Bora para o quiz?" }));
-    qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: (faltam ? "Faltam " + faltam + " parada" + (faltam > 1 ? "s" : "") + ". " : "") + info.total + " perguntas; passa com " + info.minimo + " acertos. Tentativa " + (info.tentativas + 1) + " de " + info.max + "." }));
-    var b = el("button", { type: "button", "class": "qz-bt", text: faltam ? "Continuar a trilha" : "Começar o quiz" });
-    b.addEventListener("click", function () { if (faltam) { var a = atual(); abrir(a); } else comecar(); });
-    qz.appendChild(el("div", {}, [b]));
-  }
-  function comecar() {
-    msg("Sorteando as perguntas…");
-    fetch(API + "/selecao/quiz?prova=1&t=" + encodeURIComponent(token), { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) {
-      if (!j.perguntas) { info = j; desenharInicio(); return; }
-      prova = j.perguntas; resp = {}; idx = 0; pergunta();
-    }).catch(function () { msg("Não consegui sortear as perguntas. Recarregue a página."); });
-  }
-  function pergunta() {
-    limpa();
-    var q = prova[idx];
-    var topo = el("div", { style: "display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#6B6258" }, [el("span", { text: "Pergunta " + (idx + 1) + " de " + prova.length })]);
-    if (idx) { var v = el("button", { type: "button", "class": "qz-sec", text: "← Voltar" }); v.addEventListener("click", function () { idx--; pergunta(); }); topo.appendChild(v); }
-    qz.appendChild(topo);
-    qz.appendChild(el("div", { "class": "qz-trilho" }, [el("div", { "class": "qz-barra", style: "width:" + Math.round(idx / prova.length * 100) + "%" })]));
-    var h = el("h3", { "class": "qz-q", tabindex: "-1", text: q.p }); qz.appendChild(h);
-    var l = el("div", { style: "display:flex;flex-direction:column;gap:10px", role: "radiogroup", "aria-label": q.p });
-    q.alt.forEach(function (a) {
-      var b = el("button", { type: "button", "class": "qz-op", "aria-pressed": resp[q.id] === a.id ? "true" : "false" }, [el("span", { "class": "l", text: a.id }), el("span", { text: a.texto })]);
-      b.addEventListener("click", function () {
-        resp[q.id] = a.id;
-        Array.prototype.forEach.call(l.children, function (x) { x.setAttribute("aria-pressed", "false"); }); b.setAttribute("aria-pressed", "true");
-        setTimeout(function () { if (idx < prova.length - 1) { idx++; pergunta(); } else revisar(); }, 260);
-      });
-      l.appendChild(b);
-    });
-    qz.appendChild(l);
-    try { h.focus({ preventScroll: true }); } catch (e) {}
-  }
-  function revisar() {
-    limpa();
-    var faltam = prova.filter(function (q) { return !resp[q.id]; }).length;
-    qz.appendChild(el("h3", { "class": "qz-q", text: faltam ? "Faltam " + faltam + " resposta(s)" : "Tudo respondido!" }));
-    qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: faltam ? "Volte e responda todas antes de enviar." : "Quer conferir alguma? Use o Voltar. Quando estiver seguro(a), envie." }));
-    var acoes = el("div", { style: "display:flex;flex-wrap:wrap;gap:12px;align-items:center" });
-    var e = el("button", { type: "button", "class": "qz-bt", text: "Enviar respostas" }); if (faltam) e.disabled = true; e.addEventListener("click", enviar);
-    var v = el("button", { type: "button", "class": "qz-sec", text: "← Voltar às perguntas" }); v.addEventListener("click", function () { idx = prova.length - 1; pergunta(); });
-    acoes.appendChild(e); acoes.appendChild(v); qz.appendChild(acoes);
-  }
-  function enviar() {
-    msg("Corrigindo…");
-    fetch(API + "/selecao/quiz", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ t: token, respostas: resp }) })
-      .then(function (r) { return r.json(); }).then(resultado).catch(function () { msg("Não consegui enviar. Verifique a internet e tente de novo."); });
-  }
-  function resultado(r) {
-    limpa();
-    if (r.erro) { msg(esc(r.erro)); return; }
-    try { if (window.gtag) window.gtag("event", "quiz_estagio", { acertos: r.acertos, passou: r.passou }); } catch (e) {}
-    qz.appendChild(el("h3", { "class": "qz-q", text: r.passou ? "Você passou: " + r.acertos + " de " + r.total + "! 🎉" : "Você fez " + r.acertos + " de " + r.total }));
-    if (r.passou) {
-      festa();
-      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Próxima etapa: o teste prático, que você começa quando quiser, pelo celular ou pelo computador. Escolha um momento tranquilo, com uns 40 minutos livres, e toque no botão abaixo." }));
-      qz.appendChild(el("div", {}, [botaoWa("QUERO FAZER O TESTE", "Quero fazer o teste agora")]));
-    } else if (r.tentativasRestantes > 0) {
-      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Para passar são " + r.minimo + " acertos. Revise as paradas com calma, principalmente os temas abaixo, e tente de novo (resta " + r.tentativasRestantes + " tentativa). As perguntas mudam." }));
-    } else {
-      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Desta vez não deu. Obrigado pela dedicação! Abaixo estão as respostas certas, para você estudar." }));
-    }
-    var l = el("div", { style: "display:flex;flex-direction:column;gap:8px" });
-    (r.itens || []).forEach(function (i) {
-      if (!r.passou && r.tentativasRestantes > 0 && i.acertou) return;
-      l.appendChild(el("div", { "class": "qz-item " + (i.acertou ? "ok" : "err") }, [el("strong", { text: (i.acertou ? "✓ " : "✕ ") + i.p }), i.certa ? el("div", { style: "margin-top:4px", text: "Resposta: " + i.certa }) : null, i.explicacao ? el("div", { style: "margin-top:4px;color:#5A5248", text: i.explicacao }) : null]));
-    });
-    if (l.children.length) { qz.appendChild(el("h4", { style: "margin:6px 0 0;font-family:Montserrat,sans-serif", text: r.passou ? "Confira as explicações" : "Temas para revisar" })); qz.appendChild(l); }
-    if (!r.passou && r.tentativasRestantes > 0) { var b = el("button", { type: "button", "class": "qz-sec", text: "Voltar ao mapa ↑" }); b.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduzido ? "auto" : "smooth" }); }); qz.appendChild(b); info = Object.assign({}, info, { tentativas: (info.tentativas || 0) + 1 }); prova = null; }
+    qz.appendChild(el("h3", { "class": "qz-q", text: faltam ? "Termine a trilha e peça o seu teste" : "Trilha completa! Bora para o teste?" }));
+    qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: (faltam ? "Faltam " + faltam + " parada" + (faltam > 1 ? "s" : "") + ". " : "") + "Quando estiver pronto(a), com uns 40 minutos livres (pelo celular ou pelo computador), toque no botão. O cliente simulado te chama no WhatsApp em poucos minutos." }));
+    var bw = botaoWa("QUERO FAZER O TESTE", "Quero fazer o teste agora");
+    if (!faltam) { bw.classList.add("toque"); bw.insertAdjacentHTML("afterbegin", MAO); }
+    var linha = el("div", { style: "display:flex;flex-wrap:wrap;gap:12px;align-items:center" }, [bw]);
+    if (faltam) { var cont = el("button", { type: "button", "class": "qz-sec", text: "Continuar a trilha" }); cont.addEventListener("click", function () { abrir(atual()); }); linha.appendChild(cont); }
+    qz.appendChild(linha);
   }
 
   atualizarMapa();
