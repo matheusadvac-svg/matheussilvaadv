@@ -23,6 +23,8 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     alvo: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
     bandeira: '<path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/>'
   };
+  var MAO = '<span class="mao" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10h.5V8.5a1.5 1.5 0 0 1 3 0V10h.5V9.5a1.5 1.5 0 0 1 3 0v4.8c0 3.7-2.6 6.7-6.2 6.7h-.6a6 6 0 0 1-4.8-2.4l-3-4a1.5 1.5 0 0 1 2.3-1.9L9 14.5z"/></svg></span>';
+  function selo(t) { var s = document.createElement("span"); s.className = "selo-toque"; s.innerHTML = MAO + t; return s; }
   function icone(n) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[n] + "</svg>"; }
 
   // ---------------------------------------------------------------- conteúdo (==texto== = marca-texto)
@@ -143,7 +145,7 @@ window.ORIGEM_PAGINA = "trilha-estagio";
   }
   function atualizarMapa() {
     var a = atual(), n = nFeitos();
-    nos.forEach(function (li, i) { if (i < MOD.length) { li.classList.toggle("feita", !!feitos[i]); li.classList.toggle("atual", i === a); } });
+    nos.forEach(function (li, i) { if (i < MOD.length) { li.classList.toggle("feita", !!feitos[i]); li.classList.toggle("atual", i === a); var sm = li.querySelector(".rot small"); if (sm) sm.innerHTML = (i === a ? MAO + " <b style=\"color:#F5B82E\">" + (n ? "Continue aqui" : "Comece aqui") + "</b> · " : "") + "Parada " + (i + 1) + " · " + MOD[i].d; } });
     fim.classList.toggle("liberada", n === MOD.length); fim.classList.toggle("atual", n === MOD.length);
     document.getElementById("fim-small").textContent = n === MOD.length ? "Liberado" : "Faltam " + (MOD.length - n) + " paradas";
     document.getElementById("anel-n").textContent = n + " de " + MOD.length;
@@ -211,7 +213,7 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     if (s.tipo === "pergunta") {
       var z2 = el("div", { "class": "zap" });
       z2.appendChild(el("div", { "class": "bolha cli" }, [el("small", { text: "Cliente" }), s.cli]));
-      var ver = el("button", { type: "button", "class": "ver", text: "Ver como o escritório responde" });
+      var ver = el("button", { type: "button", "class": "ver toque", html: MAO + "Toque para ver como o escritório responde" });
       ver.addEventListener("click", function () { ver.remove(); z2.appendChild(el("div", { "class": "bolha esc" }, [el("small", { text: "Você, pelo escritório" }), s.esc])); });
       z2.appendChild(ver); c.appendChild(z2);
     }
@@ -221,7 +223,8 @@ window.ORIGEM_PAGINA = "trilha-estagio";
         var b = el("button", { type: "button", "class": "carta", "aria-pressed": "false" }, [el("div", { "class": "carta-in" }, [
           el("div", { "class": "carta-f" }, [el("b", { text: "✕ Assim não" }), ca[0], el("i", { text: "toque para virar" })]),
           el("div", { "class": "carta-v" }, [el("b", { text: "✓ Assim sim" }), ca[1], el("i", { text: "toque para voltar" })])])]);
-        b.addEventListener("click", function () { var v = b.classList.toggle("virada"); b.setAttribute("aria-pressed", v ? "true" : "false"); });
+        b.classList.add("toque"); b.appendChild(selo("toque"));
+        b.addEventListener("click", function () { var v = b.classList.toggle("virada"); b.setAttribute("aria-pressed", v ? "true" : "false"); b.classList.remove("toque"); var sl = b.querySelector(".selo-toque"); if (sl) sl.remove(); });
         g.appendChild(b);
       });
       c.appendChild(g);
@@ -230,7 +233,8 @@ window.ORIGEM_PAGINA = "trilha-estagio";
       var tg = el("div", { "class": "traduz" });
       s.itens.forEach(function (it) {
         var b = el("button", { type: "button", "class": "tr-bt", "aria-expanded": "false" }, [el("small", { text: "No sistema aparece" }), el("span", { text: it[0] })]);
-        b.addEventListener("click", function () { var ab = !b.classList.contains("aberto"); b.classList.toggle("aberto", ab); b.setAttribute("aria-expanded", ab ? "true" : "false"); b.firstChild.textContent = ab ? "Para o cliente" : "No sistema aparece"; b.lastChild.textContent = ab ? it[1] : it[0]; });
+        b.classList.add("toque"); var sl = selo("toque"); b.appendChild(sl);
+        b.addEventListener("click", function () { b.classList.remove("toque"); if (sl.parentNode) sl.remove(); var ab = !b.classList.contains("aberto"); b.classList.toggle("aberto", ab); b.setAttribute("aria-expanded", ab ? "true" : "false"); b.children[0].textContent = ab ? "Para o cliente" : "No sistema aparece"; b.children[1].textContent = ab ? it[1] : it[0]; });
         tg.appendChild(b);
       });
       c.appendChild(tg);
@@ -290,7 +294,7 @@ window.ORIGEM_PAGINA = "trilha-estagio";
   function msg(t) { limpa(); qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", html: t })); }
   function botaoWa(texto, rotulo) { return el("a", { "class": "wa-bt", href: "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(texto), target: "_blank", rel: "noopener", "data-candidato": "1" }, [rotulo]); }
   function carregar() {
-    if (!token) { msg("O quiz abre pelo <strong>link pessoal</strong> que você recebe no WhatsApp do escritório depois de enviar a ficha. Ainda não se inscreveu? <a href=\"trabalhe-conosco.html\">Preencha a ficha aqui</a>."); return; }
+    if (!token) { msg("Você está vendo uma <strong>prévia</strong> da trilha. O quiz abre pelo <strong>link pessoal</strong> que chega no WhatsApp logo depois que a ficha é enviada. Já se inscreveu e perdeu o link? Mande qualquer mensagem no WhatsApp do escritório que ele chega de novo."); return; }
     fetch(API + "/selecao/quiz?t=" + encodeURIComponent(token), { cache: "no-store" }).then(function (r) { return r.json().then(function (j) { return { st: r.status, j: j }; }); })
       .then(function (x) {
         if (x.st !== 200) { msg("Este link não é válido ou é de uma inscrição antiga. Use o link mais recente que chegou no seu WhatsApp."); return; }

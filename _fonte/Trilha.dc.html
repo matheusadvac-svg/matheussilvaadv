@@ -95,7 +95,18 @@ button{font:inherit}
 .bolha.esc{align-self:flex-end;background:#D9FDD3;border-top-right-radius:0}
 .bolha small{display:block;font-size:12px;font-weight:700;color:#5A7A66;margin-bottom:2px}
 .bolha.cli small{color:#A50D26}
-.ver{align-self:flex-end;border:none;cursor:pointer;background:var(--preto);color:#FFFFFF;border-radius:999px;padding:9px 14px;font-weight:700;font-size:14px}
+.ver{align-self:flex-end;border:none;cursor:pointer;background:var(--vermelho);color:#FFFFFF;border-radius:999px;padding:13px 20px;font-weight:800;font-size:15px;display:inline-flex;align-items:center;gap:10px}
+/* "toque aqui": anel pulsando + mãozinha batendo; some depois do primeiro toque */
+.toque{position:relative;animation:anelToque 1.8s ease-out infinite}
+@keyframes anelToque{0%{box-shadow:0 0 0 0 rgba(200,16,46,.55)}70%{box-shadow:0 0 0 14px rgba(200,16,46,0)}100%{box-shadow:0 0 0 0 rgba(200,16,46,0)}}
+.mao{display:inline-flex;width:22px;height:22px;flex:none;animation:bate 1.2s ease-in-out infinite;transform-origin:50% 80%}
+.mao svg{width:22px;height:22px}
+@keyframes bate{0%,100%{transform:translateY(0) scale(1)}45%{transform:translateY(-3px) scale(1)}60%{transform:translateY(1px) scale(.88)}}
+.selo-toque{position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;gap:6px;background:var(--vermelho);color:#FFFFFF;border-radius:999px;padding:5px 10px 5px 8px;font-size:12px;font-weight:800;z-index:2;pointer-events:none}
+.selo-toque .mao,.selo-toque .mao svg{width:16px;height:16px}
+.carta.toque,.tr-bt.toque{animation:anelToque 1.8s ease-out infinite;border-radius:18px}
+.tr-bt{position:relative}
+.parada .rot small .mao{color:var(--grifo);width:16px;height:16px;vertical-align:-3px}.parada .rot small .mao svg{width:16px;height:16px}
 /* cartas que viram */
 .cartas{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
 .carta{perspective:900px;border:none;background:none;padding:0;cursor:pointer;min-height:150px;text-align:left}
@@ -111,6 +122,7 @@ button{font:inherit}
 .tr-bt{border:none;cursor:pointer;text-align:left;border-radius:16px;padding:14px 16px;background:var(--preto);color:#FFFFFF;font-size:16px;line-height:1.45;min-height:88px;display:flex;flex-direction:column;gap:6px;transition:background .3s,color .3s}
 .tr-bt small{font-size:12px;opacity:.7;font-weight:700}
 .tr-bt.aberto{background:#D9FDD3;color:#111B21}
+.tr-bt .selo-toque{background:#FFFFFF;color:var(--vermelho)}
 /* barras da nota */
 .barras{display:flex;flex-direction:column;gap:10px}
 .barra{display:grid;grid-template-columns:minmax(150px,240px) 1fr 40px;align-items:center;gap:12px;font-size:15px}
