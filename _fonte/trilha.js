@@ -8,7 +8,8 @@ window.ORIGEM_PAGINA = "trilha-estagio";
   var NUMERO = "5568999993427";
   var token = ""; try { token = new URLSearchParams(location.search).get("t") || ""; } catch (e) {}
   var CHAVE = "trilha-v2";
-  var VIDEO_TESTE = ""; // ex.: "assets/video-teste-pratico.mp4" — quando o vídeo tutorial ficar pronto
+  var VIDEO_TESTE = "assets/video-teste-pratico.mp4"; // vídeo tutorial do teste prático (22/10/2026)
+  var VIDEO_CAPA = "assets/video-teste-pratico-capa.jpg";
   var reduzido = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // ---------------------------------------------------------------- ícones
@@ -243,7 +244,7 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     }
     if (s.tipo === "teste") {
       ps.slice(1).forEach(function (p) { c.appendChild(el("p", { html: marca(p) })); });
-      if (VIDEO_TESTE) { var v = el("video", { src: VIDEO_TESTE, controls: "", playsinline: "", preload: "metadata", style: "width:100%;max-width:420px;border-radius:18px;background:#000" }); c.insertBefore(v, c.querySelector("p")); }
+      if (VIDEO_TESTE) { var v = el("video", { src: VIDEO_TESTE, poster: VIDEO_CAPA, controls: "", playsinline: "", preload: "none", style: "width:min(100%, 360px, calc(58vh * 9 / 16));aspect-ratio:9/16;border-radius:18px;background:#000;box-shadow:0 12px 30px rgba(26,26,26,.18)" }); v.addEventListener("play", function () { try { if (window.gtag) window.gtag("event", "video_teste_play"); } catch (e) {} }); c.insertBefore(v, c.querySelector("p")); }
       var pronto = info && info.passou;
       var caixa = el("div", { style: "display:flex;flex-direction:column;gap:8px;align-items:flex-start" });
       if (pronto) { var bw = botaoWa("QUERO FAZER O TESTE", "Quero fazer o teste agora"); bw.classList.add("toque"); bw.insertAdjacentHTML("afterbegin", MAO); caixa.appendChild(bw); }
