@@ -8,6 +8,7 @@ window.ORIGEM_PAGINA = "trilha-estagio";
   var NUMERO = "5568999993427";
   var token = ""; try { token = new URLSearchParams(location.search).get("t") || ""; } catch (e) {}
   var CHAVE = "trilha-v2";
+  var VIDEO_TESTE = ""; // ex.: "assets/video-teste-pratico.mp4" — quando o vídeo tutorial ficar pronto
   var reduzido = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // ---------------------------------------------------------------- ícones
@@ -32,7 +33,8 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     { t: "Sua função no escritório", d: "4 min", ic: "pasta", s: [
       { tipo: "texto", t: "Aqui o estágio é ==advocacia de verdade==", p: ["O escritório é 100% digital: os clientes chegam pelo WhatsApp, de todo o Acre, com problemas reais de trabalho, de INSS e de consumo.", "Você vai estar na linha de frente."] },
       { tipo: "lista", t: "No dia a dia, você vai", itens: [["Atender as situações reais", " que chegam no WhatsApp e saber desenrolar: entender o caso e indicar o caminho."], ["Organizar a documentação", " de cada cliente: pedir, conferir, ler e guardar no lugar certo."], ["Consultar processos", " nos sistemas dos tribunais e do INSS."], ["Passar informações aos clientes", " em linguagem simples."], ["Montar o caso", ": o resumo e a minuta da petição inicial, que o Dr. Matheus revisa com você."]] },
-      { tipo: "texto", t: "O que um advogado faz, ==com supervisão==", p: ["As ferramentas (WhatsApp, sistema de atendimento, sistemas dos tribunais, Meu INSS, assinatura eletrônica e inteligência artificial) a gente ensina a usar."], nota: "O que a gente espera de você: <b>ouvir e escrever com clareza</b>, cuidado com datas e valores, <b>sigilo</b> sobre tudo o que o cliente conta e honestidade: quando não souber, diga que vai confirmar." }
+      { tipo: "texto", t: "O que um advogado faz, ==com supervisão==", p: ["As ferramentas (WhatsApp, sistema de atendimento, sistemas dos tribunais, Meu INSS, assinatura eletrônica e inteligência artificial) a gente ensina a usar."], nota: "O que a gente espera de você: <b>ouvir e escrever com clareza</b>, cuidado com datas e valores, <b>sigilo</b> sobre tudo o que o cliente conta e honestidade: quando não souber, diga que vai confirmar." },
+      { tipo: "texto", t: "Inteligência artificial: ==ferramenta de trabalho==", p: ["Aqui a IA faz parte do dia a dia: ajuda a ler documentos, organizar o caso e escrever a primeira versão das peças.", "Quem sabe usar bem a IA rende muito mais. É esse estagiário que a gente procura."], nota: "Usar com responsabilidade é: <b>dar à IA as informações certas</b>, <b>conferir tudo o que ela devolve</b> (datas, valores, nomes, leis) e <b>nunca usar um julgado sem conferir na fonte oficial</b>. Dados de clientes reais só nas ferramentas do escritório." },
     ] },
     { t: "As regras do escritório", d: "4 min", ic: "regra", s: [
       { tipo: "lista", t: "Seis regras que valem ==em todo atendimento==", numerada: true, itens: [["100% digital.", " Sem recepção nem endereço para visita. Tudo pelo WhatsApp, inclusive a assinatura, pelo celular."], ["Honorários só no êxito.", " Nada adiantado. Se ganhar, 35% do que receber. No INSS mensal: 35% dos atrasados + uma parcela na implantação. Não se negocia."], ["Nunca prometa resultado, valor ou prazo.", " Nem \"com certeza\", nem \"dá uns dez mil\", nem \"o dobro\"."]] },
@@ -77,9 +79,9 @@ window.ORIGEM_PAGINA = "trilha-estagio";
       { tipo: "traduz", t: "Toque no termo e ==veja a tradução==", itens: [["Conclusos para sentença", "\"O processo está com o juiz para ele decidir.\""], ["Réu citado", "\"A empresa (ou o INSS) foi chamada oficialmente para responder.\""], ["Audiência designada", "\"Foi marcada uma audiência para o dia tal.\" E explique se ele participa e como."], ["Perícia agendada", "\"O juiz marcou uma perícia médica.\" Data, local e o que levar."], ["Trânsito em julgado", "\"A decisão é definitiva, não cabe mais recurso.\""], ["RPV expedida", "\"O pagamento foi autorizado. Agora o dinheiro é liberado, o que ainda leva um tempo.\""]] }
     ] },
     { t: "O teste e a entrega", d: "3 min", ic: "alvo", s: [
-      { tipo: "texto", t: "O teste prático: ==você escolhe a hora==", p: ["Passou no quiz? Mande QUERO FAZER O TESTE no WhatsApp do escritório. Em poucos minutos, um cliente simulado te chama ali, com áudio, foto torta de documento e perguntas difíceis.", "Dura de 20 a 40 minutos. Faça no computador, num lugar tranquilo. Você conduz; o cliente só responde o que for perguntado."] },
+      { tipo: "teste", t: "O teste prático: ==você escolhe a hora==", p: ["Passou no quiz? É você quem decide a hora. Toque no botão abaixo (ou mande QUERO FAZER O TESTE no WhatsApp do escritório) e, em poucos minutos, um cliente simulado te chama ali, com áudio, foto de documento e perguntas difíceis.", "Pode fazer pelo celular, no próprio WhatsApp, ou pelo computador, no WhatsApp Web. Dura de 20 a 40 minutos: escolha um lugar tranquilo. Você conduz; o cliente só responde o que for perguntado."] },
       { tipo: "barras", t: "Como ==a nota é feita==", p: "No fim do teste chega um boletim com um comentário em cada critério:", barras: [["Acolhimento e comunicação", 15], ["Entender o caso", 25], ["Documentos", 25], ["Regras do escritório", 25], ["Condução e tempo de resposta", 10]] },
-      { tipo: "texto", t: "A entrega escrita: ==48 horas==", p: ["Depois do teste você monta o caso que atendeu: o resumo (título NOME x RÉU, o que aconteceu com datas e valores, documentos recebidos e faltantes, perguntas pendentes e viabilidade) e a minuta da petição inicial.", "Em Word ou PDF, pelo WhatsApp. Pode pesquisar e usar inteligência artificial, mas confira tudo: dado inventado ou jurisprudência que não existe tira muitos pontos."], nota: "Não existe resposta decorada. A gente procura quem <b>ouve, pergunta o que precisa e não inventa</b> o que não sabe. O resto se ensina." }
+      { tipo: "texto", t: "A entrega escrita: ==48 horas==", p: ["Depois do teste você monta o caso que atendeu: o resumo (título NOME x RÉU, o que aconteceu com datas e valores, documentos recebidos e faltantes, perguntas pendentes e viabilidade) e a minuta da petição inicial, em Word ou PDF, pelo WhatsApp.", "Pode e deve usar inteligência artificial, com responsabilidade: confira tudo, porque dado inventado ou jurisprudência que não existe tira muitos pontos. No fim do arquivo, conte em poucas linhas se usou IA e como (qual ferramenta, o que pediu, o que conferiu). Isso conta a seu favor."], nota: "Não existe resposta decorada. A gente procura quem <b>ouve, pergunta o que precisa e não inventa</b> o que não sabe. O resto se ensina." },
     ] }
   ];
 
@@ -239,6 +241,15 @@ window.ORIGEM_PAGINA = "trilha-estagio";
       });
       c.appendChild(tg);
     }
+    if (s.tipo === "teste") {
+      ps.slice(1).forEach(function (p) { c.appendChild(el("p", { html: marca(p) })); });
+      if (VIDEO_TESTE) { var v = el("video", { src: VIDEO_TESTE, controls: "", playsinline: "", preload: "metadata", style: "width:100%;max-width:420px;border-radius:18px;background:#000" }); c.insertBefore(v, c.querySelector("p")); }
+      var pronto = info && info.passou;
+      var caixa = el("div", { style: "display:flex;flex-direction:column;gap:8px;align-items:flex-start" });
+      if (pronto) { var bw = botaoWa("QUERO FAZER O TESTE", "Quero fazer o teste agora"); bw.classList.add("toque"); bw.insertAdjacentHTML("afterbegin", MAO); caixa.appendChild(bw); }
+      else { caixa.appendChild(el("button", { type: "button", "class": "wa-bt", disabled: "", style: "opacity:.45;cursor:not-allowed", text: "🔒 Quero fazer o teste" })); caixa.appendChild(el("small", { style: "font-size:14px;color:#6B6258", text: token ? "Libera quando você passar no quiz, no fim da trilha." : "Libera para o candidato que passa no quiz." })); }
+      c.appendChild(caixa);
+    }
     if (s.tipo === "barras") {
       var bx = el("div", { "class": "barras" });
       s.barras.forEach(function (br, k) {
@@ -307,7 +318,7 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     limpa();
     if (info.passou) {
       qz.appendChild(el("h3", { "class": "qz-q", text: "Você já passou no quiz: " + info.melhor + " de " + info.total + " 🎉" }));
-      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Próxima etapa: o teste prático. Quando estiver pronto(a), com uns 40 minutos livres e no computador, mande QUERO FAZER O TESTE no WhatsApp do escritório." }));
+      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Próxima etapa: o teste prático, pelo celular ou pelo computador. Quando estiver pronto(a), com uns 40 minutos livres, toque no botão abaixo ou mande QUERO FAZER O TESTE no WhatsApp do escritório." }));
       qz.appendChild(el("div", {}, [botaoWa("QUERO FAZER O TESTE", "Quero fazer o teste agora")]));
       return;
     }
@@ -373,7 +384,7 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     qz.appendChild(el("h3", { "class": "qz-q", text: r.passou ? "Você passou: " + r.acertos + " de " + r.total + "! 🎉" : "Você fez " + r.acertos + " de " + r.total }));
     if (r.passou) {
       festa();
-      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Próxima etapa: o teste prático, que você começa quando quiser. Escolha um momento tranquilo, com uns 40 minutos livres e no computador, e mande QUERO FAZER O TESTE no WhatsApp do escritório." }));
+      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Próxima etapa: o teste prático, que você começa quando quiser, pelo celular ou pelo computador. Escolha um momento tranquilo, com uns 40 minutos livres, e toque no botão abaixo." }));
       qz.appendChild(el("div", {}, [botaoWa("QUERO FAZER O TESTE", "Quero fazer o teste agora")]));
     } else if (r.tentativasRestantes > 0) {
       qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Para passar são " + r.minimo + " acertos. Revise as paradas com calma, principalmente os temas abaixo, e tente de novo (resta " + r.tentativasRestantes + " tentativa). As perguntas mudam." }));
