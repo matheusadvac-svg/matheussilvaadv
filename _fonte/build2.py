@@ -25,7 +25,7 @@ BLOBS = {
  '7f81d3258c03038e44f423d440530a61': 'assets/consumidor-loop.mp4',
  'be706d8f623e4914e4f686fc9319fe4b': 'assets/consumidor-poster.jpg',
 }
-PAGES_HREF = {'Site.dc.html': './', 'Empresas.dc.html': 'empresas.html', 'Privacidade.dc.html': 'privacidade.html', 'Trabalhe.dc.html': 'trabalhe-conosco.html'}
+PAGES_HREF = {'Site.dc.html': './', 'Empresas.dc.html': 'empresas.html', 'Privacidade.dc.html': 'privacidade.html', 'Trabalhe.dc.html': 'trabalhe-conosco.html', 'Trilha.dc.html': 'trilha-estagio.html'}
 
 def common(body, holes):
     for k, v in holes.items():
@@ -60,7 +60,7 @@ def faq_ld(out):
     ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": limpa(q), "acceptedAnswer": {"@type": "Answer", "text": limpa(a)}} for q, a in pares]}
     return out.replace('</head>', '<script type="application/ld+json">' + _j.dumps(ld, ensure_ascii=False) + '</script>\n</head>', 1)
 
-def page(dc, path, title, desc, holes, body_fix=None, extra_js='', assistente=True):
+def page(dc, path, title, desc, holes, body_fix=None, extra_js='', assistente=True, noindex=False):
     html = rd(os.path.join(PROJ, dc))
     helmet = re.search(r'<helmet>(.*?)</helmet>', html, re.S).group(1)
     style = re.search(r'<style>(.*?)</style>', helmet, re.S).group(1)
@@ -78,6 +78,7 @@ def page(dc, path, title, desc, holes, body_fix=None, extra_js='', assistente=Tr
     assert out.count('<div') == out.count('</div>'), (dc, out.count('<div'), out.count('</div>'))
     fn = path or 'index.html'
     out = faq_ld(out)
+    if noindex: out = out.replace('</head>', '<meta name="robots" content="noindex">\n</head>', 1)
     open(os.path.join(OUT, fn), 'w', encoding='utf-8').write(out)
     print('ok', fn, len(out))
 
@@ -132,3 +133,9 @@ page('Trabalhe.dc.html', 'trabalhe-conosco.html', 'Estágio em Direito — traba
      'Estágio em Direito 100% remoto no escritório Matheus Silva Advogado (Rio Branco/AC): atendimento de clientes pelo WhatsApp e montagem de casos, turno da manhã ou da tarde. Preencha a ficha e envie pelo WhatsApp.',
      {'waVaga': wa('Olá! Vi no site que vocês estão com processo seletivo de estágio em Direito e tenho interesse.')},
      None, rd(os.path.join(ROOT, 'trabalhe.js')), assistente=False)
+
+# ---------- trilha de estudo do estágio (22/10/2026) ----------
+# Módulos + quiz pelo link pessoal (?t=TOKEN) enviado pelo robô; o quiz é sorteado e corrigido no middleware (selecao.js).
+page('Trilha.dc.html', 'trilha-estagio.html', 'Trilha de estudo do estágio · Matheus Silva Advogado',
+     'Material de estudo do processo seletivo de estágio do escritório Matheus Silva Advogado.',
+     {}, None, rd(os.path.join(ROOT, 'trilha.js')), assistente=False, noindex=True)

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Trilha de estudo do estágio — Matheus Silva Advogado</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5EBD9}
+a{color:#A50D26}a:hover{color:#1A1A1A}
+button{font:inherit}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.in{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.tr-mod{background:#FFFDF9;border-radius:22px;box-sizing:border-box;border:2px solid transparent;transition:border-color .3s}
+.tr-mod.lido{border-color:#BFE7CB}
+.tr-mod summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;padding:22px 26px}
+.tr-mod summary::-webkit-details-marker{display:none}
+.tr-n{flex:none;width:44px;height:44px;border-radius:14px;background:#1A1A1A;color:#FFFFFF;font-family:Montserrat,sans-serif;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center}
+.tr-mod.lido .tr-n{background:#1F9D55}
+.tr-tit{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.tr-tit strong{font-family:Montserrat,sans-serif;font-weight:800;font-size:19px;line-height:1.25;color:#1A1A1A}
+.tr-tit span{font-size:14px;color:#6B6258}
+.tr-seta{flex:none;transition:transform .3s;color:#C8102E}
+.tr-mod[open] .tr-seta{transform:rotate(180deg)}
+.tr-corpo{padding:0 26px 26px 86px;font-size:16.5px;line-height:1.65;color:#3A352E;display:flex;flex-direction:column;gap:12px}
+.tr-corpo h4{margin:10px 0 0;font-family:Montserrat,sans-serif;font-weight:800;font-size:17px;color:#1A1A1A}
+.tr-corpo p{margin:0}
+.tr-corpo ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.tr-caixa{background:#FAF3E7;border-radius:14px;padding:14px 16px}
+.tr-alerta{background:#FFF5F6;border-left:4px solid #C8102E;border-radius:10px;padding:12px 14px}
+.tr-par{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tr-ruim,.tr-bom{border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5}
+.tr-ruim{background:#FBE7EA}.tr-bom{background:#E3F6E8}
+.tr-ruim b,.tr-bom b{display:block;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.tr-ruim b{color:#A50D26}.tr-bom b{color:#137A3E}
+.tr-frase{border-left:3px solid #C8102E;padding:2px 0 2px 12px}
+.tr-frase i{color:#6B6258}
+.tr-tab{width:100%;border-collapse:collapse;font-size:15px}
+.tr-tab th{background:#0F1830;color:#FFFFFF;text-align:left;padding:8px 10px;font-size:13px}
+.tr-tab td{border-bottom:1px solid #EADFCB;padding:8px 10px;vertical-align:top}
+.tr-lido{align-self:flex-start;border:none;cursor:pointer;background:#1A1A1A;color:#FFFFFF;font-weight:800;font-size:15px;padding:12px 20px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;margin-top:6px}
+.tr-mod.lido .tr-lido{background:#1F9D55}
+/* quiz */
+.qz{max-width:760px;width:100%;margin:0 auto;background:#FAF3E7;border-radius:24px;padding:30px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px}
+.qz [hidden]{display:none !important}
+.qz-trilho{height:6px;border-radius:999px;background:#EADFCB;overflow:hidden}
+.qz-barra{height:100%;width:0;background:#C8102E;transition:width .4s}
+.qz-q{margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(19px,2.6vw,24px);line-height:1.3;outline:none}
+.qz-op{width:100%;border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:16px;padding:14px 16px;text-align:left;font-size:16px;line-height:1.45;color:#1A1A1A;cursor:pointer;display:flex;gap:12px;align-items:flex-start;transition:border-color .2s,background .2s}
+.qz-op:hover{border-color:#1A1A1A}
+.qz-op .l{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid #D4C6AE;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;text-transform:uppercase}
+.qz-op[aria-pressed=true]{background:#1A1A1A;border-color:#1A1A1A;color:#FFFFFF}
+.qz-op[aria-pressed=true] .l{background:#FFFFFF;color:#1A1A1A;border-color:#FFFFFF}
+.qz-bt{border:none;cursor:pointer;background:#1A1A1A;color:#FFFFFF;font-weight:800;font-size:16px;padding:14px 24px;border-radius:999px;min-height:50px}
+.qz-bt:disabled{opacity:.35;cursor:not-allowed}
+.qz-bt.verm{background:#C8102E}
+.qz-sec{border:none;background:none;font-weight:700;font-size:15px;cursor:pointer;color:#1A1A1A;padding:8px 0}
+.qz-item{background:#FFFFFF;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5}
+.qz-item.ok{border-left:4px solid #1F9D55}.qz-item.err{border-left:4px solid #C8102E}
+.wa-bt{border:none;cursor:pointer;background:#25D366;color:#052E16;font-weight:800;font-size:17px;padding:15px 24px;border-radius:999px;min-height:52px;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+@media (max-width:640px){
+  .bloco{padding:26px 18px !important}
+  .tr-mod summary{padding:18px 16px;gap:12px}
+  .tr-corpo{padding:0 16px 20px 16px}
+  .tr-par{grid-template-columns:1fr}
+  .qz{padding:22px 16px}
+  .tr-tab{font-size:14px}
+}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div style="background: #F5EBD9; color: #1A1A1A; font-family: 'DM Sans', system-ui, sans-serif; padding: 20px 0 40px; overflow-x: hidden">
+<div style="max-width: 980px; margin: 0 auto; padding: 0 16px; display: flex; flex-direction: column; gap: 14px">
+
+  <header class="in" style="background: #FFFDF9; border-radius: 20px; padding: 12px 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px">
+    <a href="Site.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1A1A1A">
+      <img src="/_blob/6af05ed5745c66733b2e6e9619297c5c" alt="" style="width: 46px; height: 46px; border-radius: 12px; object-fit: contain; background: #0A0510; padding: 5px; box-sizing: border-box">
+      <span style="display: flex; flex-direction: column; line-height: 1.2">
+        <span style="font-family: Montserrat, sans-serif; font-weight: 800; font-size: 17px">Matheus Silva</span>
+        <span style="font-size: 13px; color: #5A5248">Trilha de estudo do estágio</span>
+      </span>
+    </a>
+    <a href="#quiz" style="background: #1A1A1A; color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 12px 18px; border-radius: 999px; font-size: 15px">Ir para o quiz</a>
+  </header>
+
+  <section class="in bloco" style="background: #0F1830; color: #FFFFFF; border-radius: 28px; padding: 44px 48px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+    <span style="font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #F5B82E">Etapa 2 do processo seletivo</span>
+    <h1 id="tr-ola" style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); line-height: 1.08">Trilha de estudo do estágio</h1>
+    <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9CEDB; max-width: 680px">Aqui está o que você precisa saber para atender como o escritório atende. Leia os módulos com calma, na ordem, e marque cada um como lido. No fim tem um <strong style="color: #FFFFFF">quiz de 10 perguntas</strong>: passa com 7 acertos, e você tem 2 tentativas.</p>
+    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 520px">
+      <div style="display: flex; justify-content: space-between; font-size: 14px; color: #C9CEDB"><span>Seu progresso</span><span id="tr-prog-txt">0 de 9 módulos</span></div>
+      <div style="height: 8px; border-radius: 999px; background: #24304F; overflow: hidden"><div id="tr-prog" style="height: 100%; width: 0; background: #F5B82E; border-radius: 999px; transition: width .4s"></div></div>
+    </div>
+  </section>
+
+  <div id="tr-mods" style="display: flex; flex-direction: column; gap: 10px">
+
+    <details class="tr-mod" data-mod="1">
+      <summary><span class="tr-n">1</span><span class="tr-tit"><strong>Sua função no escritório</strong><span>O que você vai fazer de verdade no dia a dia · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="tr-corpo">
+        <p>Aqui o estágio é <strong>prática da advocacia</strong>. O escritório é 100% digital: os clientes chegam pelo WhatsApp, de todo o Acre, com problemas reais de trabalho, de INSS e de consumo. Você vai estar na linha de frente.</p>
+        <h4>No dia a dia, você vai</h4>
+        <ul>
+          <li><strong>Atender as situações reais que chegam no WhatsApp</strong> e saber desenrolar: entender o que aconteceu, o que a pessoa precisa e qual é o caminho.</li>
+          <li><strong>Organizar a documentação</strong> de cada cliente: pedir, conferir, ler e guardar no lugar certo.</li>
+          <li><strong>Consultar processos</strong> nos sistemas dos tribunais e do INSS e acompanhar o que mudou.</li>
+          <li><strong>Passar informações aos clientes</strong> em linguagem simples: o que aconteceu no processo e qual é o próximo passo.</li>
+          <li><strong>Montar o caso</strong>: o resumo e a minuta da petição inicial, que o Dr. Matheus revisa com você.</li>
+        </ul>
+        <div class="tr-caixa">Em resumo: você faz o que um advogado faz no dia a dia, com a supervisão do Dr. Matheus. As ferramentas (WhatsApp, sistema de atendimento, sistemas dos tribunais, Meu INSS, assinatura eletrônica e inteligência artificial) a gente ensina a usar.</div>
+        <h4>O que a gente espera de você</h4>
+        <ul>
+          <li>Saber ouvir e escrever com clareza, sem juridiquês.</li>
+          <li>Cuidado com detalhe: datas, valores e nomes certos.</li>
+          <li><strong>Sigilo.</strong> Tudo o que o cliente conta é protegido pelo sigilo profissional e pela LGPD. Nada sai da conversa.</li>
+          <li>Honestidade: quando não souber, diga que vai confirmar. Nunca invente.</li>
+        </ul>
+        <button type="button" class="tr-lido">Marcar como lido</button>
+      </div>
+    </details>
+
+    <details class="tr-mod" data-mod="2">
+      <summary><span class="tr-n">2</span><span class="tr-tit"><strong>As regras do escritório</strong><span>Seis regras que valem em todo atendimento · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="tr-corpo">
+        <p><strong>1. Atendimento 100% digital.</strong> Não há recepção nem endereço para visita. Tudo acontece pelo WhatsApp, inclusive a assinatura dos documentos, pelo celular. Se o cliente quiser "passar aí", explique com naturalidade que o escritório funciona assim.</p>
+        <p><strong>2. Honorários só no êxito.</strong> O cliente não paga nada adiantado: nem consulta, nem taxa. Se ganhar, o escritório recebe 35% do que ele receber. No INSS, quando é benefício mensal: 35% dos atrasados mais uma parcela do benefício quando ele for implantado. <strong>O percentual não se negocia no atendimento.</strong></p>
+        <p><strong>3. Nunca prometa resultado, valor ou prazo.</strong> Nem "com certeza você ganha", nem "dá uns dez mil", nem "sai em três meses", nem "o dobro".</p>
+        <p><strong>4. Uma pergunta por vez.</strong> Mensagem curta, linguagem simples. Quatro perguntas numa mensagem fazem o cliente responder uma e esquecer as outras.</p>
+        <p><strong>5. Um documento por vez.</strong> Peça, espere chegar, <strong>abra e leia</strong>, e só então peça o próximo. Muita informação já está dentro do documento.</p>
+        <p><strong>6. Na dúvida, não invente.</strong> "Vou confirmar isso com o Dr. Matheus e te retorno" é uma resposta profissional; chutar lei, prazo ou valor não é.</p>
+        <div class="tr-alerta"><strong>O que reprova na hora:</strong> prometer resultado, valor ou prazo · pedir pagamento adiantado · negociar honorários · passar endereço ou marcar presencial · dizer que não ouve áudio · inventar lei ou prazo · grosseria · sumir no meio do atendimento.</div>
+        <button type="button" class="tr-lido">Marcar como lido</button>
+      </div>
+    </details>
+
+    <details class="tr-mod" data-mod="3">
+      <summary><span class="tr-n">3</span><span class="tr-tit"><strong>Como conduzir um atendimento</strong><span>Da primeira mensagem ao fechamento · 6 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="tr-corpo">
+        <h4>1. Abertura: acalmar antes de perguntar</h4>
+        <p>Cumprimente, diga seu nome e que é do escritório, e mostre que leu o que a pessoa escreveu. Quem chega já está preocupado.</p>
+        <p class="tr-frase"><i>"Bom dia! Aqui é a Ana, do escritório Matheus Silva Advocacia. Vi que você foi demitido e não recebeu nada, sinto muito. Vou te ajudar a organizar isso. Posso te fazer algumas perguntas?"</i></p>
+        <h4>2. Entender o caso</h4>
+        <p>Antes de falar em documento ou honorário, descubra <strong>o que aconteceu, quando e contra quem</strong>. Deixe a pessoa contar e depois preencha os buracos, uma pergunta por vez. Três perguntas valem em qualquer área:</p>
+        <ul><li><strong>Quando foi?</strong> A data define o prazo, e prazo não se perde.</li><li><strong>Já tem advogado nesse caso?</strong> Se tiver, o escritório não atua por cima do colega.</li><li><strong>Tem algum papel disso?</strong> Documento vale mais que memória.</li></ul>
+        <h4>3. O cadastro que precisa sair da conversa</h4>
+        <p>Nome completo, CPF, RG, data de nascimento, estado civil, profissão, nome da mãe, endereço com CEP e e-mail. Peça ao longo da conversa, nunca como formulário despejado de uma vez.</p>
+        <h4>4. Documentos</h4>
+        <p>O cliente manda foto do papel, muitas vezes torta ou escura. <strong>Abra e leia toda foto.</strong> Se não der para ler: "consegue tirar outra foto com o papel inteiro?". Comprovante de residência tem que estar no nome do cliente; se vier no nome da mãe ou do locador, peça outro ou uma declaração de residência.</p>
+        <h4>5. Fechamento</h4>
+        <p class="tr-frase"><i>"Com isso eu já consigo montar o seu caso. Vou organizar tudo e o escritório te retorna por aqui. Se lembrar de mais alguma coisa, é só me mandar."</i></p>
+        <h4>Ruim × bom</h4>
+        <div class="tr-par"><div class="tr-ruim"><b>Ruim</b>"Qual seu nome completo, CPF, data de admissão, salário e endereço?"</div><div class="tr-bom"><b>Bom</b>"Pra começar, qual é o seu nome completo?"</div></div>
+        <div class="tr-par"><div class="tr-ruim"><b>Ruim</b>"Isso aí é verba rescisória do art. 477 com multa do 467."</div><div class="tr-bom"><b>Bom</b>"Pelo que você contou, a empresa ficou te devendo os valores da saída. Vou te ajudar a organizar isso."</div></div>
+        <div class="tr-par"><div class="tr-ruim"><b>Ruim</b>"Não consigo ouvir áudio, escreve aí."</div><div class="tr-bom"><b>Bom</b>(ouve o áudio) "Entendi, você trabalhava das 7h às 19h. E tinha intervalo para almoço?"</div></div>
+        <button type="button" class="tr-lido">Marcar como lido</button>
+      </div>
+    </details>
+
+    <details class="tr-mod" data-mod="4">
+      <summary><span class="tr-n">4</span><span class="tr-tit"><strong>Trabalhista</strong><span>O que perguntar, o que pedir e o que muda o caso · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="tr-corpo">
+        <table class="tr-tab"><tr><th style="width:52%">O que descobrir</th><th>Documentos</th></tr>
+        <tr><td>Se saiu ou continua na empresa e o último dia · se a carteira era assinada e desde quando · função e último salário · se recebeu as verbas da saída · nome, CNPJ e endereço da empresa · horário real e intervalo · se havia ponto · se o FGTS era depositado · se tirava férias · testemunhas</td><td>RG e CPF · <strong>carteira de trabalho em PDF do app Carteira de Trabalho Digital</strong> · contracheques · extrato do FGTS (app) · termo de rescisão, se houver · prints de conversas com o patrão · comprovante de residência</td></tr></table>
+        <div class="tr-caixa"><strong>Carteira de trabalho:</strong> só serve o PDF do aplicativo. Foto da carteira de papel não substitui. Se a pessoa não souber gerar, ensine o passo a passo.</div>
+        <h4>Detalhes que mudam o caso</h4>
+        <ul><li>Jornada maior que a do papel (horas extras, intervalo cortado).</li><li>FGTS parado há meses.</li><li>Carteira sem baixa e saída "verbal", sem termo de rescisão.</li><li>O CNPJ e o endereço da empresa costumam estar <strong>no contracheque</strong>: leia antes de perguntar.</li><li>Prazo: a ação pode ser proposta até 2 anos depois da saída. Data de saída é sempre uma das primeiras perguntas.</li></ul>
+        <button type="button" class="tr-lido">Marcar como lido</button>
+      </div>
+    </details>
+
+    <details class="tr-mod" data-mod="5">
+      <summary><span class="tr-n">5</span><span class="tr-tit"><strong>Previdenciário (INSS)</strong><span>Benefício negado, BPC/LOAS e salário-maternidade · 5 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="tr-corpo">
+        <table class="tr-tab"><tr><th style="width:52%">O que descobrir</th><th>Documentos</th></tr>
+        <tr><td>Qual benefício e <strong>quem é o titular</strong> (às vezes quem fala não é quem tem o direito) · se foi negado, quando e por quê · datas do pedido, da perícia e da negativa · se tem laudo · quem mora na casa e quanto cada um ganha · se o CadÚnico está atualizado · acesso ao gov.br · se já tem advogado</td><td><strong>Laudo médico, sempre o primeiro</strong> · carta de indeferimento · documentos do titular e de quem o representa · comprovante de residência · folha do CadÚnico · relatórios de escola e terapias · CPF e senha do gov.br, <strong>explicando para que serve</strong></td></tr></table>
+        <div class="tr-caixa"><strong>Benefício negado é ação judicial.</strong> Quando o INSS nega, o escritório entra direto na Justiça Federal. Recurso administrativo demora e raramente muda o resultado. Só fale dele se o cliente perguntar, com delicadeza.</div>
+        <h4>Casos que chegam muito</h4>
+        <ul>
+          <li><strong>BPC/LOAS:</strong> benefício assistencial para pessoa com deficiência ou idosa de baixa renda. Quando é para uma criança, o titular é a criança; a mãe ou o pai é o representante.</li>
+          <li><strong>Salário-maternidade:</strong> pode ser da trabalhadora com carteira, da desempregada, da que contribui por conta própria ou da trabalhadora rural. Gestante desempregada: <strong>nunca diga "não tem direito"</strong> e <strong>nunca mande pagar guia sozinha</strong>. O escritório analisa e orienta o caminho.</li>
+          <li><strong>Senha do gov.br:</strong> peça explicando que é para consultar o processo e os dados no Meu INSS. Senha de banco, nunca.</li>
+        </ul>
+        <button type="button" class="tr-lido">Marcar como lido</button>
+      </div>
+    </details>
+
+    <details class="tr-mod" data-mod="6">
+      <summary><span class="tr-n">6</span><span class="tr-tit"><strong>Consumidor</strong><span>Voo, bagagem, cobrança e nome negativado · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="tr-corpo">
+        <table class="tr-tab"><tr><th style="width:52%">O que descobrir</th><th>Documentos</th></tr>
+        <tr><td>Qual empresa, o que foi contratado e quanto custou · o que aconteceu e quando · quanto a pessoa gastou por causa do problema e se guardou as notas · se perdeu algum compromisso e se dá para provar · se reclamou na empresa e o que responderam · protocolos</td><td>RG e CPF · comprovante da compra (no voo, o <strong>e-ticket ou a reserva</strong>, não "o contrato") · notas dos gastos · prints e protocolos · provas do prejuízo (convites, fotos) · comprovante de residência</td></tr></table>
+        <ul>
+          <li><strong>Voo nacional:</strong> valem o Código de Defesa do Consumidor e a Resolução 400 da ANAC. A Convenção de Montreal é para voo internacional.</li>
+          <li><strong>Bagagem:</strong> peça o RIB (registro de irregularidade de bagagem) e quantos dias a mala demorou.</li>
+          <li><strong>Dano moral não é automático.</strong> O que pesa são as circunstâncias concretas: horas sem assistência, compromisso perdido, constrangimento. Por isso pergunte e registre os detalhes.</li>
+          <li>Reclamar na ANAC ou no consumidor.gov.br antes <strong>não é obrigatório</strong> para entrar na Justiça.</li>
+        </ul>
+        <button type="button" class="tr-lido">Marcar como lido</button>
+      </div>
+    </details>
+
+    <details class="tr-mod" data-mod="7">
+      <summary><span class="tr-n">7</span><span class="tr-tit"><strong>As situações difíceis</strong><span>As perguntas que todo cliente faz · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="tr-corpo">
+        <p class="tr-frase"><i>"Quanto eu vou receber?"</i><br>Não dá para dizer valor agora: depende dos documentos e do cálculo. Assim que o escritório analisar, a gente dá uma posição com pé no chão.</p>
+        <p class="tr-frase"><i>"Quanto vocês cobram? Estou sem dinheiro."</i><br>Você não paga nada agora. O escritório só recebe se ganhar: 35% no final. Se perder, não deve nada.</p>
+        <p class="tr-frase"><i>"Posso passar aí no escritório?"</i><br>Nosso atendimento é todo digital, por aqui mesmo, inclusive a assinatura, pelo celular. Assim você não perde o dia de trabalho.</p>
+        <p class="tr-frase"><i>"Vocês têm certeza que eu ganho?"</i><br>Garantia ninguém pode dar, e desconfie de quem der. O seu caso vai ser analisado com atenção.</p>
+        <p class="tr-frase"><i>"Como sei que vocês não são golpe?"</i><br>Pode conferir a inscrição do Dr. Matheus Oliveira Silva, OAB/AC 5292, no site da OAB e as avaliações do escritório no Google. E repare: ninguém do escritório pede pagamento adiantado.</p>
+        <p class="tr-frase"><i>"Quanto tempo demora?"</i><br>Prazo depende da Justiça e ninguém honesto crava data. O que se garante é avisar cada movimentação.</p>
+        <h4>E quando...</h4>
+        <ul><li><strong>o cliente desabafa</strong> (briga em casa, medo, choro): acolha em uma frase sincera e volte ao caso com delicadeza.</li><li><strong>outra pessoa digita por ele</strong>: tudo bem, mas o cliente continua sendo quem tem o direito.</li><li><strong>manda tudo de uma vez</strong>: agradeça, leia tudo e diga o que ainda falta, uma coisa por vez.</li></ul>
+        <button type="button" class="tr-lido">Marcar como lido</button>
+      </div>
+    </details>
+
+    <details class="tr-mod" data-mod="8">
+      <summary><span class="tr-n">8</span><span class="tr-tit"><strong>Acompanhar processos e dar notícias</strong><span>Traduzir o "juridiquês" para o cliente · 3 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="tr-corpo">
+        <p>Parte do trabalho é consultar o andamento dos processos e contar ao cliente o que aconteceu, em linguagem simples, sem prometer prazo nem resultado.</p>
+        <table class="tr-tab"><tr><th style="width:45%">No sistema aparece</th><th>Para o cliente</th></tr>
+        <tr><td>Conclusos para sentença</td><td>"O processo está com o juiz para ele decidir."</td></tr>
+        <tr><td>Citação / réu citado</td><td>"A empresa (ou o INSS) foi chamada oficialmente para responder."</td></tr>
+        <tr><td>Audiência designada</td><td>"Foi marcada uma audiência para o dia tal." E explique se ele precisa participar e como.</td></tr>
+        <tr><td>Perícia agendada</td><td>"O juiz marcou uma perícia médica." Data, local e o que levar.</td></tr>
+        <tr><td>Trânsito em julgado</td><td>"A decisão é definitiva, não cabe mais recurso."</td></tr>
+        <tr><td>RPV expedida</td><td>"O pagamento foi autorizado. Agora é a fase de o dinheiro ser liberado, o que ainda leva um tempo."</td></tr></table>
+        <div class="tr-caixa">Regra de ouro: toda novidade importante vira mensagem para o cliente, e ninguém fica sem resposta.</div>
+        <button type="button" class="tr-lido">Marcar como lido</button>
+      </div>
+    </details>
+
+    <details class="tr-mod" data-mod="9">
+      <summary><span class="tr-n">9</span><span class="tr-tit"><strong>Como são o teste prático e a entrega escrita</strong><span>O que vem depois do quiz · 3 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="tr-corpo">
+        <h4>Teste prático</h4>
+        <p>Quando você passar no quiz, é você quem decide a hora. Mande <strong>QUERO FAZER O TESTE</strong> no WhatsApp do escritório e, em poucos minutos, um <strong>cliente simulado</strong> vai te chamar ali. Ele se comporta como gente de verdade: manda áudio, foto torta de documento e faz perguntas difíceis. Atenda como se você fosse o escritório.</p>
+        <ul><li>Dura de 20 a 40 minutos. Faça no computador, num lugar tranquilo.</li><li>Você conduz; o cliente só responde o que for perguntado.</li><li>No fim chega um boletim com a sua nota e um comentário em cada critério.</li></ul>
+        <p>O que conta na nota: acolhimento e comunicação (15) · entender o caso (25) · documentos (25) · regras do escritório (25) · condução, fechamento e tempo de resposta (10).</p>
+        <h4>Entrega escrita</h4>
+        <p>Depois do teste você monta o caso que atendeu: <strong>o resumo</strong> (título NOME x RÉU, o que aconteceu com datas e valores, documentos recebidos e faltantes, perguntas pendentes e viabilidade) e <strong>a minuta da petição inicial</strong>. Prazo de 48 horas, em Word ou PDF, mandado pelo WhatsApp. Pode pesquisar e usar inteligência artificial, mas confira tudo: dado inventado ou jurisprudência que não existe tira muitos pontos.</p>
+        <div class="tr-caixa">Não existe resposta decorada. A gente procura quem ouve, pergunta o que precisa e não inventa o que não sabe. O resto se ensina.</div>
+        <button type="button" class="tr-lido">Marcar como lido</button>
+      </div>
+    </details>
+  </div>
+
+  <section id="quiz" class="bloco" style="background: #FFFDF9; border-radius: 28px; padding: 44px 48px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box; scroll-margin-top: 16px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C8102E">Quiz final</span>
+      <h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.1">10 perguntas sobre a trilha</h2>
+      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #5A5248">Passa com 7 acertos. Você tem 2 tentativas. As perguntas mudam a cada tentativa.</p>
+    </div>
+    <div id="qz" class="qz" aria-live="polite"><p style="margin: 0">Carregando…</p></div>
+  </section>
+
+  <footer style="background: #FFFDF9; border-radius: 20px; padding: 18px 26px; font-size: 13px; line-height: 1.6; color: #5A5248">Matheus Silva – Sociedade Individual de Advocacia · OAB/AC 5292 · material do processo seletivo de estágio · <a href="Privacidade.dc.html">Política de privacidade</a></footer>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5200}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

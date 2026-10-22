@@ -256,4 +256,15 @@ window.ORIGEM_PAGINA = "trabalhe-conosco";
     if (d && d.R && d.atual && passo(d.atual)) { R = d.R; pilha = d.pilha || []; ir(d.atual); return; }
   } catch (e) {}
   ir("direito");
+
+  // inscrições abertas/encerradas: o Dr. Matheus liga e desliga no painel do robô
+  try {
+    fetch("https://claude-kommo-middleware-production.up.railway.app/selecao/inscricoes", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) {
+      if (j && j.abertas === false) {
+        raiz.hidden = true; raiz.style.display = "none";
+        var f = document.getElementById("fx-fechado"); if (f) { f.hidden = false; f.style.display = "flex"; }
+        Array.prototype.forEach.call(document.querySelectorAll('a[href="#ficha"]'), function (a) { a.textContent = "Inscrições encerradas"; });
+      }
+    }).catch(function () {});
+  } catch (e) {}
 })();
