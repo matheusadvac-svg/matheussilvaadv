@@ -11,259 +11,212 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#F5EBD9}
-a{color:#A50D26}a:hover{color:#1A1A1A}
+:root{--preto:#1A1A1A;--vermelho:#C8102E;--vinho:#5E0716;--creme:#F5EBD9;--papel:#FFFDF9;--grifo:#F5B82E;--tinta:#3A352E;--sub:#6B6258}
+body{margin:0;background:var(--creme);font-family:'DM Sans',system-ui,sans-serif}
+.player,.quiz,.qz{font-family:'DM Sans',system-ui,sans-serif}
+a{color:#A50D26}a:hover{color:var(--preto)}
 button{font:inherit}
-@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.in{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
-.tr-mod{background:#FFFDF9;border-radius:22px;box-sizing:border-box;border:2px solid transparent;transition:border-color .3s}
-.tr-mod.lido{border-color:#BFE7CB}
-.tr-mod summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;padding:22px 26px}
-.tr-mod summary::-webkit-details-marker{display:none}
-.tr-n{flex:none;width:44px;height:44px;border-radius:14px;background:#1A1A1A;color:#FFFFFF;font-family:Montserrat,sans-serif;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center}
-.tr-mod.lido .tr-n{background:#1F9D55}
-.tr-tit{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.tr-tit strong{font-family:Montserrat,sans-serif;font-weight:800;font-size:19px;line-height:1.25;color:#1A1A1A}
-.tr-tit span{font-size:14px;color:#6B6258}
-.tr-seta{flex:none;transition:transform .3s;color:#C8102E}
-.tr-mod[open] .tr-seta{transform:rotate(180deg)}
-.tr-corpo{padding:0 26px 26px 86px;font-size:16.5px;line-height:1.65;color:#3A352E;display:flex;flex-direction:column;gap:12px}
-.tr-corpo h4{margin:10px 0 0;font-family:Montserrat,sans-serif;font-weight:800;font-size:17px;color:#1A1A1A}
-.tr-corpo p{margin:0}
-.tr-corpo ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
-.tr-caixa{background:#FAF3E7;border-radius:14px;padding:14px 16px}
-.tr-alerta{background:#FFF5F6;border-left:4px solid #C8102E;border-radius:10px;padding:12px 14px}
-.tr-par{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tr-ruim,.tr-bom{border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5}
-.tr-ruim{background:#FBE7EA}.tr-bom{background:#E3F6E8}
-.tr-ruim b,.tr-bom b{display:block;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.tr-ruim b{color:#A50D26}.tr-bom b{color:#137A3E}
-.tr-frase{border-left:3px solid #C8102E;padding:2px 0 2px 12px}
-.tr-frase i{color:#6B6258}
-.tr-tab{width:100%;border-collapse:collapse;font-size:15px}
-.tr-tab th{background:#0F1830;color:#FFFFFF;text-align:left;padding:8px 10px;font-size:13px}
-.tr-tab td{border-bottom:1px solid #EADFCB;padding:8px 10px;vertical-align:top}
-.tr-lido{align-self:flex-start;border:none;cursor:pointer;background:#1A1A1A;color:#FFFFFF;font-weight:800;font-size:15px;padding:12px 20px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;margin-top:6px}
-.tr-mod.lido .tr-lido{background:#1F9D55}
-/* quiz */
-.qz{max-width:760px;width:100%;margin:0 auto;background:#FAF3E7;border-radius:24px;padding:30px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px}
-.qz [hidden]{display:none !important}
+[hidden]{display:none !important}
+.grifo{background-image:linear-gradient(104deg,rgba(245,184,46,0) 0,rgba(245,184,46,.6) 2%,rgba(245,184,46,.45) 96%,rgba(245,184,46,0) 100%);background-repeat:no-repeat;background-size:0% 40%;background-position:0 88%;padding:0 .08em;margin:0 -.08em;border-radius:.12em;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size .9s cubic-bezier(.6,0,.2,1) .35s}
+.grifo.on{background-size:100% 40%}
+
+/* ---------- mapa (herói) ---------- */
+.mapa{background:var(--preto);color:#FFFFFF;border-radius:28px;padding:40px 36px 28px;box-sizing:border-box;position:relative;overflow:hidden}
+.mapa-cab{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;position:relative;z-index:1}
+.mapa h1{margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(28px,4.4vw,46px);line-height:1.06;letter-spacing:-1px;max-width:620px}
+.mapa h1 em{font-style:normal;color:var(--grifo)}
+.mapa-sub{margin:10px 0 0;font-size:16px;line-height:1.55;color:#D9D4CC;max-width:560px}
+.anel{flex:none;display:flex;align-items:center;gap:12px;font-size:14px;color:#D9D4CC}
+.anel svg{transform:rotate(-90deg)}
+.anel b{display:block;font-family:Montserrat,sans-serif;font-size:22px;color:#FFFFFF}
+.trilho-wrap{position:relative;margin-top:26px}
+.trilho-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.trilho-base{fill:none;stroke:#3A3A3A;stroke-width:4;stroke-dasharray:2 10;stroke-linecap:round}
+.trilho-feito{fill:none;stroke:var(--vermelho);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(.6,0,.2,1)}
+.paradas{list-style:none;margin:0;padding:0;position:relative;display:grid;grid-template-columns:1fr;row-gap:14px}
+.parada{display:grid;grid-template-columns:1fr 150px 1fr;column-gap:20px;align-items:center;width:100%}
+.parada .no{grid-column:2;grid-row:1}
+.parada:nth-child(odd) .no{justify-self:start}
+.parada:nth-child(even) .no{justify-self:end}
+.parada:nth-child(odd) .rot{grid-column:1;grid-row:1;justify-self:end;text-align:right;align-items:flex-end}
+.parada:nth-child(even) .rot{grid-column:3;grid-row:1;justify-self:start;text-align:left}
+.no{flex:none;position:relative;width:64px;height:64px;border-radius:50%;border:3px solid #4A4A4A;background:var(--preto);color:#BDB6AB;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .25s,border-color .3s,background .3s,color .3s}
+.no:hover{transform:scale(1.06)}
+.no:focus-visible{outline:3px solid var(--grifo);outline-offset:4px}
+.no svg{width:28px;height:28px}
+.parada.feita .no{background:var(--vermelho);border-color:var(--vermelho);color:#FFFFFF}
+.parada.atual .no{border-color:var(--grifo);color:#FFFFFF}
+.parada.atual .no::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid var(--grifo);animation:pulso 2.2s ease-out infinite}
+@keyframes pulso{0%{transform:scale(.85);opacity:.9}100%{transform:scale(1.25);opacity:0}}
+.parada .rot{display:flex;flex-direction:column;gap:2px;cursor:pointer;background:none;border:none;color:inherit;text-align:inherit;padding:0}
+.parada .rot small{font-size:13px;color:#9E968A}
+.parada .rot strong{font-family:Montserrat,sans-serif;font-weight:700;font-size:17px;line-height:1.25;color:#FFFFFF}
+.parada.feita .rot small{color:#E7A3AE}
+.parada.final .no{width:72px;height:72px;border-color:var(--grifo);color:var(--grifo)}
+.parada.final.liberada .no{background:var(--grifo);color:var(--preto)}
+.dica-mapa{margin:20px 0 0;font-size:14px;color:#9E968A;text-align:center}
+
+/* ---------- player (tela cheia) ---------- */
+.player{position:fixed;inset:0;z-index:50;background:var(--creme);display:flex;flex-direction:column;animation:abre .35s cubic-bezier(.2,.7,.2,1) both}
+@keyframes abre{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.pl-topo{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--preto);color:#FFFFFF}
+.pl-fechar{border:none;background:#2E2E2E;color:#FFFFFF;border-radius:999px;padding:9px 14px;font-weight:700;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.pl-fechar:focus-visible,.pl-bt:focus-visible{outline:3px solid var(--grifo);outline-offset:2px}
+.pl-tit{flex:1;min-width:0;font-size:14px;color:#D9D4CC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-tit b{color:#FFFFFF;font-family:Montserrat,sans-serif}
+.pl-barras{display:flex;gap:5px;padding:12px 18px 0;max-width:820px;width:100%;margin:0 auto;box-sizing:border-box}
+.pl-barras span{flex:1;height:5px;border-radius:999px;background:#E2D6C2;overflow:hidden}
+.pl-barras span i{display:block;height:100%;width:0;background:var(--vermelho);transition:width .4s}
+.pl-palco{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pl-slide{max-width:820px;margin:0 auto;padding:28px 22px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px}
+.pl-slide.vai{animation:vai .4s cubic-bezier(.2,.7,.2,1) both}
+.pl-slide.vem{animation:vem .4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vai{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes vem{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+.pl-ic{width:64px;height:64px;border-radius:20px;background:var(--vermelho);color:#FFFFFF;display:flex;align-items:center;justify-content:center}
+.pl-ic svg{width:32px;height:32px}
+.pl-slide h2{margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(26px,4.2vw,40px);line-height:1.1;letter-spacing:-.5px;color:var(--preto)}
+.pl-slide p{margin:0;font-size:18px;line-height:1.6;color:var(--tinta);max-width:64ch}
+.pl-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.pl-lista li{display:flex;gap:14px;align-items:flex-start;background:var(--papel);border-radius:16px;padding:14px 16px;font-size:17px;line-height:1.5;color:var(--tinta);opacity:0;animation:item .45s cubic-bezier(.2,.7,.2,1) forwards}
+.pl-lista li b{color:var(--preto)}
+.pl-lista li .mk{flex:none;width:28px;height:28px;border-radius:50%;background:var(--preto);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;font-family:Montserrat,sans-serif}
+.pl-lista.nao li .mk{background:var(--vermelho)}
+@keyframes item{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pl-nota{background:var(--preto);color:#FFFFFF;border-radius:18px;padding:18px 20px;font-size:17px;line-height:1.55}
+.pl-nota b{color:var(--grifo)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{background:var(--papel);border:1.5px solid #E2D6C2;border-radius:999px;padding:9px 14px;font-size:15px;color:var(--preto)}
+.chips span.forte{background:var(--vermelho);border-color:var(--vermelho);color:#FFFFFF;font-weight:700}
+/* conversa estilo WhatsApp */
+.zap{background:#ECE5DD;border-radius:20px;padding:18px 14px;display:flex;flex-direction:column;gap:10px}
+.bolha{max-width:86%;padding:10px 13px;border-radius:12px;font-size:16px;line-height:1.5;color:#111B21;box-shadow:0 1px 1px rgba(0,0,0,.08);animation:item .4s cubic-bezier(.2,.7,.2,1) both}
+.bolha.cli{align-self:flex-start;background:#FFFFFF;border-top-left-radius:0}
+.bolha.esc{align-self:flex-end;background:#D9FDD3;border-top-right-radius:0}
+.bolha small{display:block;font-size:12px;font-weight:700;color:#5A7A66;margin-bottom:2px}
+.bolha.cli small{color:#A50D26}
+.ver{align-self:flex-end;border:none;cursor:pointer;background:var(--preto);color:#FFFFFF;border-radius:999px;padding:9px 14px;font-weight:700;font-size:14px}
+/* cartas que viram */
+.cartas{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.carta{perspective:900px;border:none;background:none;padding:0;cursor:pointer;min-height:150px;text-align:left}
+.carta-in{position:relative;width:100%;height:100%;min-height:150px;transition:transform .6s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d}
+.carta.virada .carta-in{transform:rotateY(180deg)}
+.carta-f,.carta-v{position:absolute;inset:0;border-radius:18px;padding:16px;box-sizing:border-box;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.45}
+.carta-f{background:#FBE7EA;color:var(--vinho)}
+.carta-v{background:#E3F6E8;color:#0B4D25;transform:rotateY(180deg)}
+.carta-f b,.carta-v b{font-family:Montserrat,sans-serif;font-size:13px}
+.carta-f i,.carta-v i{margin-top:auto;font-size:13px;opacity:.7;font-style:normal}
+/* tradutor */
+.traduz{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.tr-bt{border:none;cursor:pointer;text-align:left;border-radius:16px;padding:14px 16px;background:var(--preto);color:#FFFFFF;font-size:16px;line-height:1.45;min-height:88px;display:flex;flex-direction:column;gap:6px;transition:background .3s,color .3s}
+.tr-bt small{font-size:12px;opacity:.7;font-weight:700}
+.tr-bt.aberto{background:#D9FDD3;color:#111B21}
+/* barras da nota */
+.barras{display:flex;flex-direction:column;gap:10px}
+.barra{display:grid;grid-template-columns:minmax(150px,240px) 1fr 40px;align-items:center;gap:12px;font-size:15px}
+.barra .t{height:12px;border-radius:999px;background:#E2D6C2;overflow:hidden}
+.barra .t i{display:block;height:100%;width:0;background:var(--vermelho);border-radius:999px;transition:width 1s cubic-bezier(.6,0,.2,1)}
+.barra b{font-family:Montserrat,sans-serif;text-align:right}
+.pl-rodape{border-top:1px solid #E2D6C2;background:var(--papel)}
+.pl-rodape-in{max-width:820px;margin:0 auto;padding:14px 22px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pl-bt{border:none;cursor:pointer;border-radius:999px;padding:14px 22px;font-weight:800;font-size:16px;min-height:50px}
+.pl-bt.seg{background:var(--vermelho);color:#FFFFFF}
+.pl-bt.vol{background:none;color:var(--preto);padding-left:4px}
+.pl-bt.vol:disabled{visibility:hidden}
+.pl-pos{font-size:14px;color:var(--sub);white-space:nowrap}
+.pl-bt{white-space:nowrap}
+.festa{position:fixed;inset:0;pointer-events:none;z-index:60}
+
+/* ---------- quiz ---------- */
+.quiz{background:var(--vermelho);color:#FFFFFF;border-radius:28px;padding:40px 36px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px;scroll-margin-top:16px}
+.quiz h2{margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(26px,3.6vw,38px);line-height:1.1}
+.quiz>p{margin:0;font-size:16px;line-height:1.6;color:#FBE7EA;max-width:60ch}
+.qz{max-width:760px;width:100%;background:var(--papel);color:var(--preto);border-radius:22px;padding:28px;box-sizing:border-box;display:flex;flex-direction:column;gap:16px}
 .qz-trilho{height:6px;border-radius:999px;background:#EADFCB;overflow:hidden}
-.qz-barra{height:100%;width:0;background:#C8102E;transition:width .4s}
+.qz-barra{height:100%;width:0;background:var(--vermelho);transition:width .4s}
 .qz-q{margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(19px,2.6vw,24px);line-height:1.3;outline:none}
-.qz-op{width:100%;border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:16px;padding:14px 16px;text-align:left;font-size:16px;line-height:1.45;color:#1A1A1A;cursor:pointer;display:flex;gap:12px;align-items:flex-start;transition:border-color .2s,background .2s}
-.qz-op:hover{border-color:#1A1A1A}
+.qz-op{width:100%;border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:16px;padding:14px 16px;text-align:left;font-size:16px;line-height:1.45;color:var(--preto);cursor:pointer;display:flex;gap:12px;align-items:flex-start;transition:border-color .2s,background .2s}
+.qz-op:hover{border-color:var(--preto)}
 .qz-op .l{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid #D4C6AE;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;text-transform:uppercase}
-.qz-op[aria-pressed=true]{background:#1A1A1A;border-color:#1A1A1A;color:#FFFFFF}
-.qz-op[aria-pressed=true] .l{background:#FFFFFF;color:#1A1A1A;border-color:#FFFFFF}
-.qz-bt{border:none;cursor:pointer;background:#1A1A1A;color:#FFFFFF;font-weight:800;font-size:16px;padding:14px 24px;border-radius:999px;min-height:50px}
+.qz-op[aria-pressed=true]{background:var(--preto);border-color:var(--preto);color:#FFFFFF}
+.qz-op[aria-pressed=true] .l{background:#FFFFFF;color:var(--preto);border-color:#FFFFFF}
+.qz-bt{border:none;cursor:pointer;background:var(--vermelho);color:#FFFFFF;font-weight:800;font-size:16px;padding:14px 24px;border-radius:999px;min-height:50px}
 .qz-bt:disabled{opacity:.35;cursor:not-allowed}
-.qz-bt.verm{background:#C8102E}
-.qz-sec{border:none;background:none;font-weight:700;font-size:15px;cursor:pointer;color:#1A1A1A;padding:8px 0}
-.qz-item{background:#FFFFFF;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5}
-.qz-item.ok{border-left:4px solid #1F9D55}.qz-item.err{border-left:4px solid #C8102E}
+.qz-sec{border:none;background:none;font-weight:700;font-size:15px;cursor:pointer;color:var(--preto);padding:8px 0}
+.qz-item{background:#FAF3E7;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5}
+.qz-item.ok{border-left:4px solid #1F9D55}.qz-item.err{border-left:4px solid var(--vermelho)}
 .wa-bt{border:none;cursor:pointer;background:#25D366;color:#052E16;font-weight:800;font-size:17px;padding:15px 24px;border-radius:999px;min-height:52px;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+
 @media (max-width:640px){
-  .bloco{padding:26px 18px !important}
-  .tr-mod summary{padding:18px 16px;gap:12px}
-  .tr-corpo{padding:0 16px 20px 16px}
-  .tr-par{grid-template-columns:1fr}
-  .qz{padding:22px 16px}
-  .tr-tab{font-size:14px}
+  .mapa{padding:28px 18px 20px;border-radius:22px}
+  .parada{grid-template-columns:92px 1fr;column-gap:12px}
+  .parada .no{grid-column:1}
+  .parada:nth-child(odd) .rot,.parada:nth-child(even) .rot{grid-column:2;justify-self:start;text-align:left;align-items:flex-start}
+  .no{width:56px;height:56px}
+  .parada.final .no{width:62px;height:62px;justify-self:start}
+  .pl-bt{padding:13px 18px;font-size:15px}
+  .pl-rodape-in{padding:12px 16px}
+  .pl-slide{padding:22px 18px 32px}
+  .pl-slide p{font-size:17px}
+  .barra{grid-template-columns:1fr 40px}
+  .barra .t{grid-column:1/-1;grid-row:2}
+  .quiz{padding:28px 18px;border-radius:22px}
+  .qz{padding:20px 16px}
 }
-@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.pl-lista li{opacity:1}.grifo{background-size:100% 40%}}
 </style>
 </helmet>
-<div style="background: #F5EBD9; color: #1A1A1A; font-family: 'DM Sans', system-ui, sans-serif; padding: 20px 0 40px; overflow-x: hidden">
+<div style="background: var(--creme); color: var(--preto); font-family: 'DM Sans', system-ui, sans-serif; padding: 16px 0 40px; overflow-x: hidden">
 <div style="max-width: 980px; margin: 0 auto; padding: 0 16px; display: flex; flex-direction: column; gap: 14px">
 
-  <header class="in" style="background: #FFFDF9; border-radius: 20px; padding: 12px 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px">
-    <a href="Site.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1A1A1A">
+  <header style="background: var(--papel); border-radius: 20px; padding: 12px 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px">
+    <a href="Site.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--preto)">
       <img src="/_blob/6af05ed5745c66733b2e6e9619297c5c" alt="" style="width: 46px; height: 46px; border-radius: 12px; object-fit: contain; background: #0A0510; padding: 5px; box-sizing: border-box">
       <span style="display: flex; flex-direction: column; line-height: 1.2">
         <span style="font-family: Montserrat, sans-serif; font-weight: 800; font-size: 17px">Matheus Silva</span>
-        <span style="font-size: 13px; color: #5A5248">Trilha de estudo do estágio</span>
+        <span style="font-size: 13px; color: #5A5248">Processo seletivo de estágio</span>
       </span>
     </a>
-    <a href="#quiz" style="background: #1A1A1A; color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 12px 18px; border-radius: 999px; font-size: 15px">Ir para o quiz</a>
+    <a href="#quiz" style="background: var(--preto); color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 12px 18px; border-radius: 999px; font-size: 15px">Ir para o quiz</a>
   </header>
 
-  <section class="in bloco" style="background: #0F1830; color: #FFFFFF; border-radius: 28px; padding: 44px 48px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
-    <span style="font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #F5B82E">Etapa 2 do processo seletivo</span>
-    <h1 id="tr-ola" style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); line-height: 1.08">Trilha de estudo do estágio</h1>
-    <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9CEDB; max-width: 680px">Aqui está o que você precisa saber para atender como o escritório atende. Leia os módulos com calma, na ordem, e marque cada um como lido. No fim tem um <strong style="color: #FFFFFF">quiz de 10 perguntas</strong>: passa com 7 acertos, e você tem 2 tentativas.</p>
-    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 520px">
-      <div style="display: flex; justify-content: space-between; font-size: 14px; color: #C9CEDB"><span>Seu progresso</span><span id="tr-prog-txt">0 de 9 módulos</span></div>
-      <div style="height: 8px; border-radius: 999px; background: #24304F; overflow: hidden"><div id="tr-prog" style="height: 100%; width: 0; background: #F5B82E; border-radius: 999px; transition: width .4s"></div></div>
+  <section class="mapa" aria-labelledby="tr-ola">
+    <div class="mapa-cab">
+      <div>
+        <h1 id="tr-ola">Sua trilha até o <em>teste prático</em></h1>
+        <p class="mapa-sub" id="tr-sub">São 9 paradas curtas, de 3 a 5 minutos cada. Toque na parada que está piscando para começar. No fim, o quiz.</p>
+      </div>
+      <div class="anel" aria-live="polite">
+        <svg width="58" height="58" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="24" fill="none" stroke="#3A3A3A" stroke-width="6"/><circle id="anel-arco" cx="29" cy="29" r="24" fill="none" stroke="#F5B82E" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8" style="transition: stroke-dashoffset 1s"/></svg>
+        <span><b id="anel-n">0 de 9</b>paradas feitas</span>
+      </div>
     </div>
+    <div class="trilho-wrap" id="trilho">
+      <svg class="trilho-svg" id="trilho-svg" aria-hidden="true"><path class="trilho-base" id="trilho-base" d=""/><path class="trilho-feito" id="trilho-feito" d=""/></svg>
+      <ol class="paradas" id="paradas"></ol>
+    </div>
+    <p class="dica-mapa">Seu progresso fica salvo neste aparelho.</p>
   </section>
 
-  <div id="tr-mods" style="display: flex; flex-direction: column; gap: 10px">
-
-    <details class="tr-mod" data-mod="1">
-      <summary><span class="tr-n">1</span><span class="tr-tit"><strong>Sua função no escritório</strong><span>O que você vai fazer de verdade no dia a dia · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <p>Aqui o estágio é <strong>prática da advocacia</strong>. O escritório é 100% digital: os clientes chegam pelo WhatsApp, de todo o Acre, com problemas reais de trabalho, de INSS e de consumo. Você vai estar na linha de frente.</p>
-        <h4>No dia a dia, você vai</h4>
-        <ul>
-          <li><strong>Atender as situações reais que chegam no WhatsApp</strong> e saber desenrolar: entender o que aconteceu, o que a pessoa precisa e qual é o caminho.</li>
-          <li><strong>Organizar a documentação</strong> de cada cliente: pedir, conferir, ler e guardar no lugar certo.</li>
-          <li><strong>Consultar processos</strong> nos sistemas dos tribunais e do INSS e acompanhar o que mudou.</li>
-          <li><strong>Passar informações aos clientes</strong> em linguagem simples: o que aconteceu no processo e qual é o próximo passo.</li>
-          <li><strong>Montar o caso</strong>: o resumo e a minuta da petição inicial, que o Dr. Matheus revisa com você.</li>
-        </ul>
-        <div class="tr-caixa">Em resumo: você faz o que um advogado faz no dia a dia, com a supervisão do Dr. Matheus. As ferramentas (WhatsApp, sistema de atendimento, sistemas dos tribunais, Meu INSS, assinatura eletrônica e inteligência artificial) a gente ensina a usar.</div>
-        <h4>O que a gente espera de você</h4>
-        <ul>
-          <li>Saber ouvir e escrever com clareza, sem juridiquês.</li>
-          <li>Cuidado com detalhe: datas, valores e nomes certos.</li>
-          <li><strong>Sigilo.</strong> Tudo o que o cliente conta é protegido pelo sigilo profissional e pela LGPD. Nada sai da conversa.</li>
-          <li>Honestidade: quando não souber, diga que vai confirmar. Nunca invente.</li>
-        </ul>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="2">
-      <summary><span class="tr-n">2</span><span class="tr-tit"><strong>As regras do escritório</strong><span>Seis regras que valem em todo atendimento · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <p><strong>1. Atendimento 100% digital.</strong> Não há recepção nem endereço para visita. Tudo acontece pelo WhatsApp, inclusive a assinatura dos documentos, pelo celular. Se o cliente quiser "passar aí", explique com naturalidade que o escritório funciona assim.</p>
-        <p><strong>2. Honorários só no êxito.</strong> O cliente não paga nada adiantado: nem consulta, nem taxa. Se ganhar, o escritório recebe 35% do que ele receber. No INSS, quando é benefício mensal: 35% dos atrasados mais uma parcela do benefício quando ele for implantado. <strong>O percentual não se negocia no atendimento.</strong></p>
-        <p><strong>3. Nunca prometa resultado, valor ou prazo.</strong> Nem "com certeza você ganha", nem "dá uns dez mil", nem "sai em três meses", nem "o dobro".</p>
-        <p><strong>4. Uma pergunta por vez.</strong> Mensagem curta, linguagem simples. Quatro perguntas numa mensagem fazem o cliente responder uma e esquecer as outras.</p>
-        <p><strong>5. Um documento por vez.</strong> Peça, espere chegar, <strong>abra e leia</strong>, e só então peça o próximo. Muita informação já está dentro do documento.</p>
-        <p><strong>6. Na dúvida, não invente.</strong> "Vou confirmar isso com o Dr. Matheus e te retorno" é uma resposta profissional; chutar lei, prazo ou valor não é.</p>
-        <div class="tr-alerta"><strong>O que reprova na hora:</strong> prometer resultado, valor ou prazo · pedir pagamento adiantado · negociar honorários · passar endereço ou marcar presencial · dizer que não ouve áudio · inventar lei ou prazo · grosseria · sumir no meio do atendimento.</div>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="3">
-      <summary><span class="tr-n">3</span><span class="tr-tit"><strong>Como conduzir um atendimento</strong><span>Da primeira mensagem ao fechamento · 6 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <h4>1. Abertura: acalmar antes de perguntar</h4>
-        <p>Cumprimente, diga seu nome e que é do escritório, e mostre que leu o que a pessoa escreveu. Quem chega já está preocupado.</p>
-        <p class="tr-frase"><i>"Bom dia! Aqui é a Ana, do escritório Matheus Silva Advocacia. Vi que você foi demitido e não recebeu nada, sinto muito. Vou te ajudar a organizar isso. Posso te fazer algumas perguntas?"</i></p>
-        <h4>2. Entender o caso</h4>
-        <p>Antes de falar em documento ou honorário, descubra <strong>o que aconteceu, quando e contra quem</strong>. Deixe a pessoa contar e depois preencha os buracos, uma pergunta por vez. Três perguntas valem em qualquer área:</p>
-        <ul><li><strong>Quando foi?</strong> A data define o prazo, e prazo não se perde.</li><li><strong>Já tem advogado nesse caso?</strong> Se tiver, o escritório não atua por cima do colega.</li><li><strong>Tem algum papel disso?</strong> Documento vale mais que memória.</li></ul>
-        <h4>3. O cadastro que precisa sair da conversa</h4>
-        <p>Nome completo, CPF, RG, data de nascimento, estado civil, profissão, nome da mãe, endereço com CEP e e-mail. Peça ao longo da conversa, nunca como formulário despejado de uma vez.</p>
-        <h4>4. Documentos</h4>
-        <p>O cliente manda foto do papel, muitas vezes torta ou escura. <strong>Abra e leia toda foto.</strong> Se não der para ler: "consegue tirar outra foto com o papel inteiro?". Comprovante de residência tem que estar no nome do cliente; se vier no nome da mãe ou do locador, peça outro ou uma declaração de residência.</p>
-        <h4>5. Fechamento</h4>
-        <p class="tr-frase"><i>"Com isso eu já consigo montar o seu caso. Vou organizar tudo e o escritório te retorna por aqui. Se lembrar de mais alguma coisa, é só me mandar."</i></p>
-        <h4>Ruim × bom</h4>
-        <div class="tr-par"><div class="tr-ruim"><b>Ruim</b>"Qual seu nome completo, CPF, data de admissão, salário e endereço?"</div><div class="tr-bom"><b>Bom</b>"Pra começar, qual é o seu nome completo?"</div></div>
-        <div class="tr-par"><div class="tr-ruim"><b>Ruim</b>"Isso aí é verba rescisória do art. 477 com multa do 467."</div><div class="tr-bom"><b>Bom</b>"Pelo que você contou, a empresa ficou te devendo os valores da saída. Vou te ajudar a organizar isso."</div></div>
-        <div class="tr-par"><div class="tr-ruim"><b>Ruim</b>"Não consigo ouvir áudio, escreve aí."</div><div class="tr-bom"><b>Bom</b>(ouve o áudio) "Entendi, você trabalhava das 7h às 19h. E tinha intervalo para almoço?"</div></div>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="4">
-      <summary><span class="tr-n">4</span><span class="tr-tit"><strong>Trabalhista</strong><span>O que perguntar, o que pedir e o que muda o caso · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <table class="tr-tab"><tr><th style="width:52%">O que descobrir</th><th>Documentos</th></tr>
-        <tr><td>Se saiu ou continua na empresa e o último dia · se a carteira era assinada e desde quando · função e último salário · se recebeu as verbas da saída · nome, CNPJ e endereço da empresa · horário real e intervalo · se havia ponto · se o FGTS era depositado · se tirava férias · testemunhas</td><td>RG e CPF · <strong>carteira de trabalho em PDF do app Carteira de Trabalho Digital</strong> · contracheques · extrato do FGTS (app) · termo de rescisão, se houver · prints de conversas com o patrão · comprovante de residência</td></tr></table>
-        <div class="tr-caixa"><strong>Carteira de trabalho:</strong> só serve o PDF do aplicativo. Foto da carteira de papel não substitui. Se a pessoa não souber gerar, ensine o passo a passo.</div>
-        <h4>Detalhes que mudam o caso</h4>
-        <ul><li>Jornada maior que a do papel (horas extras, intervalo cortado).</li><li>FGTS parado há meses.</li><li>Carteira sem baixa e saída "verbal", sem termo de rescisão.</li><li>O CNPJ e o endereço da empresa costumam estar <strong>no contracheque</strong>: leia antes de perguntar.</li><li>Prazo: a ação pode ser proposta até 2 anos depois da saída. Data de saída é sempre uma das primeiras perguntas.</li></ul>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="5">
-      <summary><span class="tr-n">5</span><span class="tr-tit"><strong>Previdenciário (INSS)</strong><span>Benefício negado, BPC/LOAS e salário-maternidade · 5 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <table class="tr-tab"><tr><th style="width:52%">O que descobrir</th><th>Documentos</th></tr>
-        <tr><td>Qual benefício e <strong>quem é o titular</strong> (às vezes quem fala não é quem tem o direito) · se foi negado, quando e por quê · datas do pedido, da perícia e da negativa · se tem laudo · quem mora na casa e quanto cada um ganha · se o CadÚnico está atualizado · acesso ao gov.br · se já tem advogado</td><td><strong>Laudo médico, sempre o primeiro</strong> · carta de indeferimento · documentos do titular e de quem o representa · comprovante de residência · folha do CadÚnico · relatórios de escola e terapias · CPF e senha do gov.br, <strong>explicando para que serve</strong></td></tr></table>
-        <div class="tr-caixa"><strong>Benefício negado é ação judicial.</strong> Quando o INSS nega, o escritório entra direto na Justiça Federal. Recurso administrativo demora e raramente muda o resultado. Só fale dele se o cliente perguntar, com delicadeza.</div>
-        <h4>Casos que chegam muito</h4>
-        <ul>
-          <li><strong>BPC/LOAS:</strong> benefício assistencial para pessoa com deficiência ou idosa de baixa renda. Quando é para uma criança, o titular é a criança; a mãe ou o pai é o representante.</li>
-          <li><strong>Salário-maternidade:</strong> pode ser da trabalhadora com carteira, da desempregada, da que contribui por conta própria ou da trabalhadora rural. Gestante desempregada: <strong>nunca diga "não tem direito"</strong> e <strong>nunca mande pagar guia sozinha</strong>. O escritório analisa e orienta o caminho.</li>
-          <li><strong>Senha do gov.br:</strong> peça explicando que é para consultar o processo e os dados no Meu INSS. Senha de banco, nunca.</li>
-        </ul>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="6">
-      <summary><span class="tr-n">6</span><span class="tr-tit"><strong>Consumidor</strong><span>Voo, bagagem, cobrança e nome negativado · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <table class="tr-tab"><tr><th style="width:52%">O que descobrir</th><th>Documentos</th></tr>
-        <tr><td>Qual empresa, o que foi contratado e quanto custou · o que aconteceu e quando · quanto a pessoa gastou por causa do problema e se guardou as notas · se perdeu algum compromisso e se dá para provar · se reclamou na empresa e o que responderam · protocolos</td><td>RG e CPF · comprovante da compra (no voo, o <strong>e-ticket ou a reserva</strong>, não "o contrato") · notas dos gastos · prints e protocolos · provas do prejuízo (convites, fotos) · comprovante de residência</td></tr></table>
-        <ul>
-          <li><strong>Voo nacional:</strong> valem o Código de Defesa do Consumidor e a Resolução 400 da ANAC. A Convenção de Montreal é para voo internacional.</li>
-          <li><strong>Bagagem:</strong> peça o RIB (registro de irregularidade de bagagem) e quantos dias a mala demorou.</li>
-          <li><strong>Dano moral não é automático.</strong> O que pesa são as circunstâncias concretas: horas sem assistência, compromisso perdido, constrangimento. Por isso pergunte e registre os detalhes.</li>
-          <li>Reclamar na ANAC ou no consumidor.gov.br antes <strong>não é obrigatório</strong> para entrar na Justiça.</li>
-        </ul>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="7">
-      <summary><span class="tr-n">7</span><span class="tr-tit"><strong>As situações difíceis</strong><span>As perguntas que todo cliente faz · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <p class="tr-frase"><i>"Quanto eu vou receber?"</i><br>Não dá para dizer valor agora: depende dos documentos e do cálculo. Assim que o escritório analisar, a gente dá uma posição com pé no chão.</p>
-        <p class="tr-frase"><i>"Quanto vocês cobram? Estou sem dinheiro."</i><br>Você não paga nada agora. O escritório só recebe se ganhar: 35% no final. Se perder, não deve nada.</p>
-        <p class="tr-frase"><i>"Posso passar aí no escritório?"</i><br>Nosso atendimento é todo digital, por aqui mesmo, inclusive a assinatura, pelo celular. Assim você não perde o dia de trabalho.</p>
-        <p class="tr-frase"><i>"Vocês têm certeza que eu ganho?"</i><br>Garantia ninguém pode dar, e desconfie de quem der. O seu caso vai ser analisado com atenção.</p>
-        <p class="tr-frase"><i>"Como sei que vocês não são golpe?"</i><br>Pode conferir a inscrição do Dr. Matheus Oliveira Silva, OAB/AC 5292, no site da OAB e as avaliações do escritório no Google. E repare: ninguém do escritório pede pagamento adiantado.</p>
-        <p class="tr-frase"><i>"Quanto tempo demora?"</i><br>Prazo depende da Justiça e ninguém honesto crava data. O que se garante é avisar cada movimentação.</p>
-        <h4>E quando...</h4>
-        <ul><li><strong>o cliente desabafa</strong> (briga em casa, medo, choro): acolha em uma frase sincera e volte ao caso com delicadeza.</li><li><strong>outra pessoa digita por ele</strong>: tudo bem, mas o cliente continua sendo quem tem o direito.</li><li><strong>manda tudo de uma vez</strong>: agradeça, leia tudo e diga o que ainda falta, uma coisa por vez.</li></ul>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="8">
-      <summary><span class="tr-n">8</span><span class="tr-tit"><strong>Acompanhar processos e dar notícias</strong><span>Traduzir o "juridiquês" para o cliente · 3 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <p>Parte do trabalho é consultar o andamento dos processos e contar ao cliente o que aconteceu, em linguagem simples, sem prometer prazo nem resultado.</p>
-        <table class="tr-tab"><tr><th style="width:45%">No sistema aparece</th><th>Para o cliente</th></tr>
-        <tr><td>Conclusos para sentença</td><td>"O processo está com o juiz para ele decidir."</td></tr>
-        <tr><td>Citação / réu citado</td><td>"A empresa (ou o INSS) foi chamada oficialmente para responder."</td></tr>
-        <tr><td>Audiência designada</td><td>"Foi marcada uma audiência para o dia tal." E explique se ele precisa participar e como.</td></tr>
-        <tr><td>Perícia agendada</td><td>"O juiz marcou uma perícia médica." Data, local e o que levar.</td></tr>
-        <tr><td>Trânsito em julgado</td><td>"A decisão é definitiva, não cabe mais recurso."</td></tr>
-        <tr><td>RPV expedida</td><td>"O pagamento foi autorizado. Agora é a fase de o dinheiro ser liberado, o que ainda leva um tempo."</td></tr></table>
-        <div class="tr-caixa">Regra de ouro: toda novidade importante vira mensagem para o cliente, e ninguém fica sem resposta.</div>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="9">
-      <summary><span class="tr-n">9</span><span class="tr-tit"><strong>Como são o teste prático e a entrega escrita</strong><span>O que vem depois do quiz · 3 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <h4>Teste prático</h4>
-        <p>Quando você passar no quiz, é você quem decide a hora. Mande <strong>QUERO FAZER O TESTE</strong> no WhatsApp do escritório e, em poucos minutos, um <strong>cliente simulado</strong> vai te chamar ali. Ele se comporta como gente de verdade: manda áudio, foto torta de documento e faz perguntas difíceis. Atenda como se você fosse o escritório.</p>
-        <ul><li>Dura de 20 a 40 minutos. Faça no computador, num lugar tranquilo.</li><li>Você conduz; o cliente só responde o que for perguntado.</li><li>No fim chega um boletim com a sua nota e um comentário em cada critério.</li></ul>
-        <p>O que conta na nota: acolhimento e comunicação (15) · entender o caso (25) · documentos (25) · regras do escritório (25) · condução, fechamento e tempo de resposta (10).</p>
-        <h4>Entrega escrita</h4>
-        <p>Depois do teste você monta o caso que atendeu: <strong>o resumo</strong> (título NOME x RÉU, o que aconteceu com datas e valores, documentos recebidos e faltantes, perguntas pendentes e viabilidade) e <strong>a minuta da petição inicial</strong>. Prazo de 48 horas, em Word ou PDF, mandado pelo WhatsApp. Pode pesquisar e usar inteligência artificial, mas confira tudo: dado inventado ou jurisprudência que não existe tira muitos pontos.</p>
-        <div class="tr-caixa">Não existe resposta decorada. A gente procura quem ouve, pergunta o que precisa e não inventa o que não sabe. O resto se ensina.</div>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-  </div>
-
-  <section id="quiz" class="bloco" style="background: #FFFDF9; border-radius: 28px; padding: 44px 48px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box; scroll-margin-top: 16px">
-    <div style="display: flex; flex-direction: column; gap: 8px">
-      <span style="font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C8102E">Quiz final</span>
-      <h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.1">10 perguntas sobre a trilha</h2>
-      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #5A5248">Passa com 7 acertos. Você tem 2 tentativas. As perguntas mudam a cada tentativa.</p>
-    </div>
+  <section id="quiz" class="quiz">
+    <h2>Quiz final: 10 perguntas</h2>
+    <p>Passa com 7 acertos. Você tem 2 tentativas, e as perguntas mudam a cada uma.</p>
     <div id="qz" class="qz" aria-live="polite"><p style="margin: 0">Carregando…</p></div>
   </section>
 
-  <footer style="background: #FFFDF9; border-radius: 20px; padding: 18px 26px; font-size: 13px; line-height: 1.6; color: #5A5248">Matheus Silva – Sociedade Individual de Advocacia · OAB/AC 5292 · material do processo seletivo de estágio · <a href="Privacidade.dc.html">Política de privacidade</a></footer>
+  <footer style="background: var(--papel); border-radius: 20px; padding: 18px 26px; font-size: 13px; line-height: 1.6; color: #5A5248">Matheus Silva – Sociedade Individual de Advocacia · OAB/AC 5292 · material do processo seletivo de estágio · <a href="Privacidade.dc.html">Política de privacidade</a></footer>
 </div>
 </div>
+
+<div id="player" class="player" role="dialog" aria-modal="true" aria-labelledby="pl-h" hidden>
+  <div class="pl-topo"><button type="button" class="pl-fechar" id="pl-fechar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Mapa</button><span class="pl-tit" id="pl-tit"></span></div>
+  <div class="pl-barras" id="pl-barras"></div>
+  <div class="pl-palco" id="pl-palco"></div>
+  <div class="pl-rodape"><div class="pl-rodape-in"><button type="button" class="pl-bt vol" id="pl-vol">← Voltar</button><span class="pl-pos" id="pl-pos"></span><button type="button" class="pl-bt seg" id="pl-seg">Continuar</button></div></div>
+</div>
+<canvas class="festa" id="festa" hidden></canvas>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5200}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2600}}'>
 class Component extends DCLogic {
   renderVals() { return {}; }
 }

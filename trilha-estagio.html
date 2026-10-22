@@ -47,67 +47,159 @@ html{scroll-behavior:smooth}
 *{-webkit-tap-highlight-color:transparent}
 img,video{max-width:100%}
 
-body{margin:0;background:#F5EBD9}
-a{color:#A50D26}a:hover{color:#1A1A1A}
+:root{--preto:#1A1A1A;--vermelho:#C8102E;--vinho:#5E0716;--creme:#F5EBD9;--papel:#FFFDF9;--grifo:#F5B82E;--tinta:#3A352E;--sub:#6B6258}
+body{margin:0;background:var(--creme);font-family:'DM Sans',system-ui,sans-serif}
+.player,.quiz,.qz{font-family:'DM Sans',system-ui,sans-serif}
+a{color:#A50D26}a:hover{color:var(--preto)}
 button{font:inherit}
-@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.in{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
-.tr-mod{background:#FFFDF9;border-radius:22px;box-sizing:border-box;border:2px solid transparent;transition:border-color .3s}
-.tr-mod.lido{border-color:#BFE7CB}
-.tr-mod summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;padding:22px 26px}
-.tr-mod summary::-webkit-details-marker{display:none}
-.tr-n{flex:none;width:44px;height:44px;border-radius:14px;background:#1A1A1A;color:#FFFFFF;font-family:Montserrat,sans-serif;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center}
-.tr-mod.lido .tr-n{background:#1F9D55}
-.tr-tit{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.tr-tit strong{font-family:Montserrat,sans-serif;font-weight:800;font-size:19px;line-height:1.25;color:#1A1A1A}
-.tr-tit span{font-size:14px;color:#6B6258}
-.tr-seta{flex:none;transition:transform .3s;color:#C8102E}
-.tr-mod[open] .tr-seta{transform:rotate(180deg)}
-.tr-corpo{padding:0 26px 26px 86px;font-size:16.5px;line-height:1.65;color:#3A352E;display:flex;flex-direction:column;gap:12px}
-.tr-corpo h4{margin:10px 0 0;font-family:Montserrat,sans-serif;font-weight:800;font-size:17px;color:#1A1A1A}
-.tr-corpo p{margin:0}
-.tr-corpo ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
-.tr-caixa{background:#FAF3E7;border-radius:14px;padding:14px 16px}
-.tr-alerta{background:#FFF5F6;border-left:4px solid #C8102E;border-radius:10px;padding:12px 14px}
-.tr-par{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tr-ruim,.tr-bom{border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5}
-.tr-ruim{background:#FBE7EA}.tr-bom{background:#E3F6E8}
-.tr-ruim b,.tr-bom b{display:block;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.tr-ruim b{color:#A50D26}.tr-bom b{color:#137A3E}
-.tr-frase{border-left:3px solid #C8102E;padding:2px 0 2px 12px}
-.tr-frase i{color:#6B6258}
-.tr-tab{width:100%;border-collapse:collapse;font-size:15px}
-.tr-tab th{background:#0F1830;color:#FFFFFF;text-align:left;padding:8px 10px;font-size:13px}
-.tr-tab td{border-bottom:1px solid #EADFCB;padding:8px 10px;vertical-align:top}
-.tr-lido{align-self:flex-start;border:none;cursor:pointer;background:#1A1A1A;color:#FFFFFF;font-weight:800;font-size:15px;padding:12px 20px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;margin-top:6px}
-.tr-mod.lido .tr-lido{background:#1F9D55}
-/* quiz */
-.qz{max-width:760px;width:100%;margin:0 auto;background:#FAF3E7;border-radius:24px;padding:30px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px}
-.qz [hidden]{display:none !important}
+[hidden]{display:none !important}
+.grifo{background-image:linear-gradient(104deg,rgba(245,184,46,0) 0,rgba(245,184,46,.6) 2%,rgba(245,184,46,.45) 96%,rgba(245,184,46,0) 100%);background-repeat:no-repeat;background-size:0% 40%;background-position:0 88%;padding:0 .08em;margin:0 -.08em;border-radius:.12em;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size .9s cubic-bezier(.6,0,.2,1) .35s}
+.grifo.on{background-size:100% 40%}
+
+/* ---------- mapa (herói) ---------- */
+.mapa{background:var(--preto);color:#FFFFFF;border-radius:28px;padding:40px 36px 28px;box-sizing:border-box;position:relative;overflow:hidden}
+.mapa-cab{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;position:relative;z-index:1}
+.mapa h1{margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(28px,4.4vw,46px);line-height:1.06;letter-spacing:-1px;max-width:620px}
+.mapa h1 em{font-style:normal;color:var(--grifo)}
+.mapa-sub{margin:10px 0 0;font-size:16px;line-height:1.55;color:#D9D4CC;max-width:560px}
+.anel{flex:none;display:flex;align-items:center;gap:12px;font-size:14px;color:#D9D4CC}
+.anel svg{transform:rotate(-90deg)}
+.anel b{display:block;font-family:Montserrat,sans-serif;font-size:22px;color:#FFFFFF}
+.trilho-wrap{position:relative;margin-top:26px}
+.trilho-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.trilho-base{fill:none;stroke:#3A3A3A;stroke-width:4;stroke-dasharray:2 10;stroke-linecap:round}
+.trilho-feito{fill:none;stroke:var(--vermelho);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(.6,0,.2,1)}
+.paradas{list-style:none;margin:0;padding:0;position:relative;display:grid;grid-template-columns:1fr;row-gap:14px}
+.parada{display:grid;grid-template-columns:1fr 150px 1fr;column-gap:20px;align-items:center;width:100%}
+.parada .no{grid-column:2;grid-row:1}
+.parada:nth-child(odd) .no{justify-self:start}
+.parada:nth-child(even) .no{justify-self:end}
+.parada:nth-child(odd) .rot{grid-column:1;grid-row:1;justify-self:end;text-align:right;align-items:flex-end}
+.parada:nth-child(even) .rot{grid-column:3;grid-row:1;justify-self:start;text-align:left}
+.no{flex:none;position:relative;width:64px;height:64px;border-radius:50%;border:3px solid #4A4A4A;background:var(--preto);color:#BDB6AB;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .25s,border-color .3s,background .3s,color .3s}
+.no:hover{transform:scale(1.06)}
+.no:focus-visible{outline:3px solid var(--grifo);outline-offset:4px}
+.no svg{width:28px;height:28px}
+.parada.feita .no{background:var(--vermelho);border-color:var(--vermelho);color:#FFFFFF}
+.parada.atual .no{border-color:var(--grifo);color:#FFFFFF}
+.parada.atual .no::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid var(--grifo);animation:pulso 2.2s ease-out infinite}
+@keyframes pulso{0%{transform:scale(.85);opacity:.9}100%{transform:scale(1.25);opacity:0}}
+.parada .rot{display:flex;flex-direction:column;gap:2px;cursor:pointer;background:none;border:none;color:inherit;text-align:inherit;padding:0}
+.parada .rot small{font-size:13px;color:#9E968A}
+.parada .rot strong{font-family:Montserrat,sans-serif;font-weight:700;font-size:17px;line-height:1.25;color:#FFFFFF}
+.parada.feita .rot small{color:#E7A3AE}
+.parada.final .no{width:72px;height:72px;border-color:var(--grifo);color:var(--grifo)}
+.parada.final.liberada .no{background:var(--grifo);color:var(--preto)}
+.dica-mapa{margin:20px 0 0;font-size:14px;color:#9E968A;text-align:center}
+
+/* ---------- player (tela cheia) ---------- */
+.player{position:fixed;inset:0;z-index:50;background:var(--creme);display:flex;flex-direction:column;animation:abre .35s cubic-bezier(.2,.7,.2,1) both}
+@keyframes abre{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.pl-topo{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--preto);color:#FFFFFF}
+.pl-fechar{border:none;background:#2E2E2E;color:#FFFFFF;border-radius:999px;padding:9px 14px;font-weight:700;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.pl-fechar:focus-visible,.pl-bt:focus-visible{outline:3px solid var(--grifo);outline-offset:2px}
+.pl-tit{flex:1;min-width:0;font-size:14px;color:#D9D4CC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-tit b{color:#FFFFFF;font-family:Montserrat,sans-serif}
+.pl-barras{display:flex;gap:5px;padding:12px 18px 0;max-width:820px;width:100%;margin:0 auto;box-sizing:border-box}
+.pl-barras span{flex:1;height:5px;border-radius:999px;background:#E2D6C2;overflow:hidden}
+.pl-barras span i{display:block;height:100%;width:0;background:var(--vermelho);transition:width .4s}
+.pl-palco{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pl-slide{max-width:820px;margin:0 auto;padding:28px 22px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px}
+.pl-slide.vai{animation:vai .4s cubic-bezier(.2,.7,.2,1) both}
+.pl-slide.vem{animation:vem .4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vai{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes vem{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+.pl-ic{width:64px;height:64px;border-radius:20px;background:var(--vermelho);color:#FFFFFF;display:flex;align-items:center;justify-content:center}
+.pl-ic svg{width:32px;height:32px}
+.pl-slide h2{margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(26px,4.2vw,40px);line-height:1.1;letter-spacing:-.5px;color:var(--preto)}
+.pl-slide p{margin:0;font-size:18px;line-height:1.6;color:var(--tinta);max-width:64ch}
+.pl-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.pl-lista li{display:flex;gap:14px;align-items:flex-start;background:var(--papel);border-radius:16px;padding:14px 16px;font-size:17px;line-height:1.5;color:var(--tinta);opacity:0;animation:item .45s cubic-bezier(.2,.7,.2,1) forwards}
+.pl-lista li b{color:var(--preto)}
+.pl-lista li .mk{flex:none;width:28px;height:28px;border-radius:50%;background:var(--preto);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;font-family:Montserrat,sans-serif}
+.pl-lista.nao li .mk{background:var(--vermelho)}
+@keyframes item{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pl-nota{background:var(--preto);color:#FFFFFF;border-radius:18px;padding:18px 20px;font-size:17px;line-height:1.55}
+.pl-nota b{color:var(--grifo)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{background:var(--papel);border:1.5px solid #E2D6C2;border-radius:999px;padding:9px 14px;font-size:15px;color:var(--preto)}
+.chips span.forte{background:var(--vermelho);border-color:var(--vermelho);color:#FFFFFF;font-weight:700}
+/* conversa estilo WhatsApp */
+.zap{background:#ECE5DD;border-radius:20px;padding:18px 14px;display:flex;flex-direction:column;gap:10px}
+.bolha{max-width:86%;padding:10px 13px;border-radius:12px;font-size:16px;line-height:1.5;color:#111B21;box-shadow:0 1px 1px rgba(0,0,0,.08);animation:item .4s cubic-bezier(.2,.7,.2,1) both}
+.bolha.cli{align-self:flex-start;background:#FFFFFF;border-top-left-radius:0}
+.bolha.esc{align-self:flex-end;background:#D9FDD3;border-top-right-radius:0}
+.bolha small{display:block;font-size:12px;font-weight:700;color:#5A7A66;margin-bottom:2px}
+.bolha.cli small{color:#A50D26}
+.ver{align-self:flex-end;border:none;cursor:pointer;background:var(--preto);color:#FFFFFF;border-radius:999px;padding:9px 14px;font-weight:700;font-size:14px}
+/* cartas que viram */
+.cartas{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.carta{perspective:900px;border:none;background:none;padding:0;cursor:pointer;min-height:150px;text-align:left}
+.carta-in{position:relative;width:100%;height:100%;min-height:150px;transition:transform .6s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d}
+.carta.virada .carta-in{transform:rotateY(180deg)}
+.carta-f,.carta-v{position:absolute;inset:0;border-radius:18px;padding:16px;box-sizing:border-box;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.45}
+.carta-f{background:#FBE7EA;color:var(--vinho)}
+.carta-v{background:#E3F6E8;color:#0B4D25;transform:rotateY(180deg)}
+.carta-f b,.carta-v b{font-family:Montserrat,sans-serif;font-size:13px}
+.carta-f i,.carta-v i{margin-top:auto;font-size:13px;opacity:.7;font-style:normal}
+/* tradutor */
+.traduz{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.tr-bt{border:none;cursor:pointer;text-align:left;border-radius:16px;padding:14px 16px;background:var(--preto);color:#FFFFFF;font-size:16px;line-height:1.45;min-height:88px;display:flex;flex-direction:column;gap:6px;transition:background .3s,color .3s}
+.tr-bt small{font-size:12px;opacity:.7;font-weight:700}
+.tr-bt.aberto{background:#D9FDD3;color:#111B21}
+/* barras da nota */
+.barras{display:flex;flex-direction:column;gap:10px}
+.barra{display:grid;grid-template-columns:minmax(150px,240px) 1fr 40px;align-items:center;gap:12px;font-size:15px}
+.barra .t{height:12px;border-radius:999px;background:#E2D6C2;overflow:hidden}
+.barra .t i{display:block;height:100%;width:0;background:var(--vermelho);border-radius:999px;transition:width 1s cubic-bezier(.6,0,.2,1)}
+.barra b{font-family:Montserrat,sans-serif;text-align:right}
+.pl-rodape{border-top:1px solid #E2D6C2;background:var(--papel)}
+.pl-rodape-in{max-width:820px;margin:0 auto;padding:14px 22px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pl-bt{border:none;cursor:pointer;border-radius:999px;padding:14px 22px;font-weight:800;font-size:16px;min-height:50px}
+.pl-bt.seg{background:var(--vermelho);color:#FFFFFF}
+.pl-bt.vol{background:none;color:var(--preto);padding-left:4px}
+.pl-bt.vol:disabled{visibility:hidden}
+.pl-pos{font-size:14px;color:var(--sub);white-space:nowrap}
+.pl-bt{white-space:nowrap}
+.festa{position:fixed;inset:0;pointer-events:none;z-index:60}
+
+/* ---------- quiz ---------- */
+.quiz{background:var(--vermelho);color:#FFFFFF;border-radius:28px;padding:40px 36px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px;scroll-margin-top:16px}
+.quiz h2{margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(26px,3.6vw,38px);line-height:1.1}
+.quiz>p{margin:0;font-size:16px;line-height:1.6;color:#FBE7EA;max-width:60ch}
+.qz{max-width:760px;width:100%;background:var(--papel);color:var(--preto);border-radius:22px;padding:28px;box-sizing:border-box;display:flex;flex-direction:column;gap:16px}
 .qz-trilho{height:6px;border-radius:999px;background:#EADFCB;overflow:hidden}
-.qz-barra{height:100%;width:0;background:#C8102E;transition:width .4s}
+.qz-barra{height:100%;width:0;background:var(--vermelho);transition:width .4s}
 .qz-q{margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(19px,2.6vw,24px);line-height:1.3;outline:none}
-.qz-op{width:100%;border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:16px;padding:14px 16px;text-align:left;font-size:16px;line-height:1.45;color:#1A1A1A;cursor:pointer;display:flex;gap:12px;align-items:flex-start;transition:border-color .2s,background .2s}
-.qz-op:hover{border-color:#1A1A1A}
+.qz-op{width:100%;border:1.5px solid #E2D6C2;background:#FFFFFF;border-radius:16px;padding:14px 16px;text-align:left;font-size:16px;line-height:1.45;color:var(--preto);cursor:pointer;display:flex;gap:12px;align-items:flex-start;transition:border-color .2s,background .2s}
+.qz-op:hover{border-color:var(--preto)}
 .qz-op .l{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid #D4C6AE;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;text-transform:uppercase}
-.qz-op[aria-pressed=true]{background:#1A1A1A;border-color:#1A1A1A;color:#FFFFFF}
-.qz-op[aria-pressed=true] .l{background:#FFFFFF;color:#1A1A1A;border-color:#FFFFFF}
-.qz-bt{border:none;cursor:pointer;background:#1A1A1A;color:#FFFFFF;font-weight:800;font-size:16px;padding:14px 24px;border-radius:999px;min-height:50px}
+.qz-op[aria-pressed=true]{background:var(--preto);border-color:var(--preto);color:#FFFFFF}
+.qz-op[aria-pressed=true] .l{background:#FFFFFF;color:var(--preto);border-color:#FFFFFF}
+.qz-bt{border:none;cursor:pointer;background:var(--vermelho);color:#FFFFFF;font-weight:800;font-size:16px;padding:14px 24px;border-radius:999px;min-height:50px}
 .qz-bt:disabled{opacity:.35;cursor:not-allowed}
-.qz-bt.verm{background:#C8102E}
-.qz-sec{border:none;background:none;font-weight:700;font-size:15px;cursor:pointer;color:#1A1A1A;padding:8px 0}
-.qz-item{background:#FFFFFF;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5}
-.qz-item.ok{border-left:4px solid #1F9D55}.qz-item.err{border-left:4px solid #C8102E}
+.qz-sec{border:none;background:none;font-weight:700;font-size:15px;cursor:pointer;color:var(--preto);padding:8px 0}
+.qz-item{background:#FAF3E7;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5}
+.qz-item.ok{border-left:4px solid #1F9D55}.qz-item.err{border-left:4px solid var(--vermelho)}
 .wa-bt{border:none;cursor:pointer;background:#25D366;color:#052E16;font-weight:800;font-size:17px;padding:15px 24px;border-radius:999px;min-height:52px;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+
 @media (max-width:640px){
-  .bloco{padding:26px 18px !important}
-  .tr-mod summary{padding:18px 16px;gap:12px}
-  .tr-corpo{padding:0 16px 20px 16px}
-  .tr-par{grid-template-columns:1fr}
-  .qz{padding:22px 16px}
-  .tr-tab{font-size:14px}
+  .mapa{padding:28px 18px 20px;border-radius:22px}
+  .parada{grid-template-columns:92px 1fr;column-gap:12px}
+  .parada .no{grid-column:1}
+  .parada:nth-child(odd) .rot,.parada:nth-child(even) .rot{grid-column:2;justify-self:start;text-align:left;align-items:flex-start}
+  .no{width:56px;height:56px}
+  .parada.final .no{width:62px;height:62px;justify-self:start}
+  .pl-bt{padding:13px 18px;font-size:15px}
+  .pl-rodape-in{padding:12px 16px}
+  .pl-slide{padding:22px 18px 32px}
+  .pl-slide p{font-size:17px}
+  .barra{grid-template-columns:1fr 40px}
+  .barra .t{grid-column:1/-1;grid-row:2}
+  .quiz{padding:28px 18px;border-radius:22px}
+  .qz{padding:20px 16px}
 }
-@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.pl-lista li{opacity:1}.grifo{background-size:100% 40%}}
 
 @media (max-width:640px){
   section[style*="padding: 44px 48px"],section[style*="padding: 56px 48px"],section[style*="padding: 64px 48px"]{padding:32px 22px !important}
@@ -120,194 +212,55 @@ button{font:inherit}
 <meta name="robots" content="noindex">
 </head>
 <body>
-<div style="background: #F5EBD9; color: #1A1A1A; font-family: 'DM Sans', system-ui, sans-serif; padding: 20px 0 40px; overflow-x: hidden">
+<div style="background: var(--creme); color: var(--preto); font-family: 'DM Sans', system-ui, sans-serif; padding: 16px 0 40px; overflow-x: hidden">
 <div style="max-width: 980px; margin: 0 auto; padding: 0 16px; display: flex; flex-direction: column; gap: 14px">
 
-  <header class="in" style="background: #FFFDF9; border-radius: 20px; padding: 12px 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px">
-    <a href="./" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1A1A1A">
+  <header style="background: var(--papel); border-radius: 20px; padding: 12px 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px">
+    <a href="./" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--preto)">
       <img src="assets/logo-ms.jpg" alt="" style="width: 46px; height: 46px; border-radius: 12px; object-fit: contain; background: #0A0510; padding: 5px; box-sizing: border-box">
       <span style="display: flex; flex-direction: column; line-height: 1.2">
         <span style="font-family: Montserrat, sans-serif; font-weight: 800; font-size: 17px">Matheus Silva</span>
-        <span style="font-size: 13px; color: #5A5248">Trilha de estudo do estágio</span>
+        <span style="font-size: 13px; color: #5A5248">Processo seletivo de estágio</span>
       </span>
     </a>
-    <a href="#quiz" style="background: #1A1A1A; color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 12px 18px; border-radius: 999px; font-size: 15px">Ir para o quiz</a>
+    <a href="#quiz" style="background: var(--preto); color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 12px 18px; border-radius: 999px; font-size: 15px">Ir para o quiz</a>
   </header>
 
-  <section class="in bloco" style="background: #0F1830; color: #FFFFFF; border-radius: 28px; padding: 44px 48px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
-    <span style="font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #F5B82E">Etapa 2 do processo seletivo</span>
-    <h1 id="tr-ola" style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); line-height: 1.08">Trilha de estudo do estágio</h1>
-    <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9CEDB; max-width: 680px">Aqui está o que você precisa saber para atender como o escritório atende. Leia os módulos com calma, na ordem, e marque cada um como lido. No fim tem um <strong style="color: #FFFFFF">quiz de 10 perguntas</strong>: passa com 7 acertos, e você tem 2 tentativas.</p>
-    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 520px">
-      <div style="display: flex; justify-content: space-between; font-size: 14px; color: #C9CEDB"><span>Seu progresso</span><span id="tr-prog-txt">0 de 9 módulos</span></div>
-      <div style="height: 8px; border-radius: 999px; background: #24304F; overflow: hidden"><div id="tr-prog" style="height: 100%; width: 0; background: #F5B82E; border-radius: 999px; transition: width .4s"></div></div>
+  <section class="mapa" aria-labelledby="tr-ola">
+    <div class="mapa-cab">
+      <div>
+        <h1 id="tr-ola">Sua trilha até o <em>teste prático</em></h1>
+        <p class="mapa-sub" id="tr-sub">São 9 paradas curtas, de 3 a 5 minutos cada. Toque na parada que está piscando para começar. No fim, o quiz.</p>
+      </div>
+      <div class="anel" aria-live="polite">
+        <svg width="58" height="58" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="24" fill="none" stroke="#3A3A3A" stroke-width="6"/><circle id="anel-arco" cx="29" cy="29" r="24" fill="none" stroke="#F5B82E" stroke-width="6" stroke-linecap="round" stroke-dasharray="150.8" stroke-dashoffset="150.8" style="transition: stroke-dashoffset 1s"/></svg>
+        <span><b id="anel-n">0 de 9</b>paradas feitas</span>
+      </div>
     </div>
+    <div class="trilho-wrap" id="trilho">
+      <svg class="trilho-svg" id="trilho-svg" aria-hidden="true"><path class="trilho-base" id="trilho-base" d=""/><path class="trilho-feito" id="trilho-feito" d=""/></svg>
+      <ol class="paradas" id="paradas"></ol>
+    </div>
+    <p class="dica-mapa">Seu progresso fica salvo neste aparelho.</p>
   </section>
 
-  <div id="tr-mods" style="display: flex; flex-direction: column; gap: 10px">
-
-    <details class="tr-mod" data-mod="1">
-      <summary><span class="tr-n">1</span><span class="tr-tit"><strong>Sua função no escritório</strong><span>O que você vai fazer de verdade no dia a dia · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <p>Aqui o estágio é <strong>prática da advocacia</strong>. O escritório é 100% digital: os clientes chegam pelo WhatsApp, de todo o Acre, com problemas reais de trabalho, de INSS e de consumo. Você vai estar na linha de frente.</p>
-        <h4>No dia a dia, você vai</h4>
-        <ul>
-          <li><strong>Atender as situações reais que chegam no WhatsApp</strong> e saber desenrolar: entender o que aconteceu, o que a pessoa precisa e qual é o caminho.</li>
-          <li><strong>Organizar a documentação</strong> de cada cliente: pedir, conferir, ler e guardar no lugar certo.</li>
-          <li><strong>Consultar processos</strong> nos sistemas dos tribunais e do INSS e acompanhar o que mudou.</li>
-          <li><strong>Passar informações aos clientes</strong> em linguagem simples: o que aconteceu no processo e qual é o próximo passo.</li>
-          <li><strong>Montar o caso</strong>: o resumo e a minuta da petição inicial, que o Dr. Matheus revisa com você.</li>
-        </ul>
-        <div class="tr-caixa">Em resumo: você faz o que um advogado faz no dia a dia, com a supervisão do Dr. Matheus. As ferramentas (WhatsApp, sistema de atendimento, sistemas dos tribunais, Meu INSS, assinatura eletrônica e inteligência artificial) a gente ensina a usar.</div>
-        <h4>O que a gente espera de você</h4>
-        <ul>
-          <li>Saber ouvir e escrever com clareza, sem juridiquês.</li>
-          <li>Cuidado com detalhe: datas, valores e nomes certos.</li>
-          <li><strong>Sigilo.</strong> Tudo o que o cliente conta é protegido pelo sigilo profissional e pela LGPD. Nada sai da conversa.</li>
-          <li>Honestidade: quando não souber, diga que vai confirmar. Nunca invente.</li>
-        </ul>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="2">
-      <summary><span class="tr-n">2</span><span class="tr-tit"><strong>As regras do escritório</strong><span>Seis regras que valem em todo atendimento · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <p><strong>1. Atendimento 100% digital.</strong> Não há recepção nem endereço para visita. Tudo acontece pelo WhatsApp, inclusive a assinatura dos documentos, pelo celular. Se o cliente quiser "passar aí", explique com naturalidade que o escritório funciona assim.</p>
-        <p><strong>2. Honorários só no êxito.</strong> O cliente não paga nada adiantado: nem consulta, nem taxa. Se ganhar, o escritório recebe 35% do que ele receber. No INSS, quando é benefício mensal: 35% dos atrasados mais uma parcela do benefício quando ele for implantado. <strong>O percentual não se negocia no atendimento.</strong></p>
-        <p><strong>3. Nunca prometa resultado, valor ou prazo.</strong> Nem "com certeza você ganha", nem "dá uns dez mil", nem "sai em três meses", nem "o dobro".</p>
-        <p><strong>4. Uma pergunta por vez.</strong> Mensagem curta, linguagem simples. Quatro perguntas numa mensagem fazem o cliente responder uma e esquecer as outras.</p>
-        <p><strong>5. Um documento por vez.</strong> Peça, espere chegar, <strong>abra e leia</strong>, e só então peça o próximo. Muita informação já está dentro do documento.</p>
-        <p><strong>6. Na dúvida, não invente.</strong> "Vou confirmar isso com o Dr. Matheus e te retorno" é uma resposta profissional; chutar lei, prazo ou valor não é.</p>
-        <div class="tr-alerta"><strong>O que reprova na hora:</strong> prometer resultado, valor ou prazo · pedir pagamento adiantado · negociar honorários · passar endereço ou marcar presencial · dizer que não ouve áudio · inventar lei ou prazo · grosseria · sumir no meio do atendimento.</div>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="3">
-      <summary><span class="tr-n">3</span><span class="tr-tit"><strong>Como conduzir um atendimento</strong><span>Da primeira mensagem ao fechamento · 6 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <h4>1. Abertura: acalmar antes de perguntar</h4>
-        <p>Cumprimente, diga seu nome e que é do escritório, e mostre que leu o que a pessoa escreveu. Quem chega já está preocupado.</p>
-        <p class="tr-frase"><i>"Bom dia! Aqui é a Ana, do escritório Matheus Silva Advocacia. Vi que você foi demitido e não recebeu nada, sinto muito. Vou te ajudar a organizar isso. Posso te fazer algumas perguntas?"</i></p>
-        <h4>2. Entender o caso</h4>
-        <p>Antes de falar em documento ou honorário, descubra <strong>o que aconteceu, quando e contra quem</strong>. Deixe a pessoa contar e depois preencha os buracos, uma pergunta por vez. Três perguntas valem em qualquer área:</p>
-        <ul><li><strong>Quando foi?</strong> A data define o prazo, e prazo não se perde.</li><li><strong>Já tem advogado nesse caso?</strong> Se tiver, o escritório não atua por cima do colega.</li><li><strong>Tem algum papel disso?</strong> Documento vale mais que memória.</li></ul>
-        <h4>3. O cadastro que precisa sair da conversa</h4>
-        <p>Nome completo, CPF, RG, data de nascimento, estado civil, profissão, nome da mãe, endereço com CEP e e-mail. Peça ao longo da conversa, nunca como formulário despejado de uma vez.</p>
-        <h4>4. Documentos</h4>
-        <p>O cliente manda foto do papel, muitas vezes torta ou escura. <strong>Abra e leia toda foto.</strong> Se não der para ler: "consegue tirar outra foto com o papel inteiro?". Comprovante de residência tem que estar no nome do cliente; se vier no nome da mãe ou do locador, peça outro ou uma declaração de residência.</p>
-        <h4>5. Fechamento</h4>
-        <p class="tr-frase"><i>"Com isso eu já consigo montar o seu caso. Vou organizar tudo e o escritório te retorna por aqui. Se lembrar de mais alguma coisa, é só me mandar."</i></p>
-        <h4>Ruim × bom</h4>
-        <div class="tr-par"><div class="tr-ruim"><b>Ruim</b>"Qual seu nome completo, CPF, data de admissão, salário e endereço?"</div><div class="tr-bom"><b>Bom</b>"Pra começar, qual é o seu nome completo?"</div></div>
-        <div class="tr-par"><div class="tr-ruim"><b>Ruim</b>"Isso aí é verba rescisória do art. 477 com multa do 467."</div><div class="tr-bom"><b>Bom</b>"Pelo que você contou, a empresa ficou te devendo os valores da saída. Vou te ajudar a organizar isso."</div></div>
-        <div class="tr-par"><div class="tr-ruim"><b>Ruim</b>"Não consigo ouvir áudio, escreve aí."</div><div class="tr-bom"><b>Bom</b>(ouve o áudio) "Entendi, você trabalhava das 7h às 19h. E tinha intervalo para almoço?"</div></div>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="4">
-      <summary><span class="tr-n">4</span><span class="tr-tit"><strong>Trabalhista</strong><span>O que perguntar, o que pedir e o que muda o caso · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <table class="tr-tab"><tr><th style="width:52%">O que descobrir</th><th>Documentos</th></tr>
-        <tr><td>Se saiu ou continua na empresa e o último dia · se a carteira era assinada e desde quando · função e último salário · se recebeu as verbas da saída · nome, CNPJ e endereço da empresa · horário real e intervalo · se havia ponto · se o FGTS era depositado · se tirava férias · testemunhas</td><td>RG e CPF · <strong>carteira de trabalho em PDF do app Carteira de Trabalho Digital</strong> · contracheques · extrato do FGTS (app) · termo de rescisão, se houver · prints de conversas com o patrão · comprovante de residência</td></tr></table>
-        <div class="tr-caixa"><strong>Carteira de trabalho:</strong> só serve o PDF do aplicativo. Foto da carteira de papel não substitui. Se a pessoa não souber gerar, ensine o passo a passo.</div>
-        <h4>Detalhes que mudam o caso</h4>
-        <ul><li>Jornada maior que a do papel (horas extras, intervalo cortado).</li><li>FGTS parado há meses.</li><li>Carteira sem baixa e saída "verbal", sem termo de rescisão.</li><li>O CNPJ e o endereço da empresa costumam estar <strong>no contracheque</strong>: leia antes de perguntar.</li><li>Prazo: a ação pode ser proposta até 2 anos depois da saída. Data de saída é sempre uma das primeiras perguntas.</li></ul>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="5">
-      <summary><span class="tr-n">5</span><span class="tr-tit"><strong>Previdenciário (INSS)</strong><span>Benefício negado, BPC/LOAS e salário-maternidade · 5 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <table class="tr-tab"><tr><th style="width:52%">O que descobrir</th><th>Documentos</th></tr>
-        <tr><td>Qual benefício e <strong>quem é o titular</strong> (às vezes quem fala não é quem tem o direito) · se foi negado, quando e por quê · datas do pedido, da perícia e da negativa · se tem laudo · quem mora na casa e quanto cada um ganha · se o CadÚnico está atualizado · acesso ao gov.br · se já tem advogado</td><td><strong>Laudo médico, sempre o primeiro</strong> · carta de indeferimento · documentos do titular e de quem o representa · comprovante de residência · folha do CadÚnico · relatórios de escola e terapias · CPF e senha do gov.br, <strong>explicando para que serve</strong></td></tr></table>
-        <div class="tr-caixa"><strong>Benefício negado é ação judicial.</strong> Quando o INSS nega, o escritório entra direto na Justiça Federal. Recurso administrativo demora e raramente muda o resultado. Só fale dele se o cliente perguntar, com delicadeza.</div>
-        <h4>Casos que chegam muito</h4>
-        <ul>
-          <li><strong>BPC/LOAS:</strong> benefício assistencial para pessoa com deficiência ou idosa de baixa renda. Quando é para uma criança, o titular é a criança; a mãe ou o pai é o representante.</li>
-          <li><strong>Salário-maternidade:</strong> pode ser da trabalhadora com carteira, da desempregada, da que contribui por conta própria ou da trabalhadora rural. Gestante desempregada: <strong>nunca diga "não tem direito"</strong> e <strong>nunca mande pagar guia sozinha</strong>. O escritório analisa e orienta o caminho.</li>
-          <li><strong>Senha do gov.br:</strong> peça explicando que é para consultar o processo e os dados no Meu INSS. Senha de banco, nunca.</li>
-        </ul>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="6">
-      <summary><span class="tr-n">6</span><span class="tr-tit"><strong>Consumidor</strong><span>Voo, bagagem, cobrança e nome negativado · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <table class="tr-tab"><tr><th style="width:52%">O que descobrir</th><th>Documentos</th></tr>
-        <tr><td>Qual empresa, o que foi contratado e quanto custou · o que aconteceu e quando · quanto a pessoa gastou por causa do problema e se guardou as notas · se perdeu algum compromisso e se dá para provar · se reclamou na empresa e o que responderam · protocolos</td><td>RG e CPF · comprovante da compra (no voo, o <strong>e-ticket ou a reserva</strong>, não "o contrato") · notas dos gastos · prints e protocolos · provas do prejuízo (convites, fotos) · comprovante de residência</td></tr></table>
-        <ul>
-          <li><strong>Voo nacional:</strong> valem o Código de Defesa do Consumidor e a Resolução 400 da ANAC. A Convenção de Montreal é para voo internacional.</li>
-          <li><strong>Bagagem:</strong> peça o RIB (registro de irregularidade de bagagem) e quantos dias a mala demorou.</li>
-          <li><strong>Dano moral não é automático.</strong> O que pesa são as circunstâncias concretas: horas sem assistência, compromisso perdido, constrangimento. Por isso pergunte e registre os detalhes.</li>
-          <li>Reclamar na ANAC ou no consumidor.gov.br antes <strong>não é obrigatório</strong> para entrar na Justiça.</li>
-        </ul>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="7">
-      <summary><span class="tr-n">7</span><span class="tr-tit"><strong>As situações difíceis</strong><span>As perguntas que todo cliente faz · 4 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <p class="tr-frase"><i>"Quanto eu vou receber?"</i><br>Não dá para dizer valor agora: depende dos documentos e do cálculo. Assim que o escritório analisar, a gente dá uma posição com pé no chão.</p>
-        <p class="tr-frase"><i>"Quanto vocês cobram? Estou sem dinheiro."</i><br>Você não paga nada agora. O escritório só recebe se ganhar: 35% no final. Se perder, não deve nada.</p>
-        <p class="tr-frase"><i>"Posso passar aí no escritório?"</i><br>Nosso atendimento é todo digital, por aqui mesmo, inclusive a assinatura, pelo celular. Assim você não perde o dia de trabalho.</p>
-        <p class="tr-frase"><i>"Vocês têm certeza que eu ganho?"</i><br>Garantia ninguém pode dar, e desconfie de quem der. O seu caso vai ser analisado com atenção.</p>
-        <p class="tr-frase"><i>"Como sei que vocês não são golpe?"</i><br>Pode conferir a inscrição do Dr. Matheus Oliveira Silva, OAB/AC 5292, no site da OAB e as avaliações do escritório no Google. E repare: ninguém do escritório pede pagamento adiantado.</p>
-        <p class="tr-frase"><i>"Quanto tempo demora?"</i><br>Prazo depende da Justiça e ninguém honesto crava data. O que se garante é avisar cada movimentação.</p>
-        <h4>E quando...</h4>
-        <ul><li><strong>o cliente desabafa</strong> (briga em casa, medo, choro): acolha em uma frase sincera e volte ao caso com delicadeza.</li><li><strong>outra pessoa digita por ele</strong>: tudo bem, mas o cliente continua sendo quem tem o direito.</li><li><strong>manda tudo de uma vez</strong>: agradeça, leia tudo e diga o que ainda falta, uma coisa por vez.</li></ul>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="8">
-      <summary><span class="tr-n">8</span><span class="tr-tit"><strong>Acompanhar processos e dar notícias</strong><span>Traduzir o "juridiquês" para o cliente · 3 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <p>Parte do trabalho é consultar o andamento dos processos e contar ao cliente o que aconteceu, em linguagem simples, sem prometer prazo nem resultado.</p>
-        <table class="tr-tab"><tr><th style="width:45%">No sistema aparece</th><th>Para o cliente</th></tr>
-        <tr><td>Conclusos para sentença</td><td>"O processo está com o juiz para ele decidir."</td></tr>
-        <tr><td>Citação / réu citado</td><td>"A empresa (ou o INSS) foi chamada oficialmente para responder."</td></tr>
-        <tr><td>Audiência designada</td><td>"Foi marcada uma audiência para o dia tal." E explique se ele precisa participar e como.</td></tr>
-        <tr><td>Perícia agendada</td><td>"O juiz marcou uma perícia médica." Data, local e o que levar.</td></tr>
-        <tr><td>Trânsito em julgado</td><td>"A decisão é definitiva, não cabe mais recurso."</td></tr>
-        <tr><td>RPV expedida</td><td>"O pagamento foi autorizado. Agora é a fase de o dinheiro ser liberado, o que ainda leva um tempo."</td></tr></table>
-        <div class="tr-caixa">Regra de ouro: toda novidade importante vira mensagem para o cliente, e ninguém fica sem resposta.</div>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-
-    <details class="tr-mod" data-mod="9">
-      <summary><span class="tr-n">9</span><span class="tr-tit"><strong>Como são o teste prático e a entrega escrita</strong><span>O que vem depois do quiz · 3 min</span></span><svg class="tr-seta" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="tr-corpo">
-        <h4>Teste prático</h4>
-        <p>Quando você passar no quiz, é você quem decide a hora. Mande <strong>QUERO FAZER O TESTE</strong> no WhatsApp do escritório e, em poucos minutos, um <strong>cliente simulado</strong> vai te chamar ali. Ele se comporta como gente de verdade: manda áudio, foto torta de documento e faz perguntas difíceis. Atenda como se você fosse o escritório.</p>
-        <ul><li>Dura de 20 a 40 minutos. Faça no computador, num lugar tranquilo.</li><li>Você conduz; o cliente só responde o que for perguntado.</li><li>No fim chega um boletim com a sua nota e um comentário em cada critério.</li></ul>
-        <p>O que conta na nota: acolhimento e comunicação (15) · entender o caso (25) · documentos (25) · regras do escritório (25) · condução, fechamento e tempo de resposta (10).</p>
-        <h4>Entrega escrita</h4>
-        <p>Depois do teste você monta o caso que atendeu: <strong>o resumo</strong> (título NOME x RÉU, o que aconteceu com datas e valores, documentos recebidos e faltantes, perguntas pendentes e viabilidade) e <strong>a minuta da petição inicial</strong>. Prazo de 48 horas, em Word ou PDF, mandado pelo WhatsApp. Pode pesquisar e usar inteligência artificial, mas confira tudo: dado inventado ou jurisprudência que não existe tira muitos pontos.</p>
-        <div class="tr-caixa">Não existe resposta decorada. A gente procura quem ouve, pergunta o que precisa e não inventa o que não sabe. O resto se ensina.</div>
-        <button type="button" class="tr-lido">Marcar como lido</button>
-      </div>
-    </details>
-  </div>
-
-  <section id="quiz" class="bloco" style="background: #FFFDF9; border-radius: 28px; padding: 44px 48px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box; scroll-margin-top: 16px">
-    <div style="display: flex; flex-direction: column; gap: 8px">
-      <span style="font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C8102E">Quiz final</span>
-      <h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.1">10 perguntas sobre a trilha</h2>
-      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #5A5248">Passa com 7 acertos. Você tem 2 tentativas. As perguntas mudam a cada tentativa.</p>
-    </div>
+  <section id="quiz" class="quiz">
+    <h2>Quiz final: 10 perguntas</h2>
+    <p>Passa com 7 acertos. Você tem 2 tentativas, e as perguntas mudam a cada uma.</p>
     <div id="qz" class="qz" aria-live="polite"><p style="margin: 0">Carregando…</p></div>
   </section>
 
-  <footer style="background: #FFFDF9; border-radius: 20px; padding: 18px 26px; font-size: 13px; line-height: 1.6; color: #5A5248">Matheus Silva – Sociedade Individual de Advocacia · OAB/AC 5292 · material do processo seletivo de estágio · <a href="privacidade.html">Política de privacidade</a> · <a href="#" onclick="preferenciasCookies();return false">Preferências de cookies</a></footer>
+  <footer style="background: var(--papel); border-radius: 20px; padding: 18px 26px; font-size: 13px; line-height: 1.6; color: #5A5248">Matheus Silva – Sociedade Individual de Advocacia · OAB/AC 5292 · material do processo seletivo de estágio · <a href="privacidade.html">Política de privacidade</a> · <a href="#" onclick="preferenciasCookies();return false">Preferências de cookies</a></footer>
 </div>
 </div>
+
+<div id="player" class="player" role="dialog" aria-modal="true" aria-labelledby="pl-h" hidden>
+  <div class="pl-topo"><button type="button" class="pl-fechar" id="pl-fechar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Mapa</button><span class="pl-tit" id="pl-tit"></span></div>
+  <div class="pl-barras" id="pl-barras"></div>
+  <div class="pl-palco" id="pl-palco"></div>
+  <div class="pl-rodape"><div class="pl-rodape-in"><button type="button" class="pl-bt vol" id="pl-vol">← Voltar</button><span class="pl-pos" id="pl-pos"></span><button type="button" class="pl-bt seg" id="pl-seg">Continuar</button></div></div>
+</div>
+<canvas class="festa" id="festa" hidden></canvas>
 <script>
 (function () {
   // ===== CONFIGURAÇÃO — preencher com os códigos do escritório =====
@@ -397,70 +350,313 @@ button{font:inherit}
   else if (c !== "nao" && (CFG.META_PIXEL_ID || CFG.GA_ID)) mostrarAviso();
 })();
 
-// Trilha de estudo do estágio (22/10/2026): módulos com "marcar como lido" + quiz pelo link pessoal (?t=TOKEN).
-// O quiz é sorteado e corrigido pelo robô do escritório (selecao.js no middleware) — o gabarito não fica na página.
+// Trilha de estudo do estágio — v2 (22/10/2026): mapa com 9 paradas + "player" em telas curtas (stories),
+// com conversas de WhatsApp, cartas que viram e tradutor de juridiquês. Quiz pelo link pessoal (?t=TOKEN),
+// sorteado e corrigido no robô do escritório (selecao.js no middleware) — o gabarito não fica na página.
 window.ORIGEM_PAGINA = "trilha-estagio";
 (function () {
   var API = "https://claude-kommo-middleware-production.up.railway.app";
   try { var qa = new URLSearchParams(location.search).get("api"); if (qa && /^http:\/\/localhost(:\d+)?$/.test(qa)) API = qa; } catch (e) {}
   var NUMERO = "5568999993427";
   var token = ""; try { token = new URLSearchParams(location.search).get("t") || ""; } catch (e) {}
-  var CHAVE = "trilha-lidos";
-  var mods = Array.prototype.slice.call(document.querySelectorAll(".tr-mod"));
-  var lidos = {}; try { lidos = JSON.parse(localStorage.getItem(CHAVE) || "{}") || {}; } catch (e) {}
-  var qz = document.getElementById("qz");
-  var info = null;
-  var prova = null, resp = {}, idx = 0;
+  var CHAVE = "trilha-v2";
+  var reduzido = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  function salvarLidos() { try { localStorage.setItem(CHAVE, JSON.stringify(lidos)); } catch (e) {} }
-  function totalLidos() { return mods.filter(function (m) { return lidos[m.dataset.mod]; }).length; }
-  function progresso() {
-    var n = totalLidos();
-    document.getElementById("tr-prog").style.width = Math.round(n / mods.length * 100) + "%";
-    document.getElementById("tr-prog-txt").textContent = n + " de " + mods.length + " módulos";
-    mods.forEach(function (m) {
-      var ok = !!lidos[m.dataset.mod]; m.classList.toggle("lido", ok);
-      var b = m.querySelector(".tr-lido"); if (b) b.textContent = ok ? "✓ Lido" : "Marcar como lido";
-    });
-    if (info && !prova) desenharInicio();
-  }
-  mods.forEach(function (m, i) {
-    var b = m.querySelector(".tr-lido");
-    if (b) b.addEventListener("click", function () {
-      lidos[m.dataset.mod] = !lidos[m.dataset.mod]; salvarLidos(); progresso();
-      if (lidos[m.dataset.mod]) { m.open = false; var prox = mods[i + 1]; if (prox && !lidos[prox.dataset.mod]) { prox.open = true; setTimeout(function () { prox.scrollIntoView({ behavior: "smooth", block: "start" }); }, 150); } else if (totalLidos() === mods.length) document.getElementById("quiz").scrollIntoView({ behavior: "smooth" }); }
-    });
-  });
-  if (!totalLidos() && mods[0]) mods[0].open = true;
+  // ---------------------------------------------------------------- ícones
+  var IC = {
+    pasta: '<path d="M3 7h18v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/>',
+    regra: '<path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a4 4 0 0 0 6 0z"/><path d="M19 7l-3 7a4 4 0 0 0 6 0z"/><path d="M8 21h8"/>',
+    conversa: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/>',
+    carteira: '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>',
+    inss: '<path d="M12 21s-7-4.4-7-10.2A4.8 4.8 0 0 1 12 7a4.8 4.8 0 0 1 7 3.8C19 16.6 12 21 12 21z"/>',
+    aviao: '<path d="M2 16l20-7-4 11-5-4-3 4v-5l9-8"/>',
+    alerta: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
+    lupa: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/><path d="M8 11h6"/>',
+    alvo: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
+    bandeira: '<path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/>'
+  };
+  function icone(n) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[n] + "</svg>"; }
 
+  // ---------------------------------------------------------------- conteúdo (==texto== = marca-texto)
+  var MOD = [
+    { t: "Sua função no escritório", d: "4 min", ic: "pasta", s: [
+      { tipo: "texto", t: "Aqui o estágio é ==advocacia de verdade==", p: ["O escritório é 100% digital: os clientes chegam pelo WhatsApp, de todo o Acre, com problemas reais de trabalho, de INSS e de consumo.", "Você vai estar na linha de frente."] },
+      { tipo: "lista", t: "No dia a dia, você vai", itens: [["Atender as situações reais", " que chegam no WhatsApp e saber desenrolar: entender o caso e indicar o caminho."], ["Organizar a documentação", " de cada cliente: pedir, conferir, ler e guardar no lugar certo."], ["Consultar processos", " nos sistemas dos tribunais e do INSS."], ["Passar informações aos clientes", " em linguagem simples."], ["Montar o caso", ": o resumo e a minuta da petição inicial, que o Dr. Matheus revisa com você."]] },
+      { tipo: "texto", t: "O que um advogado faz, ==com supervisão==", p: ["As ferramentas (WhatsApp, sistema de atendimento, sistemas dos tribunais, Meu INSS, assinatura eletrônica e inteligência artificial) a gente ensina a usar."], nota: "O que a gente espera de você: <b>ouvir e escrever com clareza</b>, cuidado com datas e valores, <b>sigilo</b> sobre tudo o que o cliente conta e honestidade: quando não souber, diga que vai confirmar." }
+    ] },
+    { t: "As regras do escritório", d: "4 min", ic: "regra", s: [
+      { tipo: "lista", t: "Seis regras que valem ==em todo atendimento==", numerada: true, itens: [["100% digital.", " Sem recepção nem endereço para visita. Tudo pelo WhatsApp, inclusive a assinatura, pelo celular."], ["Honorários só no êxito.", " Nada adiantado. Se ganhar, 35% do que receber. No INSS mensal: 35% dos atrasados + uma parcela na implantação. Não se negocia."], ["Nunca prometa resultado, valor ou prazo.", " Nem \"com certeza\", nem \"dá uns dez mil\", nem \"o dobro\"."]] },
+      { tipo: "lista", t: "Seis regras que valem ==em todo atendimento==", numerada: true, inicio: 4, itens: [["Uma pergunta por vez.", " Mensagem curta, linguagem simples."], ["Um documento por vez.", " Peça, espere, abra e leia. Só então peça o próximo."], ["Na dúvida, não invente.", " \"Vou confirmar com o Dr. Matheus e te retorno\" é resposta profissional."]] },
+      { tipo: "lista", t: "O que ==reprova na hora==", nao: true, itens: [["Prometer", " resultado, valor ou prazo"], ["Pedir", " pagamento adiantado"], ["Negociar", " honorários"], ["Passar endereço", " ou marcar presencial"], ["Dizer que não ouve áudio", ""], ["Inventar", " lei ou prazo"], ["Grosseria", " ou sumir no meio do atendimento"]] }
+    ] },
+    { t: "Como conduzir um atendimento", d: "6 min", ic: "conversa", s: [
+      { tipo: "zap", t: "1. Abrir: ==acalmar antes de perguntar==", p: "Cumprimente, diga seu nome e mostre que leu o que a pessoa escreveu.", conversa: [["cli", "Oi, fui demitido e a empresa não me pagou nada até hoje"], ["esc", "Bom dia! Aqui é a Ana, do escritório Matheus Silva Advocacia. Sinto muito pelo que aconteceu. Vou te ajudar a organizar isso. Posso te fazer algumas perguntas?"]] },
+      { tipo: "lista", t: "2. Entender: ==três perguntas== que valem sempre", itens: [["Quando foi?", " A data define o prazo, e prazo não se perde."], ["Já tem advogado nesse caso?", " Se tiver, o escritório não atua por cima do colega."], ["Tem algum papel disso?", " Documento vale mais que memória."]] },
+      { tipo: "chips", t: "3. O cadastro que sai da conversa", p: "Peça ao longo da conversa, nunca tudo de uma vez:", chips: ["Nome completo", "CPF", "RG", "Data de nascimento", "Estado civil", "Profissão", "Nome da mãe", "Endereço com CEP", "E-mail"] },
+      { tipo: "texto", t: "4. Documentos: ==abra e leia tudo==", p: ["O cliente manda foto do papel, muitas vezes torta ou escura. Se não der para ler: \"consegue tirar outra foto com o papel inteiro?\"", "Comprovante de residência tem que estar no nome do cliente. Se vier no nome da mãe ou do locador, peça outro ou uma declaração de residência."] },
+      { tipo: "zap", t: "5. Fechar: ==próximo passo claro==", conversa: [["esc", "Com isso eu já consigo montar o seu caso. Vou organizar tudo e o escritório te retorna por aqui. Se lembrar de mais alguma coisa, é só me mandar."], ["cli", "Obrigado, fico no aguardo!"]] },
+      { tipo: "cartas", t: "Ruim ou bom? ==Toque para virar==", p: "Na frente, o jeito errado. Toque e veja o jeito do escritório.", cartas: [["\"Qual seu nome completo, CPF, data de admissão, salário e endereço?\"", "\"Pra começar, qual é o seu nome completo?\""], ["\"Isso aí é verba rescisória do art. 477 com multa do 467.\"", "\"Pelo que você contou, a empresa ficou te devendo os valores da saída. Vou te ajudar a organizar isso.\""], ["\"Não consigo ouvir áudio, escreve aí.\"", "(ouve o áudio) \"Entendi, você trabalhava das 7h às 19h. E tinha intervalo para almoço?\""]] }
+    ] },
+    { t: "Trabalhista", d: "4 min", ic: "carteira", s: [
+      { tipo: "chips", t: "O que ==descobrir==", chips: ["Saiu ou continua?", "Último dia", "Carteira assinada desde quando", "Função e último salário", "Recebeu as verbas?", "Nome, CNPJ e endereço da empresa", "Horário real e intervalo", "Tinha ponto?", "FGTS depositado?", "Tirava férias?", "Testemunhas"] },
+      { tipo: "chips", t: "O que ==pedir==", chips: ["RG e CPF", "Carteira de trabalho em PDF do app", "Contracheques", "Extrato do FGTS (app)", "Termo de rescisão, se houver", "Prints de conversas com o patrão", "Comprovante de residência"], forte: ["Carteira de trabalho em PDF do app"], nota: "<b>Carteira de trabalho:</b> só serve o PDF do aplicativo Carteira de Trabalho Digital. Foto da carteira de papel não substitui. Se a pessoa não souber gerar, ensine o passo a passo." },
+      { tipo: "lista", t: "Detalhes que ==mudam o caso==", itens: [["Jornada maior que a do papel", ": horas extras e intervalo cortado."], ["FGTS parado", " há meses."], ["Saída \"verbal\"", ", sem termo de rescisão e sem baixa na carteira."], ["O CNPJ está no contracheque", ": leia antes de perguntar."], ["Prazo de 2 anos", " depois da saída para entrar com a ação. A data de saída é sempre uma das primeiras perguntas."]] }
+    ] },
+    { t: "Previdenciário (INSS)", d: "5 min", ic: "inss", s: [
+      { tipo: "chips", t: "O que ==descobrir==", chips: ["Qual benefício", "Quem é o titular", "Foi negado? Quando e por quê", "Datas do pedido, da perícia e da negativa", "Tem laudo?", "Quem mora na casa e a renda de cada um", "CadÚnico atualizado?", "Acesso ao gov.br", "Já tem advogado?"], forte: ["Quem é o titular"] },
+      { tipo: "texto", t: "O primeiro documento é ==sempre o laudo==", p: ["Depois: carta de indeferimento, documentos do titular e de quem o representa, comprovante de residência, folha do CadÚnico, relatórios de escola e terapias.", "CPF e senha do gov.br só com explicação: é para consultar o processo e os dados no Meu INSS. Senha de banco, nunca."] },
+      { tipo: "texto", t: "Benefício negado é ==ação judicial==", p: ["Quando o INSS nega, o escritório entra direto na Justiça Federal. Recurso administrativo demora e raramente muda o resultado.", "Só fale dele se o cliente perguntar, e com delicadeza."] },
+      { tipo: "lista", t: "Casos que ==chegam muito==", itens: [["BPC/LOAS:", " benefício assistencial para pessoa com deficiência ou idosa de baixa renda. Quando é para uma criança, o titular é a criança; a mãe ou o pai é o representante."], ["Salário-maternidade:", " da trabalhadora com carteira, da desempregada, da que contribui por conta própria ou da rural."], ["Gestante desempregada:", " nunca diga \"não tem direito\" e nunca mande pagar guia sozinha. O escritório analisa e orienta."]] }
+    ] },
+    { t: "Consumidor", d: "4 min", ic: "aviao", s: [
+      { tipo: "chips", t: "O que ==descobrir==", chips: ["Qual empresa", "O que foi contratado e quanto custou", "O que aconteceu e quando", "Quanto gastou por causa do problema", "Guardou as notas?", "Perdeu algum compromisso?", "Reclamou na empresa? O que responderam", "Protocolos"] },
+      { tipo: "chips", t: "O que ==pedir==", chips: ["RG e CPF", "Comprovante da compra", "No voo: e-ticket ou reserva", "Notas dos gastos", "Prints e protocolos", "Provas do prejuízo (convites, fotos)", "Comprovante de residência"], forte: ["No voo: e-ticket ou reserva"] },
+      { tipo: "lista", t: "Para ==não errar==", itens: [["Voo nacional:", " Código de Defesa do Consumidor e Resolução 400 da ANAC. A Convenção de Montreal é para voo internacional."], ["Bagagem:", " peça o RIB (registro de irregularidade) e quantos dias a mala demorou."], ["Dano moral não é automático.", " O que pesa são as circunstâncias: horas sem assistência, compromisso perdido. Pergunte e registre os detalhes."], ["ANAC ou consumidor.gov.br antes", " não é obrigatório para entrar na Justiça."]] }
+    ] },
+    { t: "As situações difíceis", d: "4 min", ic: "alerta", s: [
+      { tipo: "pergunta", t: "O cliente pergunta ==o valor==", cli: "Quanto eu vou receber?", esc: "Ainda não dá para dizer valor: depende dos documentos e do cálculo. Assim que o escritório analisar, a gente te dá uma posição com pé no chão." },
+      { tipo: "pergunta", t: "O cliente pergunta ==quanto custa==", cli: "Quanto vocês cobram? Tô sem dinheiro nenhum.", esc: "Você não paga nada agora. O escritório só recebe se ganhar: 35% no final. Se perder, não deve nada." },
+      { tipo: "pergunta", t: "O cliente quer ==ir pessoalmente==", cli: "Posso passar aí no escritório amanhã?", esc: "Nosso atendimento é todo digital, por aqui mesmo, inclusive a assinatura, pelo celular. Assim você não perde o dia de trabalho." },
+      { tipo: "pergunta", t: "O cliente quer ==certeza==", cli: "Vocês têm certeza que eu ganho?", esc: "Garantia ninguém pode dar, e desconfie de quem der. O seu caso vai ser analisado com atenção." },
+      { tipo: "pergunta", t: "O cliente ==desconfia==", cli: "Como eu sei que vocês não são golpe?", esc: "Pode conferir a inscrição do Dr. Matheus Oliveira Silva, OAB/AC 5292, no site da OAB, e as avaliações do escritório no Google. E repare: ninguém daqui pede pagamento adiantado." },
+      { tipo: "pergunta", t: "O cliente quer ==um prazo==", cli: "Quanto tempo demora?", esc: "Prazo depende da Justiça e ninguém honesto crava data. O que eu garanto é te avisar de cada movimentação." },
+      { tipo: "lista", t: "E quando...", itens: [["o cliente desabafa", " (briga em casa, medo, choro): acolha em uma frase sincera e volte ao caso com delicadeza."], ["outra pessoa digita por ele", ": tudo bem, mas o cliente continua sendo quem tem o direito."], ["manda tudo de uma vez", ": agradeça, leia tudo e diga o que ainda falta, uma coisa por vez."]] }
+    ] },
+    { t: "Acompanhar processos", d: "3 min", ic: "lupa", s: [
+      { tipo: "texto", t: "Traduzir o processo ==para o cliente==", p: ["Parte do trabalho é consultar o andamento e contar ao cliente o que aconteceu, em linguagem simples, sem prometer prazo nem resultado."], nota: "Regra de ouro: <b>toda novidade importante vira mensagem</b> para o cliente, e ninguém fica sem resposta." },
+      { tipo: "traduz", t: "Toque no termo e ==veja a tradução==", itens: [["Conclusos para sentença", "\"O processo está com o juiz para ele decidir.\""], ["Réu citado", "\"A empresa (ou o INSS) foi chamada oficialmente para responder.\""], ["Audiência designada", "\"Foi marcada uma audiência para o dia tal.\" E explique se ele participa e como."], ["Perícia agendada", "\"O juiz marcou uma perícia médica.\" Data, local e o que levar."], ["Trânsito em julgado", "\"A decisão é definitiva, não cabe mais recurso.\""], ["RPV expedida", "\"O pagamento foi autorizado. Agora o dinheiro é liberado, o que ainda leva um tempo.\""]] }
+    ] },
+    { t: "O teste e a entrega", d: "3 min", ic: "alvo", s: [
+      { tipo: "texto", t: "O teste prático: ==você escolhe a hora==", p: ["Passou no quiz? Mande QUERO FAZER O TESTE no WhatsApp do escritório. Em poucos minutos, um cliente simulado te chama ali, com áudio, foto torta de documento e perguntas difíceis.", "Dura de 20 a 40 minutos. Faça no computador, num lugar tranquilo. Você conduz; o cliente só responde o que for perguntado."] },
+      { tipo: "barras", t: "Como ==a nota é feita==", p: "No fim do teste chega um boletim com um comentário em cada critério:", barras: [["Acolhimento e comunicação", 15], ["Entender o caso", 25], ["Documentos", 25], ["Regras do escritório", 25], ["Condução e tempo de resposta", 10]] },
+      { tipo: "texto", t: "A entrega escrita: ==48 horas==", p: ["Depois do teste você monta o caso que atendeu: o resumo (título NOME x RÉU, o que aconteceu com datas e valores, documentos recebidos e faltantes, perguntas pendentes e viabilidade) e a minuta da petição inicial.", "Em Word ou PDF, pelo WhatsApp. Pode pesquisar e usar inteligência artificial, mas confira tudo: dado inventado ou jurisprudência que não existe tira muitos pontos."], nota: "Não existe resposta decorada. A gente procura quem <b>ouve, pergunta o que precisa e não inventa</b> o que não sabe. O resto se ensina." }
+    ] }
+  ];
+
+  // ---------------------------------------------------------------- estado
+  var feitos = {}; try { feitos = JSON.parse(localStorage.getItem(CHAVE) || "{}") || {}; } catch (e) {}
+  function salvar() { try { localStorage.setItem(CHAVE, JSON.stringify(feitos)); } catch (e) {} }
+  function nFeitos() { return MOD.filter(function (m, i) { return feitos[i]; }).length; }
+  function atual() { for (var i = 0; i < MOD.length; i++) if (!feitos[i]) return i; return MOD.length; }
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function marca(t) { return esc(t).replace(/==(.+?)==/g, '<span class="grifo">$1</span>'); }
   function el(tag, attrs, filhos) {
     var e = document.createElement(tag);
     for (var k in attrs || {}) { if (k === "text") e.textContent = attrs[k]; else if (k === "html") e.innerHTML = attrs[k]; else e.setAttribute(k, attrs[k]); }
     (filhos || []).forEach(function (f) { if (f) e.appendChild(typeof f === "string" ? document.createTextNode(f) : f); });
     return e;
   }
+
+  // ---------------------------------------------------------------- mapa
+  var lista = document.getElementById("paradas");
+  var wrap = document.getElementById("trilho");
+  var svg = document.getElementById("trilho-svg");
+  var pBase = document.getElementById("trilho-base");
+  var pFeito = document.getElementById("trilho-feito");
+  var nos = [];
+  MOD.forEach(function (m, i) {
+    var li = el("li", { "class": "parada" });
+    var b = el("button", { type: "button", "class": "no", "aria-label": "Parada " + (i + 1) + ": " + m.t, html: icone(m.ic) });
+    var r = el("button", { type: "button", "class": "rot", tabindex: "-1" }, [el("small", { text: "Parada " + (i + 1) + " · " + m.d }), el("strong", { text: m.t })]);
+    b.addEventListener("click", function () { abrir(i); }); r.addEventListener("click", function () { abrir(i); });
+    li.appendChild(b); li.appendChild(r); lista.appendChild(li); nos.push(li);
+  });
+  var fim = el("li", { "class": "parada final" });
+  var bf = el("button", { type: "button", "class": "no", "aria-label": "Quiz final", html: icone("bandeira") });
+  var rf = el("button", { type: "button", "class": "rot", tabindex: "-1" }, [el("small", { id: "fim-small", text: "Chegada" }), el("strong", { text: "Quiz final" })]);
+  bf.addEventListener("click", irQuiz); rf.addEventListener("click", irQuiz);
+  fim.appendChild(bf); fim.appendChild(rf); lista.appendChild(fim); nos.push(fim);
+  function irQuiz() { document.getElementById("quiz").scrollIntoView({ behavior: reduzido ? "auto" : "smooth" }); }
+
+  function centros() {
+    var w = wrap.getBoundingClientRect();
+    return nos.map(function (li) { var r = li.querySelector(".no").getBoundingClientRect(); return [r.left - w.left + r.width / 2, r.top - w.top + r.height / 2]; });
+  }
+  function caminho(pts) {
+    if (!pts.length) return "";
+    var d = "M" + pts[0][0] + " " + pts[0][1];
+    for (var i = 1; i < pts.length; i++) { var a = pts[i - 1], b = pts[i], my = (a[1] + b[1]) / 2; d += " C" + a[0] + " " + my + " " + b[0] + " " + my + " " + b[0] + " " + b[1]; }
+    return d;
+  }
+  var primeiraVez = true;
+  function desenharTrilho() {
+    var w = wrap.getBoundingClientRect();
+    svg.setAttribute("viewBox", "0 0 " + w.width + " " + w.height);
+    var pts = centros();
+    pBase.setAttribute("d", caminho(pts));
+    pFeito.setAttribute("d", caminho(pts));
+    var total = pFeito.getTotalLength();
+    var ate = Math.min(atual(), MOD.length); // caminho pintado até a parada atual
+    var tmp = document.createElementNS("http://www.w3.org/2000/svg", "path"); tmp.setAttribute("d", caminho(pts.slice(0, ate + 1))); svg.appendChild(tmp);
+    var parcial = ate ? tmp.getTotalLength() : 0; svg.removeChild(tmp);
+    pFeito.style.strokeDasharray = total;
+    if (primeiraVez && !reduzido) { pFeito.style.transition = "none"; pFeito.style.strokeDashoffset = total; pFeito.getBoundingClientRect(); pFeito.style.transition = ""; primeiraVez = false; }
+    pFeito.style.strokeDashoffset = total - parcial;
+  }
+  function atualizarMapa() {
+    var a = atual(), n = nFeitos();
+    nos.forEach(function (li, i) { if (i < MOD.length) { li.classList.toggle("feita", !!feitos[i]); li.classList.toggle("atual", i === a); } });
+    fim.classList.toggle("liberada", n === MOD.length); fim.classList.toggle("atual", n === MOD.length);
+    document.getElementById("fim-small").textContent = n === MOD.length ? "Liberado" : "Faltam " + (MOD.length - n) + " paradas";
+    document.getElementById("anel-n").textContent = n + " de " + MOD.length;
+    document.getElementById("anel-arco").style.strokeDashoffset = 150.8 * (1 - n / MOD.length);
+    desenharTrilho();
+    if (info && !prova) desenharInicio();
+  }
+  window.addEventListener("resize", function () { clearTimeout(window.__rt); window.__rt = setTimeout(desenharTrilho, 120); });
+
+  // ---------------------------------------------------------------- player
+  var player = document.getElementById("player"), palco = document.getElementById("pl-palco");
+  var bVol = document.getElementById("pl-vol"), bSeg = document.getElementById("pl-seg");
+  var mi = 0, si = 0, ultimoFoco = null;
+  function abrir(i) {
+    ultimoFoco = document.activeElement; mi = i; si = 0;
+    player.hidden = false; document.body.style.overflow = "hidden";
+    var barras = document.getElementById("pl-barras"); barras.innerHTML = "";
+    MOD[i].s.forEach(function () { barras.appendChild(el("span", {}, [el("i")])); });
+    document.getElementById("pl-tit").innerHTML = "Parada " + (i + 1) + " de " + MOD.length + " · <b>" + esc(MOD[i].t) + "</b>";
+    mostrar(1);
+  }
+  function fechar() {
+    player.hidden = true; document.body.style.overflow = "";
+    atualizarMapa();
+    try { (ultimoFoco || nos[0].querySelector(".no")).focus({ preventScroll: true }); } catch (e) {}
+  }
+  function mostrar(dir) {
+    var m = MOD[mi], s = m.s[si], ultimo = si === m.s.length - 1;
+    Array.prototype.forEach.call(document.getElementById("pl-barras").children, function (b, k) { b.firstChild.style.width = k < si ? "100%" : k === si ? "100%" : "0"; b.firstChild.style.opacity = k === si ? "1" : k < si ? ".55" : "1"; });
+    bVol.disabled = si === 0;
+    bSeg.textContent = ultimo ? (innerWidth < 480 ? "Concluir ✓" : "Concluir parada ✓") : "Continuar";
+    document.getElementById("pl-pos").textContent = (si + 1) + " de " + m.s.length;
+    palco.innerHTML = "";
+    var c = el("div", { "class": "pl-slide " + (dir > 0 ? "vai" : "vem") });
+    if (si === 0) c.appendChild(el("div", { "class": "pl-ic", html: icone(m.ic) }));
+    c.appendChild(el("h2", { id: "pl-h", tabindex: "-1", html: marca(s.t) }));
+    render(s, c);
+    palco.appendChild(c); palco.scrollTop = 0;
+    requestAnimationFrame(function () { Array.prototype.forEach.call(c.querySelectorAll(".grifo"), function (g) { g.classList.add("on"); }); });
+    try { c.querySelector("h2").focus({ preventScroll: true }); } catch (e) {}
+  }
+  function render(s, c) {
+    var ps = [].concat(s.p || []);
+    if (s.tipo === "texto") ps.forEach(function (p) { c.appendChild(el("p", { html: marca(p) })); });
+    else if (ps.length) c.appendChild(el("p", { html: marca(ps[0]) }));
+    if (s.tipo === "lista") {
+      var ul = el("ul", { "class": "pl-lista" + (s.nao ? " nao" : "") });
+      s.itens.forEach(function (it, k) {
+        var mk = s.nao ? "✕" : s.numerada ? String((s.inicio || 1) + k) : "✓";
+        var li = el("li", {}, [el("span", { "class": "mk", text: mk }), el("span", { html: "<b>" + esc(it[0]) + "</b>" + esc(it[1]) })]);
+        li.style.animationDelay = reduzido ? "0s" : (0.12 + k * 0.09) + "s"; ul.appendChild(li);
+      });
+      c.appendChild(ul);
+    }
+    if (s.tipo === "chips") {
+      var ch = el("div", { "class": "chips" });
+      s.chips.forEach(function (t) { ch.appendChild(el("span", { "class": (s.forte || []).indexOf(t) > -1 ? "forte" : "", text: t })); });
+      c.appendChild(ch);
+    }
+    if (s.tipo === "zap") {
+      var z = el("div", { "class": "zap" });
+      s.conversa.forEach(function (b, k) { var bo = el("div", { "class": "bolha " + b[0] }, [el("small", { text: b[0] === "cli" ? "Cliente" : "Você, pelo escritório" }), b[1]]); bo.style.animationDelay = reduzido ? "0s" : (0.2 + k * 0.6) + "s"; z.appendChild(bo); });
+      c.appendChild(z);
+    }
+    if (s.tipo === "pergunta") {
+      var z2 = el("div", { "class": "zap" });
+      z2.appendChild(el("div", { "class": "bolha cli" }, [el("small", { text: "Cliente" }), s.cli]));
+      var ver = el("button", { type: "button", "class": "ver", text: "Ver como o escritório responde" });
+      ver.addEventListener("click", function () { ver.remove(); z2.appendChild(el("div", { "class": "bolha esc" }, [el("small", { text: "Você, pelo escritório" }), s.esc])); });
+      z2.appendChild(ver); c.appendChild(z2);
+    }
+    if (s.tipo === "cartas") {
+      var g = el("div", { "class": "cartas" });
+      s.cartas.forEach(function (ca) {
+        var b = el("button", { type: "button", "class": "carta", "aria-pressed": "false" }, [el("div", { "class": "carta-in" }, [
+          el("div", { "class": "carta-f" }, [el("b", { text: "✕ Assim não" }), ca[0], el("i", { text: "toque para virar" })]),
+          el("div", { "class": "carta-v" }, [el("b", { text: "✓ Assim sim" }), ca[1], el("i", { text: "toque para voltar" })])])]);
+        b.addEventListener("click", function () { var v = b.classList.toggle("virada"); b.setAttribute("aria-pressed", v ? "true" : "false"); });
+        g.appendChild(b);
+      });
+      c.appendChild(g);
+    }
+    if (s.tipo === "traduz") {
+      var tg = el("div", { "class": "traduz" });
+      s.itens.forEach(function (it) {
+        var b = el("button", { type: "button", "class": "tr-bt", "aria-expanded": "false" }, [el("small", { text: "No sistema aparece" }), el("span", { text: it[0] })]);
+        b.addEventListener("click", function () { var ab = !b.classList.contains("aberto"); b.classList.toggle("aberto", ab); b.setAttribute("aria-expanded", ab ? "true" : "false"); b.firstChild.textContent = ab ? "Para o cliente" : "No sistema aparece"; b.lastChild.textContent = ab ? it[1] : it[0]; });
+        tg.appendChild(b);
+      });
+      c.appendChild(tg);
+    }
+    if (s.tipo === "barras") {
+      var bx = el("div", { "class": "barras" });
+      s.barras.forEach(function (br, k) {
+        var i = el("i"); var row = el("div", { "class": "barra" }, [el("span", { text: br[0] }), el("div", { "class": "t" }, [i]), el("b", { text: String(br[1]) })]);
+        bx.appendChild(row); setTimeout(function () { i.style.width = (br[1] / 25 * 100) + "%"; }, reduzido ? 0 : 250 + k * 120);
+      });
+      c.appendChild(bx);
+    }
+    if (s.nota) c.appendChild(el("div", { "class": "pl-nota", html: s.nota }));
+  }
+  function seguir() {
+    var m = MOD[mi];
+    if (si < m.s.length - 1) { si++; mostrar(1); return; }
+    var antes = nFeitos(); feitos[mi] = true; salvar();
+    fechar();
+    try { if (window.gtag) window.gtag("event", "trilha_parada", { parada: mi + 1 }); } catch (e) {}
+    if (nFeitos() === MOD.length && antes < MOD.length) { festa(); setTimeout(irQuiz, 900); }
+    else { var a = atual(); if (a < MOD.length) setTimeout(function () { try { nos[a].querySelector(".no").focus({ preventScroll: true }); nos[a].scrollIntoView({ behavior: reduzido ? "auto" : "smooth", block: "center" }); } catch (e) {} }, 300); }
+  }
+  function voltar() { if (si > 0) { si--; mostrar(-1); } }
+  bSeg.addEventListener("click", seguir); bVol.addEventListener("click", voltar);
+  document.getElementById("pl-fechar").addEventListener("click", fechar);
+  document.addEventListener("keydown", function (e) {
+    if (player.hidden) return;
+    if (e.key === "Escape") fechar();
+    else if (e.key === "ArrowRight" && !/BUTTON/.test((document.activeElement || {}).tagName || "")) seguir();
+    else if (e.key === "ArrowLeft") voltar();
+  });
+  var tx = null;
+  palco.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; }, { passive: true });
+  palco.addEventListener("touchend", function (e) { if (tx == null) return; var dx = e.changedTouches[0].clientX - tx; tx = null; if (Math.abs(dx) > 70) { if (dx < 0) seguir(); else voltar(); } });
+
+  // confete só no momento de concluir a trilha inteira
+  function festa() {
+    if (reduzido) return;
+    var cv = document.getElementById("festa"); cv.hidden = false; var cx = cv.getContext("2d");
+    cv.width = innerWidth; cv.height = innerHeight;
+    var cores = ["#C8102E", "#F5B82E", "#1A1A1A", "#FFFDF9"], ps = [];
+    for (var i = 0; i < 140; i++) ps.push({ x: innerWidth / 2, y: innerHeight * 0.45, vx: (Math.random() - .5) * 14, vy: -Math.random() * 14 - 4, s: 5 + Math.random() * 6, c: cores[i % 4], r: Math.random() * 6 });
+    var t0 = performance.now();
+    (function passo(t) {
+      cx.clearRect(0, 0, cv.width, cv.height);
+      ps.forEach(function (p) { p.x += p.vx; p.y += p.vy; p.vy += .45; p.r += .2; cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.fillStyle = p.c; cx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); cx.restore(); });
+      if (t - t0 < 2200) requestAnimationFrame(passo); else { cx.clearRect(0, 0, cv.width, cv.height); cv.hidden = true; }
+    })(t0);
+  }
+
+  // ---------------------------------------------------------------- quiz
+  var qz = document.getElementById("qz");
+  var info = null;
+  var prova = null, resp = {}, idx = 0;
   function limpa() { qz.innerHTML = ""; }
   function msg(t) { limpa(); qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", html: t })); }
-  function waLink(texto) { return "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(texto); }
-  function botaoWa(texto, rotulo) { var a = el("a", { "class": "wa-bt", href: waLink(texto), target: "_blank", rel: "noopener", "data-candidato": "1" }, [rotulo]); return a; }
-
+  function botaoWa(texto, rotulo) { return el("a", { "class": "wa-bt", href: "https://wa.me/" + NUMERO + "?text=" + encodeURIComponent(texto), target: "_blank", rel: "noopener", "data-candidato": "1" }, [rotulo]); }
   function carregar() {
-    if (!token) { msg("O quiz abre pelo <strong>link pessoal</strong> que você recebeu no WhatsApp do escritório depois de enviar a ficha. Ainda não se inscreveu? <a href=\"trabalhe-conosco.html\">Preencha a ficha aqui</a>."); return; }
+    if (!token) { msg("O quiz abre pelo <strong>link pessoal</strong> que você recebe no WhatsApp do escritório depois de enviar a ficha. Ainda não se inscreveu? <a href=\"trabalhe-conosco.html\">Preencha a ficha aqui</a>."); return; }
     fetch(API + "/selecao/quiz?t=" + encodeURIComponent(token), { cache: "no-store" }).then(function (r) { return r.json().then(function (j) { return { st: r.status, j: j }; }); })
       .then(function (x) {
         if (x.st !== 200) { msg("Este link não é válido ou é de uma inscrição antiga. Use o link mais recente que chegou no seu WhatsApp."); return; }
         info = x.j;
-        if (info.nome) document.getElementById("tr-ola").textContent = "Oi, " + info.nome + "! Esta é a sua trilha de estudo";
+        if (info.nome) { document.getElementById("tr-ola").innerHTML = esc(info.nome) + ", sua trilha até o <em>teste prático</em>"; }
         desenharInicio();
       }).catch(function () { msg("Não consegui carregar o quiz agora. Verifique a internet e recarregue a página."); });
   }
-
   function desenharInicio() {
     limpa();
     if (info.passou) {
-      qz.appendChild(el("h3", { "class": "qz-q", text: "Você já passou no quiz (" + info.melhor + " de " + info.total + ") 🎉" }));
+      qz.appendChild(el("h3", { "class": "qz-q", text: "Você já passou no quiz: " + info.melhor + " de " + info.total + " 🎉" }));
       qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Próxima etapa: o teste prático. Quando estiver pronto(a), com uns 40 minutos livres e no computador, mande QUERO FAZER O TESTE no WhatsApp do escritório." }));
-      qz.appendChild(el("div", {}, [botaoWa("QUERO FAZER O TESTE", "Estou pronto(a): quero fazer o teste")]));
+      qz.appendChild(el("div", {}, [botaoWa("QUERO FAZER O TESTE", "Quero fazer o teste agora")]));
       return;
     }
     if (!info.podeFazer) {
@@ -468,15 +664,13 @@ window.ORIGEM_PAGINA = "trilha-estagio";
       qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Obrigado pela dedicação! O resultado já foi enviado no seu WhatsApp. O material continua aqui para você estudar." }));
       return;
     }
-    var faltam = mods.length - totalLidos();
-    qz.appendChild(el("h3", { "class": "qz-q", text: faltam ? "Leia os módulos antes do quiz" : "Tudo lido. Pronto(a) para o quiz?" }));
-    qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: (faltam ? "Faltam " + faltam + " módulo" + (faltam > 1 ? "s" : "") + " para marcar como lido. " : "") + "São " + info.total + " perguntas; passa com " + info.minimo + " acertos. Tentativa " + (info.tentativas + 1) + " de " + info.max + "." }));
-    var b = el("button", { type: "button", "class": "qz-bt verm", text: "Começar o quiz" });
-    if (faltam) b.disabled = true;
-    b.addEventListener("click", comecar);
+    var faltam = MOD.length - nFeitos();
+    qz.appendChild(el("h3", { "class": "qz-q", text: faltam ? "Termine a trilha para liberar o quiz" : "Trilha completa. Bora para o quiz?" }));
+    qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: (faltam ? "Faltam " + faltam + " parada" + (faltam > 1 ? "s" : "") + ". " : "") + info.total + " perguntas; passa com " + info.minimo + " acertos. Tentativa " + (info.tentativas + 1) + " de " + info.max + "." }));
+    var b = el("button", { type: "button", "class": "qz-bt", text: faltam ? "Continuar a trilha" : "Começar o quiz" });
+    b.addEventListener("click", function () { if (faltam) { var a = atual(); abrir(a); } else comecar(); });
     qz.appendChild(el("div", {}, [b]));
   }
-
   function comecar() {
     msg("Sorteando as perguntas…");
     fetch(API + "/selecao/quiz?prova=1&t=" + encodeURIComponent(token), { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) {
@@ -487,21 +681,22 @@ window.ORIGEM_PAGINA = "trilha-estagio";
   function pergunta() {
     limpa();
     var q = prova[idx];
-    qz.appendChild(el("div", { style: "display:flex;justify-content:space-between;font-size:14px;color:#6B6258" }, [el("span", { text: "Pergunta " + (idx + 1) + " de " + prova.length }), idx ? (function () { var v = el("button", { type: "button", "class": "qz-sec", text: "← Voltar" }); v.addEventListener("click", function () { idx--; pergunta(); }); return v; })() : el("span")]));
-    var tr = el("div", { "class": "qz-trilho" }, [el("div", { "class": "qz-barra", style: "width:" + Math.round(idx / prova.length * 100) + "%" })]);
-    qz.appendChild(tr);
+    var topo = el("div", { style: "display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#6B6258" }, [el("span", { text: "Pergunta " + (idx + 1) + " de " + prova.length })]);
+    if (idx) { var v = el("button", { type: "button", "class": "qz-sec", text: "← Voltar" }); v.addEventListener("click", function () { idx--; pergunta(); }); topo.appendChild(v); }
+    qz.appendChild(topo);
+    qz.appendChild(el("div", { "class": "qz-trilho" }, [el("div", { "class": "qz-barra", style: "width:" + Math.round(idx / prova.length * 100) + "%" })]));
     var h = el("h3", { "class": "qz-q", tabindex: "-1", text: q.p }); qz.appendChild(h);
-    var lista = el("div", { style: "display:flex;flex-direction:column;gap:10px", role: "radiogroup", "aria-label": q.p });
+    var l = el("div", { style: "display:flex;flex-direction:column;gap:10px", role: "radiogroup", "aria-label": q.p });
     q.alt.forEach(function (a) {
       var b = el("button", { type: "button", "class": "qz-op", "aria-pressed": resp[q.id] === a.id ? "true" : "false" }, [el("span", { "class": "l", text: a.id }), el("span", { text: a.texto })]);
       b.addEventListener("click", function () {
         resp[q.id] = a.id;
-        Array.prototype.forEach.call(lista.children, function (x) { x.setAttribute("aria-pressed", "false"); }); b.setAttribute("aria-pressed", "true");
+        Array.prototype.forEach.call(l.children, function (x) { x.setAttribute("aria-pressed", "false"); }); b.setAttribute("aria-pressed", "true");
         setTimeout(function () { if (idx < prova.length - 1) { idx++; pergunta(); } else revisar(); }, 260);
       });
-      lista.appendChild(b);
+      l.appendChild(b);
     });
-    qz.appendChild(lista);
+    qz.appendChild(l);
     try { h.focus({ preventScroll: true }); } catch (e) {}
   }
   function revisar() {
@@ -510,9 +705,8 @@ window.ORIGEM_PAGINA = "trilha-estagio";
     qz.appendChild(el("h3", { "class": "qz-q", text: faltam ? "Faltam " + faltam + " resposta(s)" : "Tudo respondido!" }));
     qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: faltam ? "Volte e responda todas antes de enviar." : "Quer conferir alguma? Use o Voltar. Quando estiver seguro(a), envie." }));
     var acoes = el("div", { style: "display:flex;flex-wrap:wrap;gap:12px;align-items:center" });
+    var e = el("button", { type: "button", "class": "qz-bt", text: "Enviar respostas" }); if (faltam) e.disabled = true; e.addEventListener("click", enviar);
     var v = el("button", { type: "button", "class": "qz-sec", text: "← Voltar às perguntas" }); v.addEventListener("click", function () { idx = prova.length - 1; pergunta(); });
-    var e = el("button", { type: "button", "class": "qz-bt verm", text: "Enviar respostas" }); if (faltam) e.disabled = true;
-    e.addEventListener("click", enviar);
     acoes.appendChild(e); acoes.appendChild(v); qz.appendChild(acoes);
   }
   function enviar() {
@@ -522,28 +716,30 @@ window.ORIGEM_PAGINA = "trilha-estagio";
   }
   function resultado(r) {
     limpa();
-    if (r.erro) { msg(r.erro); return; }
+    if (r.erro) { msg(esc(r.erro)); return; }
     try { if (window.gtag) window.gtag("event", "quiz_estagio", { acertos: r.acertos, passou: r.passou }); } catch (e) {}
     qz.appendChild(el("h3", { "class": "qz-q", text: r.passou ? "Você passou: " + r.acertos + " de " + r.total + "! 🎉" : "Você fez " + r.acertos + " de " + r.total }));
     if (r.passou) {
+      festa();
       qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Próxima etapa: o teste prático, que você começa quando quiser. Escolha um momento tranquilo, com uns 40 minutos livres e no computador, e mande QUERO FAZER O TESTE no WhatsApp do escritório." }));
-      qz.appendChild(el("div", {}, [botaoWa("QUERO FAZER O TESTE", "Estou pronto(a): quero fazer o teste")]));
+      qz.appendChild(el("div", {}, [botaoWa("QUERO FAZER O TESTE", "Quero fazer o teste agora")]));
     } else if (r.tentativasRestantes > 0) {
-      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Para passar são " + r.minimo + " acertos. Revise os módulos com calma, principalmente os temas abaixo, e tente de novo (resta " + r.tentativasRestantes + " tentativa). As perguntas mudam." }));
+      qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Para passar são " + r.minimo + " acertos. Revise as paradas com calma, principalmente os temas abaixo, e tente de novo (resta " + r.tentativasRestantes + " tentativa). As perguntas mudam." }));
     } else {
       qz.appendChild(el("p", { style: "margin:0;font-size:16px;line-height:1.6", text: "Desta vez não deu. Obrigado pela dedicação! Abaixo estão as respostas certas, para você estudar." }));
     }
-    var lista = el("div", { style: "display:flex;flex-direction:column;gap:8px" });
+    var l = el("div", { style: "display:flex;flex-direction:column;gap:8px" });
     (r.itens || []).forEach(function (i) {
-      if (!r.passou && r.tentativasRestantes > 0 && i.acertou) return; // na 1ª reprovação mostra só os temas que errou
-      lista.appendChild(el("div", { "class": "qz-item " + (i.acertou ? "ok" : "err") }, [el("strong", { text: (i.acertou ? "✓ " : "✗ ") + i.p }), i.certa ? el("div", { style: "margin-top:4px", text: "Resposta: " + i.certa }) : null, i.explicacao ? el("div", { style: "margin-top:4px;color:#5A5248", text: i.explicacao }) : null]));
+      if (!r.passou && r.tentativasRestantes > 0 && i.acertou) return;
+      l.appendChild(el("div", { "class": "qz-item " + (i.acertou ? "ok" : "err") }, [el("strong", { text: (i.acertou ? "✓ " : "✕ ") + i.p }), i.certa ? el("div", { style: "margin-top:4px", text: "Resposta: " + i.certa }) : null, i.explicacao ? el("div", { style: "margin-top:4px;color:#5A5248", text: i.explicacao }) : null]));
     });
-    if (lista.children.length) { qz.appendChild(el("h4", { style: "margin:6px 0 0;font-family:Montserrat,sans-serif", text: r.passou ? "Confira as explicações" : "Temas para revisar" })); qz.appendChild(lista); }
-    if (!r.passou && r.tentativasRestantes > 0) { var b = el("button", { type: "button", "class": "qz-sec", text: "Voltar aos módulos ↑" }); b.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); }); qz.appendChild(b); info = Object.assign({}, info, { tentativas: (info.tentativas || 0) + 1 }); }
+    if (l.children.length) { qz.appendChild(el("h4", { style: "margin:6px 0 0;font-family:Montserrat,sans-serif", text: r.passou ? "Confira as explicações" : "Temas para revisar" })); qz.appendChild(l); }
+    if (!r.passou && r.tentativasRestantes > 0) { var b = el("button", { type: "button", "class": "qz-sec", text: "Voltar ao mapa ↑" }); b.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: reduzido ? "auto" : "smooth" }); }); qz.appendChild(b); info = Object.assign({}, info, { tentativas: (info.tentativas || 0) + 1 }); prova = null; }
   }
 
-  progresso();
+  atualizarMapa();
   carregar();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(desenharTrilho);
 })();
 
 </script>
